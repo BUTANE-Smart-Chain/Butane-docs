@@ -14,7 +14,7 @@ function defineSection(section, options = {}) {
       id: section,
       sidebarPath: require.resolve('./sidebars.js'),
       breadcrumbs: true,
-      editUrl: 'https://github.com/evmos/docs/tree/main/',
+      editUrl: 'https://github.com/BUTANE-Smart-Chain',
       ...options,
     }),
   ];
@@ -29,8 +29,8 @@ const SECTIONS = [
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Evmos Docs',
-  tagline: 'Develop on Evmos',
+  title: 'Flamez Docs',
+  tagline: 'Develop on Flamez',
   url: 'https://docs.evmos.org',
   baseUrl: '/',
   onBrokenLinks: 'warn',
@@ -40,7 +40,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'evmos', // Usually your GitHub org/user name.
+  organizationName: 'Flamez', // Usually your GitHub org/user name.
   projectName: 'Docs', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -131,11 +131,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Evmos Docs',
+        title: 'Flamez Docs',
         logo: {
           href: '/',
-          alt: 'Evmos Logo',
-          src: 'img/evmos.svg',
+          alt: 'Flamez Logo',
+          src: 'img/Flamez.png',
         },
         items: [
           {
@@ -171,10 +171,10 @@ const config = {
           {
             position: 'right',
             label: 'App',
-            to: 'https://app.evmos.org',
+            to: 'https://flamez.io/',
           },
           {
-            href: 'https://github.com/evmos/evmos',
+            href: 'https://github.com/BUTANE-Smart-Chain',
             className: 'pseudo-icon github-icon',
             position: 'right',
           },
@@ -191,7 +191,7 @@ const config = {
                 to: '/develop/smart-contracts',
               },
               {
-                label: 'Contribute to Evmos',
+                label: 'Contribute to Flamez',
                 to: '/use',
               },
               {
@@ -205,7 +205,7 @@ const config = {
             items: [
               {
                 label: 'Telegram',
-                href: 'https://t.me/EvmosOrg',
+                href: 'https://t.me/gaspadbbc',
               },
               {
                 label: 'Discord',
@@ -213,7 +213,7 @@ const config = {
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/EvmosOrg',
+                href: 'https://twitter.com/Butane_Network',
               },
             ],
           },
@@ -222,16 +222,16 @@ const config = {
             items: [
               {
                 label: 'Blog',
-                to: 'https://medium.com/evmos',
+                to: 'https://medium.com/@butanegas101',
               },
               {
                 label: 'Evmos GitHub',
-                href: 'https://github.com/evmos',
+                href: 'https://github.com/BUTANE-Smart-Chain',
               },
             ],
           },
         ],
-        copyright: `Built with ❤️ by the Evmos Core Development Team. © ${new Date().getFullYear()} All rights reserved.`,
+        copyright: `Built with ❤️ by the Flamez Core Development Team. © ${new Date().getFullYear()} All rights reserved.`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -239,16 +239,16 @@ const config = {
       },
       metadata: [
         {
-          name: "Evmos Docs", 
-          content: "Official Evmos Docs. Come discover why we are the the home for native, cross-chain applications."
+          name: "Flamez Docs", 
+          content: "Official Flamez Docs. Come discover why we are the the home for native, cross-chain applications."
         },
         {
           name: "author",
-          content: "The Evmos Core Team @evmosOrg"
+          content: "The Flamez Core Team @flamezOrg"
         },
         {
           name: "keywords",
-          content: "EMM, cross-chain, Cosmos SDK, IBC, fast-finality, native, cross-chain applications, EVM on Cosmos"
+          content: "EMM, cross-chain, Butane SDK, IBC, fast-finality, native, cross-chain applications, EVM on Butane"
         },
         {
           name: "viewport",
@@ -262,7 +262,7 @@ const config = {
         // Public API key: it is safe to commit it
         apiKey: 'fbbcf85b58f500e5e4d301f9730f3526',
   
-        indexName: 'evmosdocs',
+        indexName: 'flamezdocs',
   
         contextualSearch: true,
         searchParameters: {},

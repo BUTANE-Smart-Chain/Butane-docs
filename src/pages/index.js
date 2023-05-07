@@ -22,18 +22,18 @@ function Home() {
                 }}
                 body={{
                   label:
-                    "Getting started on Evmos is simple and easy with a local node",
+                    "Getting started on Flamez is simple and easy with a local node",
                 }}
               />
 
               <Card
                 to="./use"
                 header={{
-                  label: "☄️ Learn about Evmos",
+                  label: "☄️ Learn about Flamez",
                 }}
                 body={{
                   label:
-                    "Discover why Evmos is the flagship EVM on the Cosmos Ecosystem",
+                    "Discover why Flamez is the flagship EVM on the Butane Ecosystem",
                 }}
               />
 
@@ -44,14 +44,14 @@ function Home() {
                 }}
                 body={{
                   label:
-                    "Join Evmos's Proof-of-Stake protocol to help secure the network and earn rewards",
+                    "Join Flamez's Proof-of-Stake protocol to help secure the network and earn rewards",
                 }}
               />
 
               <Card
                 to="./develop/api"
                 header={{
-                  label: "💻 View Evmos APIs",
+                  label: "💻 View Flamez APIs",
                 }}
                 body={{
                   label:
@@ -62,7 +62,7 @@ function Home() {
               <Card
                 to="./develop/smart-contracts"
                 header={{
-                  label: "🛠️ Launch dApp on Evmos",
+                  label: "🛠️ Launch dApp on Flamez",
                 }}
                 body={{
                   label:
@@ -73,7 +73,7 @@ function Home() {
               <Card
                 to="./protocol/security"
                 header={{
-                  label: "🛡️ Security on Evmos",
+                  label: "🛡️ Security on Flamez",
                 }}
                 body={{
                   label:
@@ -82,13 +82,13 @@ function Home() {
               />
 
               <Card
-                to="https://github.com/evmos"
+                to="https://github.com/BUTANE-Smart-Chain"
                 header={{
-                  label: "🛠️ Contribute to Evmos",
+                  label: "🛠️ Contribute to Flamez",
                 }}
                 body={{
                   label:
-                    "Contribute to the thriving ecosystem of Evmos and its open-source initiatives",
+                    "Contribute to the thriving ecosystem of Flamez and its open-source initiatives",
                 }}
               />
             </div>
