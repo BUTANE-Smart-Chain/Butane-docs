@@ -8,10 +8,10 @@ function Home() {
   const context = useDocusaurusContext();
 
   return (
-    <Layout title="Homepage" description="Evmos Docs">
+    <Layout title="Homepage" description="Flamez Docs">
       <main>
         <br />
-        <h1 align="center" style={{ fontWeight: '750' }}>Welcome to Evmos Docs</h1>
+        <h1 align="center" style={{ fontWeight: '750' }}>Welcome to Flamez Docs</h1>
         <section className={styles.features}>
           <div className="container">
             <div className="row cards__container">
