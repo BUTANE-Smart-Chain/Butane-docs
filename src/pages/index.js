@@ -8,10 +8,10 @@ function Home() {
   const context = useDocusaurusContext();
 
   return (
-    <Layout title="Homepage" description="Flamez Docs">
+    <Layout title="Homepage" description="Butane Docs">
       <main>
         <br />
-        <h1 align="center" style={{ fontWeight: '750' }}>Welcome to Flamez Docs</h1>
+        <h1 align="center" style={{ fontWeight: '750' }}>Welcome to Butane Docs</h1>
         <section className={styles.features}>
           <div className="container">
             <div className="row cards__container">
@@ -22,18 +22,18 @@ function Home() {
                 }}
                 body={{
                   label:
-                    "Getting started on Flamez is simple and easy with a local node",
+                    "Getting started on Butane is simple and easy with a local node",
                 }}
               />
 
               <Card
                 to="./use"
                 header={{
-                  label: "☄️ Learn about Flamez",
+                  label: "☄️ Learn about Butane",
                 }}
                 body={{
                   label:
-                    "Discover why Flamez is the flagship EVM on the Butane Ecosystem",
+                    "Discover why Butane is the flagship EVM on the Butane Ecosystem",
                 }}
               />
 
@@ -44,14 +44,14 @@ function Home() {
                 }}
                 body={{
                   label:
-                    "Join Flamez's Proof-of-Stake protocol to help secure the network and earn rewards",
+                    "Join Butane's Proof-of-Stake protocol to help secure the network and earn rewards",
                 }}
               />
 
               <Card
                 to="./develop/api"
                 header={{
-                  label: "💻 View Flamez APIs",
+                  label: "💻 View Butane APIs",
                 }}
                 body={{
                   label:
@@ -62,7 +62,7 @@ function Home() {
               <Card
                 to="./develop/smart-contracts"
                 header={{
-                  label: "🛠️ Launch dApp on Flamez",
+                  label: "🛠️ Launch dApp on Butane",
                 }}
                 body={{
                   label:
@@ -73,7 +73,7 @@ function Home() {
               <Card
                 to="./protocol/security"
                 header={{
-                  label: "🛡️ Security on Flamez",
+                  label: "🛡️ Security on Butane",
                 }}
                 body={{
                   label:
@@ -84,11 +84,11 @@ function Home() {
               <Card
                 to="https://github.com/BUTANE-Smart-Chain"
                 header={{
-                  label: "🛠️ Contribute to Flamez",
+                  label: "🛠️ Contribute to Butane",
                 }}
                 body={{
                   label:
-                    "Contribute to the thriving ecosystem of Flamez and its open-source initiatives",
+                    "Contribute to the thriving ecosystem of Butane and its open-source initiatives",
                 }}
               />
             </div>

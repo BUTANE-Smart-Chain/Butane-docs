@@ -29,8 +29,8 @@ const SECTIONS = [
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Flamez Docs',
-  tagline: 'Develop on Flamez',
+  title: 'Butane Docs',
+  tagline: 'Develop on Butane',
   url: 'https://docs.evmos.org',
   baseUrl: '/',
   onBrokenLinks: 'warn',
@@ -40,7 +40,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Flamez', // Usually your GitHub org/user name.
+  organizationName: 'Butane', // Usually your GitHub org/user name.
   projectName: 'Docs', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -131,11 +131,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Flamez Docs',
+        title: 'Butane Docs',
         logo: {
           href: '/',
           alt: 'Flamez Logo',
-          src: 'img/Flamez.png',
+          src: 'img/TPLogo.gif',
         },
         items: [
           {
@@ -171,7 +171,7 @@ const config = {
           {
             position: 'right',
             label: 'App',
-            to: 'https://flamez.io/',
+            to: 'https://butane.tech/',
           },
           {
             href: 'https://github.com/BUTANE-Smart-Chain',
@@ -191,7 +191,7 @@ const config = {
                 to: '/develop/smart-contracts',
               },
               {
-                label: 'Contribute to Flamez',
+                label: 'Contribute to Butane',
                 to: '/use',
               },
               {
@@ -205,11 +205,11 @@ const config = {
             items: [
               {
                 label: 'Telegram',
-                href: 'https://t.me/gaspadbbc',
+                href: 'https://t.me/butanechain',
               },
               {
                 label: 'Discord',
-                href: 'https://discord.gg/evmos',
+                href: 'https://discord.gg/zk4t92b9MX',
               },
               {
                 label: 'Twitter',
@@ -231,7 +231,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Built with ❤️ by the Flamez Core Development Team. © ${new Date().getFullYear()} All rights reserved.`,
+        copyright: `Built with ❤️ by the Butane Core Development Team. © ${new Date().getFullYear()} All rights reserved.`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -239,12 +239,12 @@ const config = {
       },
       metadata: [
         {
-          name: "Flamez Docs", 
-          content: "Official Flamez Docs. Come discover why we are the the home for native, cross-chain applications."
+          name: "Butane Docs", 
+          content: "Official Butane Docs. Come discover why we are the the home for native, cross-chain applications."
         },
         {
           name: "author",
-          content: "The Flamez Core Team @flamezOrg"
+          content: "The Butane Core Team @ButaneOrg"
         },
         {
           name: "keywords",
@@ -262,7 +262,7 @@ const config = {
         // Public API key: it is safe to commit it
         apiKey: 'fbbcf85b58f500e5e4d301f9730f3526',
   
-        indexName: 'flamezdocs',
+        indexName: 'Butanedocs',
   
         contextualSearch: true,
         searchParameters: {},
