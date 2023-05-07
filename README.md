@@ -1,4 +1,4 @@
-# Evmos Docs
+# BUTANE Docs
 
 Welcome to the official Evmos Developer Docs. The official deployment is located [here](https://docs.evmos.org).
 The official codebase is located [here](https://github.com/evmos/evmos).
