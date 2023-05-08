@@ -59,17 +59,17 @@ decide on how to distribute them and what kind of narrative you want to create.
 ### Airdrop
 
 One option is to distribute tokens to users through an airdrop. For some inspiration on how to select
-eligible receivers of an airdrop have a look at the [Evmos Rektdrop](https://medium.com/evmos/the-evmos-rektdrop-abbe931ba823).
+eligible receivers of an airdrop have a look at the [Butane Rektdrop](https://medium.com/evmos/the-evmos-rektdrop-abbe931ba823).
 
 ### Token Registration
 
-Evmos allows for ERC-20 tokens to be used cross-chain. Once some of your tokens have been minted, you can register a token
+Butane allows for ERC-20 tokens to be used cross-chain. Once some of your tokens have been minted, you can register a token
 pair through governance, which will allow users to send your tokens across chains. Head over to our Academy to learn how
 to [register your ERC-20 token](https://academy.evmos.org/articles/advanced/erc20-registration).
 
 ## Revenue
 
-On Evmos, you can generate revenue, every time a user interacts with your dApp,
+On Butane, you can generate revenue, every time a user interacts with your dApp,
 gaining you a steady income.
 Developers can register their smart contracts
 and every time someone interacts with a registered smart contract,
@@ -83,11 +83,11 @@ check out the [revenue module specification](./../protocol/modules/incentives).
 
 ## Community
 
-Make yourself heard in the Evmos community and explain what value your dApp provides.
+Make yourself heard in the Butane community and explain what value your dApp provides.
 An essential part of building a dApp is getting in touch with the community to showcase how they can take ownership or
 start contributing to your project. This will not only help your dApp's visibility but might result in a new community
 of users, that want to improve your dApp.
 
-Head over to the [Evmos Discord](https://discord.gg/evmos) channel get in touch with the community and contributors and
-showcase your dApp on one of the next community calls. We also have a [Telegram group](https://t.me/EvmosBuilders) for
+Head over to the [Butane Discord](https://discord.gg/zk4t92b9MX) channel get in touch with the community and contributors and
+showcase your dApp on one of the next community calls. We also have a [Telegram group](https://t.me/butanechain) for
 our builders.

@@ -12,7 +12,7 @@ development process. Check out our [Audits](./security/audits).
 
 Despite our best efforts, security issues may still arise in our L1 protocol chain. In such cases, we encourage our users
 to report any vulnerabilities or bugs they may find. For sensitive bugs, we ask that users submit the issue to
-[Evmos Security](mailto:security@evmos.org), which is a third-party security platform that helps us identify, triage,
+[Butane Security](mailto:security@evmos.org), which is a third-party security platform that helps us identify, triage,
 and resolve security issues in a confidential and secure manner. For non-sensitive bugs, we encourage users to file an
-open ticket on our [Evmos Github Repo](https://github.com/evmos/evmos) so that our team can address the issue as quickly
+open ticket on our [Butane Github Repo](https://github.com/BUTANE-Smart-Chain) so that our team can address the issue as quickly
 as possible.

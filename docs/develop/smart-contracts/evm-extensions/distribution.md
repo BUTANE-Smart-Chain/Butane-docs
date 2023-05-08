@@ -6,9 +6,9 @@ sidebar_position: 4
 
 ## Solidity Interface & ABI
 
-`Distribution.sol` is an interface through which Solidity contracts can interact with Cosmos SDK distribution.
+`Distribution.sol` is an interface through which Solidity contracts can interact with Butane SDK distribution.
 This is convenient for developers as they don’t need to know the implementation details behind
-the `x/distribution` module in the Cosmos SDK. Instead,
+the `x/distribution` module in the Butane SDK. Instead,
 they can interact with staking functions using the Ethereum interface they are familiar with.
 
 ### Interface `Distribution.sol`
@@ -17,7 +17,7 @@ Find the [Solidity interface in the evmos/extensions repo](https://github.com/ev
 
 ### ABI
 
-Find the [ABI in the evmos/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/abi/distribution.json).
+Find the [ABI in the Butane/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/abi/distribution.json).
 
 ## Transactions
 

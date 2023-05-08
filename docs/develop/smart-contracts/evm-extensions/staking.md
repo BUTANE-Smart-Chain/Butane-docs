@@ -6,18 +6,18 @@ sidebar_position: 3
 
 ## Solidity Interface & ABI
 
-`Staking.sol` is an interface through which Solidity contracts can interact with Cosmos SDK staking.
+`Staking.sol` is an interface through which Solidity contracts can interact with Butane SDK staking.
 This is convenient for developers as they don’t need to know the implementation details behind the `x/staking`
-module in the Cosmos SDK. Instead,
+module in the Butane SDK. Instead,
 they can interact with staking functions using the Ethereum interface they are familiar with.
 
 ### Interface `Staking.sol`
 
-Find the [Solidity interface in the evmos/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/stateful/Staking.sol).
+Find the [Solidity interface in the Butane/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/stateful/Staking.sol).
 
 ### ABI
 
-Find the [ABI in the evmos/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/abi/staking.json).
+Find the [ABI in the Butane/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/abi/staking.json).
 
 ## Transactions
 

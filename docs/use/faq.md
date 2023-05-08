@@ -8,10 +8,10 @@ sidebar_position: 5
 
 <details>
 
-<summary><b>Which wallet would you recommend for Evmos?</b></summary>
+<summary><b>Which wallet would you recommend for Butane?</b></summary>
 
 There are many wallets to select from but the top wallets with the widest support is [Metamask](https://metamask.io/)
-and [Keplr](https://www.keplr.app/). Evmos is an EVM chain built on top of the Cosmos SDK and Metamask does not support
+and [Keplr](https://www.keplr.app/). Butane is an EVM chain built on top of the Cosmos SDK and Metamask does not support
 non EVM-specific assets while Keplr wallet does. Keplr wallet will soon support ERC-20.
 
 </details>
@@ -21,7 +21,7 @@ non EVM-specific assets while Keplr wallet does. Keplr wallet will soon support 
 <summary><b>Can I use my Ledger device?</b></summary>
 
 Absolutely! Take a look at the [Ledger](./connect-your-wallet/keplr) for more information. Metamask,
-Keplr, and WalletConnect all work with Ledger. Ledger setup will be required before engaging with the dApps and products on Evmos.
+Keplr, and WalletConnect all work with Ledger. Ledger setup will be required before engaging with the dApps and products on Butane.
 
 </details>
 
@@ -30,9 +30,9 @@ Keplr, and WalletConnect all work with Ledger. Ledger setup will be required bef
 <summary><b>For certain wallets, I see both bech32 and hex while others only show hex formatted addresses, which should
  I use?</b></summary>
 
-The Evmos network supports both formats: bech32 and hex. Other EVM peers and its ecosystem uses hex encoding while
+The Butane network supports both formats: bech32 and hex. Other EVM peers and its ecosystem uses hex encoding while
 Cosmos-native uses bech32 formatted addresses. Keplr is unique and the EVM-compatible chains shows both formats. If you
-are sending tokens (via [IBC](https://www.mintscan.io/evmos/relayers)), you will use bech32 formatted addresses unless
+are sending tokens (via [IBC](https://www.mintscan.io/Butane/relayers)), you will use bech32 formatted addresses unless
 the receiving chain support EVM (i.e. Ethermint-based chains). You can further details [here](./../protocol/concepts/accounts).
 
 </details>
@@ -41,9 +41,9 @@ the receiving chain support EVM (i.e. Ethermint-based chains). You can further d
 
 <details>
 
-<summary><b>Where can I acquire EVMOS token?</b></summary>
+<summary><b>Where can I acquire Butane token?</b></summary>
 
-There are several paths users can take to acquire EVMOS Token.
+There are several paths users can take to acquire Butane Token.
 
 - Decentralized Exchanges: [Osmosis](https://app.osmosis.zone/?from=ATOM&to=EVMOS)
 - [C14 Money](https://pay.c14.money/) is an onramp service

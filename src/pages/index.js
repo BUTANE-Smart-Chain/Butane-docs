@@ -11,7 +11,7 @@ function Home() {
     <Layout title="Homepage" description="Butane Docs">
       <main>
         <br />
-        <h1 align="center" style={{ fontWeight: '750' }}>Welcome to Butane Docs</h1>
+        <h1 align="center" style={{ fontWeight: '850' }}>Welcome to Butane Docs</h1>
         <section className={styles.features}>
           <div className="container">
             <div className="row cards__container">
@@ -33,7 +33,7 @@ function Home() {
                 }}
                 body={{
                   label:
-                    "Discover why Butane is the flagship EVM on the Butane Ecosystem",
+                    "Discover why $BBC is the flagship EVM on the Butane Ecosystem",
                 }}
               />
 

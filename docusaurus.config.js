@@ -225,7 +225,7 @@ const config = {
                 to: 'https://medium.com/@butanegas101',
               },
               {
-                label: 'Evmos GitHub',
+                label: 'Butane GitHub',
                 href: 'https://github.com/BUTANE-Smart-Chain',
               },
             ],

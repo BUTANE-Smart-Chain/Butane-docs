@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Available Extensions
 
-The following extensions are available in Evmos' implementation of the EVM:
+The following extensions are available in Butane' implementation of the EVM:
 
 | Address                                      | Name                | Stateful | EIP                                               |
 | -------------------------------------------- | ------------------- | -------- | ------------------------------------------------- |

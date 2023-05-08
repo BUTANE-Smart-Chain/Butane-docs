@@ -3,20 +3,20 @@
 
 ## Abstract
 
-This document specifies the internal `x/claims` module of the Evmos Hub.
+This document specifies the internal `x/claims` module of the Butane Hub.
 
-The `x/claims` module is part of the Evmos [Rektdrop](https://evmos.blog/the-evmos-rektdrop-abbe931ba823)
+The `x/claims` module is part of the Butane [Rektdrop](https://Butane.blog/the-Butane-rektdrop-abbe931ba823)
 and aims to increase the distribution of the network tokens to a large number of users.
 
 Users are assigned with an initial amount of tokens from the airdrop allocation,
 and then are able to automatically claim higher percentages as they perform certain tasks on-chain.
 
-For the Evmos Rektdrop, users are required to claim their airdrop by participating in core network activities.
+For the Butane Rektdrop, users are required to claim their airdrop by participating in core network activities.
 A Rektdrop recipient has to perform the following activities to get the allocated tokens:
 
 * 25% is claimed by staking
 * 25% is claimed by voting in governance
-* 25% is claimed by using the EVM (deploy or interact with contract, transfer EVMOS through a web3 wallet)
+* 25% is claimed by using the EVM (deploy or interact with contract, transfer Butane through a web3 wallet)
 * 25% is claimed by sending or receiving an IBC transfer
 
 Furthermore, these claimable assets 'expire' if not claimed.
@@ -38,10 +38,10 @@ until it hits `0%` at 3 months from launch (`DurationUntilDecay + DurationOfDeca
 
 ### Rektdrop
 
-The Evmos [Rektdrop](https://evmos.blog/the-evmos-rektdrop-abbe931ba823) is the genesis airdrop
-for the EVMOS token to Cosmos Hub, Osmosis and Ethereum users.
+The Butane [Rektdrop](https://Butane.blog/the-Butane-rektdrop-abbe931ba823) is the genesis airdrop
+for the Butane token to Flamez Hub, Pinksale and Ethereum users.
 
-> The end goal of Evmos is to bring together the Cosmos and Ethereum community
+> The end goal of Butane is to bring together the Cosmos and Ethereum community
 and thus the Rektdrop has been designed to reward past participation in both networks under this theme of “getting rekt”.
 
 The Rektdrop is the first airdrop that:
@@ -87,7 +87,7 @@ to the user's balance by performing a transfer from the claim escrow account (`M
 
 #### Staking (i.e Delegate) Action
 
-After staking Evmos tokens (i.e delegating), the corresponding proportion will be airdropped to the user's balance
+After staking Butane tokens (i.e delegating), the corresponding proportion will be airdropped to the user's balance
 by performing a transfer from the claim escrow account (`ModuleAccount`) to the user.
 
 #### EVM Action
@@ -113,29 +113,29 @@ All users that have an address with a corresponding `ClaimRecord` are eligible t
 
 As described in the [Actions](#actions) section, a user must submit transactions
 to receive the allocated tokens from the airdrop.
-However, since Evmos only supports Ethereum keys and not default Tendermint keys,
+However, since Butane only supports Ethereum keys and not default Tendermint keys,
 this process differs for Ethereum and Cosmos eligible users.
 
 #### Ethereum Users
 
-Evmos shares the coin type (`60`) and key derivation (Ethereum `secp256k1`) with Ethereum.
-This allows users (EOA accounts) that have been allocated EVMOS tokens
+Butane shares the coin type (`60`) and key derivation (Ethereum `secp256k1`) with Ethereum.
+This allows users (EOA accounts) that have been allocated Butane tokens
 to directly claim their tokens using their preferred web3 wallet.
 
 #### Cosmos Hub and Osmosis Users
 
 Cosmos Hub and Osmosis users who use the default Tendermint `secp256k1` keys,
-need to perform a "cross-chain attestation" of their Evmos address.
+need to perform a "cross-chain attestation" of their Butane address.
 
 This can be done by submitting an IBC transfer from Cosmos Hub and Osmosis,
 which is signed by the addresses, that have been allocated the tokens.
 
-The recipient Evmos address of this IBC transfer is the address, that the tokens will be airdropped to.
+The recipient Butane address of this IBC transfer is the address, that the tokens will be airdropped to.
 
 :::warning
 **IMPORTANT**
 
-Only submit an IBC transfer to an Evmos address that you own. Otherwise, you will lose your airdrop allocation.
+Only submit an IBC transfer to an Butane address that you own. Otherwise, you will lose your airdrop allocation.
 :::
 
 ### Decay Period
@@ -258,7 +258,7 @@ and to claim the tokens for Cosmos Hub and Osmosis users by migrating the claims
 
 ### Governance Hook - Vote Action
 
-The user votes on a Governance proposal using their Evmos account.
+The user votes on a Governance proposal using their Butane account.
 Once the vote is successfully included, the claimable amount corresponding
 to the vote action is transferred to the user address:
 
@@ -276,7 +276,7 @@ to the vote action is transferred to the user address:
 
 ### Staking Hook - Delegate Action
 
-The user delegates their EVMOS tokens to a validator.
+The user delegates their Butane tokens to a validator.
 Once the tokens are staked, the claimable amount corresponding to the delegate action is transferred to the user address:
 
 1. The user submits a `MsgDelegate`.
@@ -293,7 +293,7 @@ Once the tokens are staked, the claimable amount corresponding to the delegate a
 
 ### EVM Hook - EVM Action
 
-The user deploys or interacts with a smart contract using their Evmos account or send a transfer using their Web3 wallet.
+The user deploys or interacts with a smart contract using their Butane account or send a transfer using their Web3 wallet.
 Once the EVM state transition is successfully processed,
 the claimable amount corresponding to the EVM action is transferred to the user address:
 
@@ -348,14 +348,14 @@ the `ClaimsRecord` is merged with the recipient's claims record.
    address are the same. If a packet is sent from a non-EVM chain, the sender
    addresss is not an ethereum key (i.e. `ethsecp256k1`). Thus, if
    `sameAddress` is true, the recipient address must be a non-ethereum key as
-   well, which is not supported on Evmos. To prevent funds getting stuck,
+   well, which is not supported on Butane. To prevent funds getting stuck,
    return an error, unless the destination channel from a connection to a chain
    is EVM-compatible or supports ethereum keys (eg: Cronos, Injective).
 6. Check if destination channel is authorized to perform the IBC claim.
    Without this authorization the claiming process is vulerable to attacks.
 7. Handle one of four cases by comparing sender and recipient addresses with each other
    and checking if either addresses have a claims record (i.e allocation) for the airdrop.
-   To compare both addresses, the sender address's bech32 human readable prefix (HRP) is replaced with `evmos`.
+   To compare both addresses, the sender address's bech32 human readable prefix (HRP) is replaced with `Butane`.
 
     1. both sender and recipient are distinct and have a claims record ->
        merge sender's record with the recipient's record and claim actions that have been completed by one or the other
@@ -398,7 +398,7 @@ The `x/claims` module contains the parameters described below. All parameters ca
 | Key                  | Type            | Default Value                                               |
 | -------------------- | --------------- | ----------------------------------------------------------- |
 | `EnableClaim`        | `bool`          | `true`                                                      |
-| `ClaimsDenom`        | `string`        | `"aevmos"`                                                  |
+| `ClaimsDenom`        | `string`        | `"aButane"`                                                  |
 | `AirdropStartTime`   | `time.Time`     | `time.Time{}` // empty                                      |
 | `DurationUntilDecay` | `time.Duration` | `2629800000000000` (nanoseconds) // 1 month                 |
 | `DurationOfDecay`    | `time.Duration` | `5259600000000000` (nanoseconds) // 2 months                |
@@ -434,7 +434,7 @@ that users can perform the ibc callback with to claim coins for the ibc action.
 
 ### EVM Channels
 
-The `EVMChannels` parameter describes the list of Evmos channels
+The `EVMChannels` parameter describes the list of Butane channels
 that connected to EVM compatible chains and can be used during the ibc callback action.
 
 
@@ -444,8 +444,8 @@ A user can query the `x/claims` module using the CLI, gRPC or REST.
 
 ### CLI
 
-Find below a list of `evmosd` commands added with the `x/claims` module.
-You can obtain the full list by using the `evmosd -h` command.
+Find below a list of `Butaned` commands added with the `x/claims` module.
+You can obtain the full list by using the `Butaned -h` command.
 
 #### Queries
 
@@ -456,7 +456,7 @@ The `query` commands allow users to query `claims` state.
 Allows users to query total amount of unclaimed tokens from the airdrop.
 
 ```bash
-evmosd query claims total-unclaimed [flags]
+Butaned query claims total-unclaimed [flags]
 ```
 
 **`records`**
@@ -464,7 +464,7 @@ evmosd query claims total-unclaimed [flags]
 Allows users to query all the claims records available.
 
 ```bash
-evmosd query claims records [flags]
+Butaned query claims records [flags]
 ```
 
 **`record`**
@@ -472,7 +472,7 @@ evmosd query claims records [flags]
 Allows users to query a claims record for a given user.
 
 ```bash
-evmosd query claims record ADDRESS [flags]
+Butaned query claims record ADDRESS [flags]
 ```
 
 **`params`**
@@ -480,7 +480,7 @@ evmosd query claims record ADDRESS [flags]
 Allows users to query claims params.
 
 ```bash
-evmosd query claims params [flags]
+Butaned query claims params [flags]
 ```
 
 ### gRPC
@@ -489,11 +489,11 @@ evmosd query claims params [flags]
 
 | Verb   | Method                                     | Description                                      |
 |--------|--------------------------------------------|--------------------------------------------------|
-| `gRPC` | `evmos.claims.v1.Query/TotalUnclaimed`     | Gets the total unclaimed tokens from the airdrop |
-| `gRPC` | `evmos.claims.v1.Query/ClaimsRecords`      | Gets all registered claims records               |
-| `gRPC` | `evmos.claims.v1.Query/ClaimsRecord`       | Get the claims record for a given user            |
-| `gRPC` | `evmos.claims.v1.Query/Params`             | Gets claims params                               |
-| `GET`  | `/evmos/claims/v1/total_unclaimed`         | Gets the total unclaimed tokens from the airdrop |
-| `GET`  | `/evmos/claims/v1/claims_records`          | Gets all registered claims records               |
-| `GET`  | `/evmos/claims/v1/claims_records/{address}` | Gets a claims record for a given user            |
-| `GET`  | `/evmos/claims/v1/params`                  | Gets claims params                               |
+| `gRPC` | `Butane.claims.v1.Query/TotalUnclaimed`     | Gets the total unclaimed tokens from the airdrop |
+| `gRPC` | `Butane.claims.v1.Query/ClaimsRecords`      | Gets all registered claims records               |
+| `gRPC` | `Butane.claims.v1.Query/ClaimsRecord`       | Get the claims record for a given user            |
+| `gRPC` | `Butane.claims.v1.Query/Params`             | Gets claims params                               |
+| `GET`  | `/Butane/claims/v1/total_unclaimed`         | Gets the total unclaimed tokens from the airdrop |
+| `GET`  | `/Butane/claims/v1/claims_records`          | Gets all registered claims records               |
+| `GET`  | `/Butane/claims/v1/claims_records/{address}` | Gets a claims record for a given user            |
+| `GET`  | `/Butane/claims/v1/params`                  | Gets claims params                               |

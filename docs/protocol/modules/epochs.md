@@ -2,9 +2,9 @@
 
 ## Abstract
 
-This document specifies the internal `x/epochs` module of the Evmos Hub.
+This document specifies the internal `x/epochs` module of the Butane Hub.
 
-Often, when working with the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk),
+Often, when working with the [Butane SDK](https://github.com/cosmos/cosmos-sdk),
 we would like to run certain pieces of code every so often.
 
 The purpose of the `epochs` module is to allow other modules to maintain
@@ -157,7 +157,7 @@ type Keeper interface {
 ## Hooks
 
 The `x/epochs` module implements hooks so that other modules can use epochs
-to allow facets of the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) to run on specific schedules.
+to allow facets of the [Butane SDK](https://github.com/cosmos/cosmos-sdk) to run on specific schedules.
 
 ### Hooks Implementation
 
