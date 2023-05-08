@@ -208,6 +208,10 @@ const config = {
                 href: 'https://t.me/butanechain',
               },
               {
+                label: 'Youtbe Academy',
+                href: 'https://www.youtube.com/@ButaneAcademy',
+              },
+              {
                 label: 'Discord',
                 href: 'https://discord.gg/zk4t92b9MX',
               },
