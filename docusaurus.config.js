@@ -135,7 +135,7 @@ const config = {
         logo: {
           href: '/',
           alt: 'Flamez Logo',
-          src: 'img/TPLogo.gif',
+          src: 'img/b icon.png',
         },
         items: [
           {

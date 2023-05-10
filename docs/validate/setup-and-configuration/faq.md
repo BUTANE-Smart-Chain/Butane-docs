@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Validator FAQ
 
-Check the FAQ for running a validator on Evmos.
+Check the FAQ for running a validator on Butane.
 
 ## General Concepts
 
@@ -12,7 +12,7 @@ Check the FAQ for running a validator on Evmos.
 
 <summary><b>What is a validator?</b></summary>
 
-Evmos is powered by [Tendermint](https://docs.tendermint.com/v0.34/introduction/what-is-tendermint.html) Core,
+Butane is DPOS by [BBCScan]( https://bbcscan.io) Core,
 which relies on a set of validators to secure the network. Validators run a full node and participate in consensus
 by broadcasting votes which contain cryptographic signatures signed by their private key. Validators commit new
 blocks in the blockchain and receive revenue in exchange for their work. They also participate in on-protocol
@@ -25,9 +25,9 @@ their total stake.
 
 <summary><b>What is "staking"?</b></summary>
 
-Evmos is a public Proof-of-Stake (PoS) blockchain, meaning that validator's weight is determined by the amount of
-staking tokens (EVMOS) bonded as collateral. These staking tokens can be staked directly by the validator or delegated
-to them by EVMOS holders.
+Butane is a public Delegated Proof-of-Stake (DPoS) blockchain, meaning that validator's weight is determined by the amount of
+staking tokens (Butane) bonded as collateral. These staking tokens can be staked directly by the validator or delegated
+to them by Butane holders.
 
 Any user in the system can declare its intention to become a validator by sending a `create-validator` transaction.
 From there, they become validators.
@@ -35,7 +35,7 @@ From there, they become validators.
 The weight (i.e. total stake or voting power) of a validator determines wether or not it is an active validator,
 and also how frequently this node will have to propose a block and how much revenue it will obtain. Initially, only
 the top 150 validators with the most weight will be active validators. If validators double-sign, or are frequently
-offline, they risk their staked tokens (including EVMOS delegated by users) being "slashed" by the protocol to
+offline, they risk their staked tokens (including Butane delegated by users) being "slashed" by the protocol to
 penalize negligence and misbehavior.
 
 </details>
@@ -57,8 +57,8 @@ Of course, it is possible and encouraged for any user to run full nodes even if 
 
 <summary><b>What is a delegator?</b></summary>
 
-Delegators are EVMOS holders who cannot, or do not want to run validator operations themselves. Users can delegate
-EVMOS to a validator and obtain a part of its revenue in exchange (for more detail on how revenue is distributed, see
+Delegators areButane holders who cannot, or do not want to run validator operations themselves. Users can delegate
+Butane to a validator and obtain a part of its revenue in exchange (for more detail on how revenue is distributed, see
 `What is the incentive to stake?` and `What is a validator's commission?` sections below).
 
 Because they share revenue with their validators, delegators also share responsibility. Should a validator misbehave,
@@ -84,7 +84,7 @@ submit the following information:
 - **Validator's PubKey**: Validator operators can have different accounts for validating and holding liquid funds.
 The PubKey submitted must be associated with the private key with which the validator intends to sign *prevotes*
 and *precommits*.
-- **Validator's Address**: `evmosvaloper1-` address. This is the address used to identify your validator publicly.
+- **Validator's Address**: `Butanevaloper1-` address. This is the address used to identify your validator publicly.
 The private key associated with this address is used to bond, unbond, and claim rewards.
 - **Validator's name** (also known as the **moniker**)
 - **Validator's website** *(optional)*
@@ -92,21 +92,21 @@ The private key associated with this address is used to bond, unbond, and claim 
 - **Initial commission rate**: The commission rate on block provisions, block rewards and fees charged to delegators.
 - **Maximum commission**: The maximum commission rate which this validator will be allowed to charge.
 - **Commission change rate**: The maximum daily increase of the validator commission.
-- **Minimum self-bond amount**: Minimum amount of EVMOS the validator needs to have bonded at all times. If the
+- **Minimum self-bond amount**: Minimum amount ofButane the validator needs to have bonded at all times. If the
 validator's self-bonded stake falls below this limit, its entire staking pool will be unbonded.
-- **Initial self-bond amount**: Initial amount of EVMOS the validator wants to self-bond.
+- **Initial self-bond amount**: Initial amount ofButane the validator wants to self-bond.
 
 ```bash
-evmosd tx staking create-validator
---pubkey evmosvalconspub1zcjduepqs5s0vddx5m65h5ntjzwd0x8g3245rgrytpds4ds7vdtlwx06mcesmnkzly
---amount "2aevmos"
+Butaned tx staking create-validator
+--pubkeyButanevalconspub1zcjduepqs5s0vddx5m65h5ntjzwd0x8g3245rgrytpds4ds7vdtlwx06mcesmnkzly
+--amount "2aButane"
 --from tmp
 --commission-rate="0.20"
 --commission-max-rate="1.00"
 --commission-max-change-rate="0.01"
 --min-self-delegation "1"
 --moniker "validator"
---chain-id "evmos_9000-4"
+--chain-id "Butane_9000-4"
 --gas auto
 --node tcp://127.0.0.1:26647
 ```
@@ -119,9 +119,9 @@ keying backend. Doing so might result in a loss of funds by making your funds re
 Ref: [Security Advisory: Insecurely configured geth can make funds remotely accessible](https://blog.ethereum.org/2015/08/29/security-alert-insecurely-configured-geth-can-make-funds-remotely-accessible/)
 :::
 
-Once a validator is created and registered, EVMOS holders can delegate EVMOS to it, effectively adding stake to
-its pool. The total stake of a validator is the sum of the EVMOS self-bonded by the validator's operator and the
-EVMOS bonded by external delegators.
+Once a validator is created and registered,Butane holders can delegateButane to it, effectively adding stake to
+its pool. The total stake of a validator is the sum of theButane self-bonded by the validator's operator and the
+Butane bonded by external delegators.
 
 **Only the top 150 validators with the most stake are considered the active validators**, becoming
 **bonded validators**. If ever a validator's total stake dips below the top 150, the validator loses
@@ -139,19 +139,19 @@ the active set (i.e doesn't participate in consensus), entering **unbonding mode
 In short, there are two types of keys:
 
 - **Tendermint Key**: This is a unique key used to sign block hashes. It is associated with a public key
-`evmosvalconspub`.
-    - Generated when the node is created with `evmosd init`.
-    - Get this value with `evmosd tendermint show-validator`
-e.g. `evmosvalconspub1zcjduc3qcyj09qc03elte23zwshdx92jm6ce88fgc90rtqhjx8v0608qh5ssp0w94c`
+`Butanevalconspub`.
+    - Generated when the node is created with `Butaned init`.
+    - Get this value with `Butaned tendermint show-validator`
+e.g. `Butanevalconspub1zcjduc3qcyj09qc03elte23zwshdx92jm6ce88fgc90rtqhjx8v0608qh5ssp0w94c`
 
 - **Application keys**: These keys are created from the application and used to sign transactions. As a validator,
 you will probably use one key to sign staking-related transactions, and another key to sign oracle-related
-transactions. Application keys are associated with a public key `evmospub-` and an address `evmos-`. Both
-are derived from account keys generated by `evmosd keys add`.
+transactions. Application keys are associated with a public key `Butanepub-` and an address `Butane-`. Both
+are derived from account keys generated by `Butaned keys add`.
 
 :::warning
 A validator's operator key is directly tied to an application key, but uses reserved prefixes solely for this
-purpose: `evmosvaloper` and `evmosvaloperpub`
+purpose: `Butanevaloper` and `Butanevaloperpub`
 :::
 
 </details>
@@ -169,13 +169,13 @@ rewards, but can still be slashed for misbehaviour. This is a transition state f
 validator does not send a `rebond` transaction while in `unbonding` mode, it will take two weeks for the state
 transition to complete.
 - `unbonded`: Validator is not in the active set, and therefore not signing blocks. Unbonded validators cannot be
-slashed, but do not earn any rewards from their operation. It is still possible to delegate EVMOS to this
+slashed, but do not earn any rewards from their operation. It is still possible to delegateButane to this
 validator. Un-delegating from an `unbonded` validator is immediate.
 
 Delegators have the same state as their validator.
 
 :::warning
-Delegations are not necessarily bonded. EVMOS can be delegated and bonded, delegated and unbonding, delegated and
+Delegations are not necessarily bonded.Butane can be delegated and bonded, delegated and unbonding, delegated and
 unbonded, or liquid.
 :::
 
@@ -185,8 +185,8 @@ unbonded, or liquid.
 
 <summary><b>What is "self-bond"? How can I increase my "self-bond"?</b></summary>
 
-The validator operator's "self-bond" refers to the amount of EVMOS stake delegated to itself. You can increase your
-self-bond by delegating more EVMOS to your validator account.
+The validator operator's "self-bond" refers to the amount ofButane stake delegated to itself. You can increase your
+self-bond by delegating moreButane to your validator account.
 
 </details>
 
@@ -194,13 +194,13 @@ self-bond by delegating more EVMOS to your validator account.
 
 <summary><b>Is there a testnet faucet?</b></summary>
 
-If you want to obtain coins for the testnet, you can do so by using the [faucet](https://faucet.evmos.dev/).
+If you want to obtain coins for the testnet, you can do so by using the [faucet](https://faucet.bbcscan.io).
 
 </details>
 
 <details>
 
-<summary><b>Is there a minimum amount of EVMOS that must be staked to be an active (bonded) validator?</b></summary>
+<summary><b>Is there a minimum amount ofButane that must be staked to be an active (bonded) validator?</b></summary>
 
 There is no minimum. The top 150 validators with the highest total stake (where
 `total stake = self-bonded stake + delegators stake`) are the active validators.
@@ -214,12 +214,12 @@ There is no minimum. The top 150 validators with the highest total stake (where
 Delegators are free to choose validators according to their own subjective criteria. That said, criteria anticipated to
 be important include:
 
-- **Amount of self-bonded EVMOS:** Number of EVMOS a validator self-bonded to its staking pool. A validator with higher
-amount of self-bonded EVMOS has more skin in the game, making it more liable for its actions.
+- **Amount of self-bondedButane:** Number of Butane a validator self-bonded to its staking pool. A validator with higher
+amount of self-bondedButane has more skin in the game, making it more liable for its actions.
 
-- **Amount of delegated EVMOS:** Total number of EVMOS delegated to a validator. A high stake shows that the community
+- **Amount of delegatedButane:** Total number of Butane delegated to a validator. A high stake shows that the community
 trusts this validator, but it also means that this validator is a bigger target for hackers. Validators are expected
-to become less and less attractive as their amount of delegated EVMOS grows. Bigger validators also increase the
+to become less and less attractive as their amount of delegatedButane grows. Bigger validators also increase the
 centralization of the network.
 
 - **Commission rate:** Commission applied on revenue by validators before it is distributed to their delegators
@@ -229,7 +229,7 @@ includes seniority, past votes on proposals, historical average uptime and how o
 
 Apart from these criteria, there will be a possibility for validators to signal a website address to complete their
 resume. Validators will need to build reputation one way or another to attract delegators. For example, it would be
-a good practice for validators to have their setup audited by third parties. Note though, that the Evmos team will
+a good practice for validators to have their setup audited by third parties. Note though, that theButane team will
 not approve or conduct any audit itself.
 
 </details>
@@ -257,7 +257,7 @@ Validators have three main responsibilities:
 - **Be able to constantly run a correct version of the software:** validators need to make sure that their servers are
 always online and their private keys are not compromised.
 
-- **Provide oversight and feedback on correct deployment of community pool funds:** the Evmos protocol includes the a
+- **Provide oversight and feedback on correct deployment of community pool funds:** theButane protocol includes the a
 governance system for proposals to the facilitate adoption of its currencies. Validators are expected to hold budget
 executors to account to provide transparency and efficient use of funds.
 
@@ -270,23 +270,23 @@ current state of the ecosystem so that they can easily adapt to any change.
 
 <summary><b>What does staking imply?</b></summary>
 
-Staking EVMOS can be thought of as a safety deposit on validation activities. When a validator or a delegator wants to
+StakingButane can be thought of as a safety deposit on validation activities. When a validator or a delegator wants to
 retrieve part or all of their deposit, they send an unbonding transaction. Then, the deposit undergoes a *two week
 unbonding period* during which they are liable to being slashed for potential misbehavior committed by the validator
 before the unbonding process started.
 
 Validators, and by association delegators, receive block provisions, block rewards, and fee rewards. If a validator
 misbehaves, a certain portion of its total stake is slashed (the severity of the penalty depends on the type
-of misbehavior). This means that every user that bonded EVMOS to this validator gets penalized in proportion
+of misbehavior). This means that every user that bondedButane to this validator gets penalized in proportion
 to its stake. Delegators are therefore incentivized to delegate to validators that they anticipate will function safely.
 
 </details>
 <details>
 
-<summary><b>Can a validator run away with its delegators' EVMOS?</b></summary>
+<summary><b>Can a validator run away with its delegators'Butane?</b></summary>
 
 By delegating to a validator, a user delegates staking power. The more staking power a validator has, the more weight
-it has in the consensus and processes. This does not mean that the validator has custody of its delegators' EVMOS.
+it has in the consensus and processes. This does not mean that the validator has custody of its delegators'Butane.
 *By no means can a validator run away with its delegator's funds*.
 
 Even though delegated funds cannot be stolen by their validators, delegators are still liable if their validators
@@ -296,13 +296,13 @@ misbehave. In such case, each delegators' stake will be partially slashed in pro
 
 <details>
 
-<summary><b>How often will a validator be chosen to propose the next block? Does it go up with the quantity of EVMOS
+<summary><b>How often will a validator be chosen to propose the next block? Does it go up with the quantity ofButane
 staked?</b></summary>
 
 The validator that is selected to mine the next block is called the **proposer**, the "leader" in the consensus for the
 round. Each proposer is selected deterministically, and the frequency of being chosen is equal to the relative total
 stake (where total stake = self-bonded stake + delegators stake) of the validator. For example, if the total
-bonded stake across all validators is 100 EVMOS, and a validator's total stake is 10 EVMOS, then this validator
+bonded stake across all validators is 100Butane, and a validator's total stake is 10Butane, then this validator
 will be chosen 10% of the time as the proposer.
 
 To understand more about the proposer selection process in Tendermint BFT consensus, read more
@@ -318,11 +318,11 @@ To understand more about the proposer selection process in Tendermint BFT consen
 
 Each member of a validator's staking pool earns different types of revenue:
 
-- **Block rewards:** Native tokens of applications run by validators (e.g. EVMOS on Evmos) are inflated to produce
-block provisions. These provisions exist to incentivize EVMOS holders to bond their stake, as non-bonded EVMOS will
+- **Block rewards:** Native tokens of applications run by validators (e.g.Butane onButane) are inflated to produce
+block provisions. These provisions exist to incentivizeButane holders to bond their stake, as non-bondedButane will
 be diluted over time.
-- **Transaction fees:** Evmos maintains a whitelist of token that are accepted as fee payment. The initial fee token is
-the `evmos`.
+- **Transaction fees:**Butane maintains a whitelist of token that are accepted as fee payment. The initial fee token is
+the `buatne`.
 
 This total revenue is divided among validators' staking pools according to each validator's weight. Then, within each
 validator's staking pool the revenue is divided among delegators in proportion to each delegator's stake. A commission
@@ -348,7 +348,7 @@ validator. This gives validators a major responsibility in the ecosystem.
 Revenue received by a validator's pool is split between the validator and its delegators. The validator can apply a
 commission on the part of the revenue that goes to its delegators. This commission is set as a percentage.
 Each validator is free to set its initial commission, maximum daily commission change rate and maximum commission.
-Evmos enforces the parameter that each validator sets. These parameters can only be defined when initially declaring
+buatne enforces the parameter that each validator sets. These parameters can only be defined when initially declaring
 candidacy, and may only be constrained further after being declared.
 
 </details>
@@ -358,20 +358,20 @@ candidacy, and may only be constrained further after being declared.
 <summary><b>How are block provisions distributed?</b></summary>
 
 Block provisions (rewards) are distributed proportionally to all validators relative to their total stake (voting power).
-This means that even though each validator gains EVMOS with each provision, all validators will still maintain equal
+This means that even though each validator gainsButane with each provision, all validators will still maintain equal
 weight.
 
 Let us take an example where we have 10 validators with equal staking power and a commission rate of 1%. Let us also
-assume that the provision for a block is 1000 EVMOS and that each validator has 20% of self-bonded EVMOS. These tokens
+assume that the provision for a block is 1000Butane and that each validator has 20% of self-bondedButane. These tokens
 do not go directly to the proposer. Instead, they are evenly spread among validators. So now each validator's pool
-has 100 EVMOS. These 100 EVMOS will be distributed according to each participant's stake:
+has 100Butane. These 100Butane will be distributed according to each participant's stake:
 
-- Commission: `100*80%*1% = 0.8 EVMOS`
-- Validator gets: `100\*20% + Commission = 20.8 EVMOS`
-- All delegators get: `100\*80% - Commission = 79.2 EVMOS`
+- Commission: `100*80%*1% = 0.8Butane`
+- Validator gets: `100\*20% + Commission = 20.8Butane`
+- All delegators get: `100\*80% - Commission = 79.2Butane`
 
-Then, each delegator can claim its part of the 79.2 EVMOS in proportion to their stake in the validator's staking pool.
-Note that the validator's commission is not applied on block provisions. Note that block rewards (paid in EVMOS) are
+Then, each delegator can claim its part of the 79.2Butane in proportion to their stake in the validator's staking pool.
+Note that the validator's commission is not applied on block provisions. Note that block rewards (paid inButane) are
 distributed according to the same mechanism.
 
 </details>
@@ -392,8 +392,8 @@ wait-time to get the most signatures and risk of losing out on proposing the nex
 to incentivize non-empty block proposals, better networking between validators as well as to mitigate censorship.
 
 Let's take a concrete example to illustrate the aforementioned concept. In this example, there are 10 validators with
-equal stake. Each of them applies a 1% commission and has 20% of self-bonded EVMOS. Now comes a successful block
-that collects a total of 1005 EVMOS in fees. Let's assume that the proposer included 100% of the signatures in its
+equal stake. Each of them applies a 1% commission and has 20% of self-bondedButane. Now comes a successful block
+that collects a total of 1005Butane in fees. Let's assume that the proposer included 100% of the signatures in its
 block. It thus obtains the full bonus of 5%.
 
 We have to solve this simple equation to find the reward $R$ for each validator:
@@ -402,16 +402,16 @@ $$9R ~ + ~ R ~ + ~ 5\%(R) ~ = ~ 1005 ~ \Leftrightarrow ~ R ~ = ~ 1005 ~/ ~10.05 
 
 - For the proposer validator:
 
-    - The pool obtains $R ~ + ~ 5\%(R)$: 105 EVMOS
-    - Commission: $105 ~ *~ 80\% ~* ~ 1\%$ = 0.84 EVMOS
-    - Validator's reward: $105 ~ * ~ 20\% ~ + ~ Commission$ = 21.84 EVMOS
-    - Delegators' rewards: $105 ~ * ~ 80\% ~ - ~ Commission$ = 83.16 EVMOS \(each delegator will be able to claim its portion
+    - The pool obtains $R ~ + ~ 5\%(R)$: 105Butane
+    - Commission: $105 ~ *~ 80\% ~* ~ 1\%$ = 0.84Butane
+    - Validator's reward: $105 ~ * ~ 20\% ~ + ~ Commission$ = 21.84Butane
+    - Delegators' rewards: $105 ~ * ~ 80\% ~ - ~ Commission$ = 83.16Butane \(each delegator will be able to claim its portion
 of these rewards in proportion to their stake\)
 
-    - The pool obtains $R$: 100 EVMOS
-    - Commission: $100 ~ *~ 80\% ~* ~ 1\%$ = 0.8 EVMOS
-    - Validator's reward: $100 ~ * ~ 20\% ~ + ~ Commission$ = 20.8 EVMOS
-    - Delegators' rewards: $100 ~ * ~ 80\% ~ - ~ Commission$ = 79.2 EVMOS \(each delegator will be able to claim its portion
+    - The pool obtains $R$: 100Butane
+    - Commission: $100 ~ *~ 80\% ~* ~ 1\%$ = 0.8Butane
+    - Validator's reward: $100 ~ * ~ 20\% ~ + ~ Commission$ = 20.8Butane
+    - Delegators' rewards: $100 ~ * ~ 80\% ~ - ~ Commission$ = 79.2Butane \(each delegator will be able to claim its portion
 of these rewards in proportion to their stake\
 
 </details>
@@ -437,7 +437,7 @@ connectivity, gets DDoSed, or if its private key is compromised.
 
 Here are some links to community's learning from double signing worth a look:
 
-- [Learnings from BlockDaemon](https://blockdaemon.com/documentation/evmos-post-mortem/)
+- [Learnings from BlockDaemon](https://blockdaemon.com/documentation/buatne-post-mortem/)
 
 </details>
 
@@ -445,24 +445,24 @@ Here are some links to community's learning from double signing worth a look:
 
 <summary><b>Are there any best practice guides on preventing double-signing?</b></summary>
 
-There is an awesome guide. Polkachu is a validator on Evmos and they have wrote [this page](https://github.com/polkachu/validator-guide/blob/main/validator_server_migration_best_practice.md)
+There is an awesome guide. Polkachu is a validator on Butane and they have wrote [this page](https://github.com/BUTANE-Smart-Chain)
 to help out.
 
 </details>
 
 <details>
 
-<summary><b>Do validators need to self-bond EVMOS?</b></summary>
+<summary><b>Do validators need to self-bond Butane?</b></summary>
 
 No, they do not. A validators total stake is equal to the sum of its own self-bonded stake and of its delegated stake.
 This means that a validator can compensate its low amount of self-bonded stake by attracting more delegators. This is
 why reputation is very important for validators.
 
-Even though there is no obligation for validators to self-bond EVMOS, delegators should want their validator to have
-self-bonded EVMOS in their staking pool. In other words, validators should have skin-in-the-game.
+Even though there is no obligation for validators to self-bond Butane, delegators should want their validator to have
+self-bonded Butane in their staking pool. In other words, validators should have skin-in-the-game.
 
 In order for delegators to have some guarantee about how much skin-in-the-game their validator has, the latter can signal
-a minimum amount of self-bonded EVMOS. If a validator's self-bond goes below the limit that it predefined, this
+a minimum amount of self-bonded Butane. If a validator's self-bond goes below the limit that it predefined, this
 validator and all of its delegators will unbond.
 
 </details>
@@ -472,7 +472,7 @@ validator and all of its delegators will unbond.
 <summary><b>How to prevent concentration of stake in the hands of a few top validators?</b></summary>
 
 For now the community is expected to behave in a smart and self-preserving way. When a mining pool in Bitcoin gets too
-much mining power the community usually stops contributing to that pool. Evmos will rely on the same effect initially.
+much mining power the community usually stops contributing to that pool. Butane will rely on the same effect initially.
 In the future, other mechanisms will be deployed to smoothen this process as much as possible:
 
 - **Penalty-free re-delegation:** This is to allow delegators to easily switch from one validator to another, in order
@@ -500,7 +500,7 @@ use increases. Participating in the testnet is the best way to learn more.
 
 <summary><b>What are software requirements?</b></summary>
 
-In addition to running an Evmos node, validators should develop monitoring, alerting and management solutions.
+In addition to running an Butane node, validators should develop monitoring, alerting and management solutions.
 
 </details>
 
@@ -508,7 +508,7 @@ In addition to running an Evmos node, validators should develop monitoring, aler
 
 <summary><b>What are bandwidth requirements?</b></summary>
 
-Evmos has the capacity for very high throughput compared to chains like Ethereum or Bitcoin.
+Butane has the capacity for very high throughput compared to chains like Ethereum or Bitcoin.
 
 As such, we recommend that the data center nodes only connect to trusted full nodes in the cloud or other validators
 that know each other socially. This relieves the data center node from the burden of mitigating denial-of-service attacks.
@@ -538,7 +538,7 @@ Validators should expect to run an HSM that supports ed25519 keys. Here are pote
 - Thales nShield support
 - [Strangelove Horcrux](https://github.com/strangelove-ventures/horcrux)
 
-The Evmos team does not recommend one solution above the other. The community is encouraged to bolster the effort to
+The Butane team does not recommend one solution above the other. The community is encouraged to bolster the effort to
 improve HSMs and the security of key management.
 
 </details>
@@ -586,6 +586,5 @@ always make it to the rest of the network.
 
 It is expected that good operating procedures on that part of validators will completely mitigate these threats.
 
-For more on sentry node architecture, see [this](https://forum.cosmos.network/t/sentry-node-architecture-overview/454).
 
 </details>

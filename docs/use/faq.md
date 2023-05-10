@@ -11,8 +11,7 @@ sidebar_position: 5
 <summary><b>Which wallet would you recommend for Butane?</b></summary>
 
 There are many wallets to select from but the top wallets with the widest support is [Metamask](https://metamask.io/)
-and [Keplr](https://www.keplr.app/). Butane is an EVM chain built on top of the Cosmos SDK and Metamask does not support
-non EVM-specific assets while Keplr wallet does. Keplr wallet will soon support ERC-20.
+and [Keplr](https://www.keplr.app/). Butane is an EVM chain is a DPOS and Metamask works great! Not mention Butanes User Friendly Wallet.(Coming Soon)
 
 </details>
 

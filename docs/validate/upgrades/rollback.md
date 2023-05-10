@@ -19,27 +19,27 @@ be able to download a copy of the data and verify it before starting their node.
 
 1. First, stop your node.
 
-2. Then, copy the contents of your backup data directory back to the `EVMOS_HOME/data` directory (which, by default,
-should be `~/.evmosd/data`).
+2. Then, copy the contents of your backup data directory back to the `butane_HOME/data` directory (which, by default,
+should be `~/.butaned/data`).
 
 ```bash
 # Assumes backup is stored in "backup" directory
-rm -rf ~/.evmosd/data
-mv backup/.evmosd/data ~/.evmosd/data
+rm -rf ~/.butaned/data
+mv backup/.butaned/data ~/.butaned/data
 ```
 
-3. Next, install the previous version of Evmos.
+3. Next, install the previous version of butane.
 
 ```bash
-# from evmos directory
+# from buatne directory
 git checkout <prev_version>
 make install
 ## verify version
-evmosd version --long
+butaned version --long
 ```
 
 4. Finally, start the node.
 
 ```bash
-evmosd start
+butaned start
 ```

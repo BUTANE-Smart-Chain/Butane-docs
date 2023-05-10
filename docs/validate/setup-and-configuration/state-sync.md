@@ -3,7 +3,7 @@ sidebar_position: 4
 ---
 # State Sync
 
-Learn about Tendermint Core state sync and support offered by the Cosmos SDK.
+Learn about Tendermint Core state sync and support offered by the Butane SDK.
 
 :::tip
 **Note**: Only curious about how to sync a node with the network? Skip to [this section](#state-syncing-a-node).
@@ -79,15 +79,15 @@ How snapshots are actually restored is entirely up to the application, but will 
 
 Note that state synced nodes will have a truncated block history starting at the height of the restored snapshot, and there is currently no [backfill of all block data](https://github.com/tendermint/tendermint/issues/4629). Networks should consider broader implications of this, and may want to ensure at least a few archive nodes retain a complete block history, for both auditability and backup.
 
-## Cosmos SDK State Sync
+## Butane SDK State Sync
 
-[Cosmos SDK](https://github.com/cosmos/cosmos-sdk) v0.40+ includes automatic support for state sync, so application developers only need to enable it to take advantage. They will not need to implement the state sync protocol described in the [above section on Tendermint](#tendermint-core-state-sync) themselves.
+[Butane SDK](https://github.com/BUTANE-Smart-Chain) v0.40+ includes automatic support for state sync, so application developers only need to enable it to take advantage. They will not need to implement the state sync protocol described in the [above section on Tendermint](#tendermint-core-state-sync) themselves.
 
 ### State Sync Snapshots
 
 Tendermint Core handles most of the grunt work of discovering, exchanging, and verifying state data for state sync, but the application must take snapshots of its state at regular intervals, and make these available to Tendermint via ABCI calls, and be able to restore these when syncing a new node.
 
-The Cosmos SDK stores application state in a data store called [IAVL](https://github.com/cosmos/iavl), and each module can set up its own IAVL stores. At regular height intervals (which are configurable), the Cosmos SDK will export the contents of each store at that height, [Protobuf](https://developers.google.com/protocol-buffers/docs/overview)-encode and compress it, and save it to a snapshot store in the local filesystem. Since IAVL keeps historical versions of data, these snapshots can be generated simultaneously with new blocks being executed. These snapshots will then be fetched by Tendermint via ABCI when a new node is state syncing.
+The Cosmos SDK stores application state in a data store called [BBC](https://github.com/BUTANE-Smart-Chain), and each module can set up its own IAVL stores. At regular height intervals (which are configurable), the Cosmos SDK will export the contents of each store at that height, [Protobuf](https://developers.google.com/protocol-buffers/docs/overview)-encode and compress it, and save it to a snapshot store in the local filesystem. Since IAVL keeps historical versions of data, these snapshots can be generated simultaneously with new blocks being executed. These snapshots will then be fetched by Tendermint via ABCI when a new node is state syncing.
 
 Note that only IAVL stores that are managed by the Cosmos SDK can be snapshotted. If the application stores additional data in external data stores, there is currently no mechanism to include these in state sync snapshots, so the application therefore cannot make use of automatic state sync via the SDK. However, it is free to implement the state sync protocol itself as described in the [ABCI Documentation](https://docs.tendermint.com/master/spec/abci/apps.html#state-sync).
 
@@ -179,27 +179,26 @@ moniker="NODE_NAME"
 ## Use commands below for Testnet setup
 
 ```bash
-SNAP_RPC1="http://bd-evmos-testnet-state-sync-node-01.bdnodes.net:26657"
-SNAP_RPC="http://bd-evmos-testnet-state-sync-node-02.bdnodes.net:26657"
-CHAIN_ID="evmos_9000-4"
-PEER="3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-evmos-testnet-seed-node-01.bdnodes.net:26656"
-wget -O $HOME/genesis.json https://archive.evmos.dev/evmos_9000-4/genesis.json 
+SNAP_RPC1=" https://testnet-rpc.bbcscan.io"
+SNAP_RPC=" https://testnet-rpc.bbcscan.io"
+CHAIN_ID="butane_9000-4"
+PEER="3a6b22e1569d9f85e9e97d1d204a1c457d860926@bd-butane-testnet-seed-node-01.bdnodes.net:26656"
+
 ```
 
 ## Use commands below for Mainnet setup
 
 ```bash
-SNAP_RPC1="http://bd-evmos-mainnet-state-sync-us-01.bdnodes.net:26657"
-SNAP_RPC="http://bd-evmos-mainnet-state-sync-eu-01.bdnodes.net:26657"
+SNAP_RPC1=" https://testnet-rpc.bbcscan.io"
+SNAP_RPC=" https://testnet-rpc.bbcscan.io"
 CHAIN_ID="evmos_9001-2"
-PEER="96557e26aabf3b23e8ff5282d03196892a7776fc@bd-evmos-mainnet-state-sync-us-01.bdnodes.net,dec587d55ff38827ebc6312cedda6085c59683b6@bd-evmos-mainnet-state-sync-eu-01.bdnodes.net"
-wget -O $HOME/genesis.json https://archive.evmos.org/mainnet/genesis.json 
-```
+PEER="96557e26aabf3b23e8ff5282d03196892a7776fc@bd-butane-mainnet-state-sync-us-01.bdnodes.net,dec587d55ff38827ebc6312cedda6085c59683b6@bd-butane-mainnet-state-sync-eu-01.bdnodes.net"
 
-### Install evmosd
+
+### Install Butaned
 
 ```bash
-git clone https://github.com/evmos/evmos.git && \ 
+git clone https://github.com/BUTANE-Smart-Chain && \ 
 cd evmos && \ 
 make install
 ```
@@ -207,100 +206,6 @@ make install
 ### Configuration
 
 Node init
-
-```bash
-evmosd init $moniker --chain-id $CHAIN_ID
-```
-
-Move genesis file to .evmosd/config folder
-
-```bash
-mv $HOME/genesis.json ~/.evmosd/config/
-```
-
-Reset the node
-
-```bash
-evmosd tendermint unsafe-reset-all --home $HOME/.evmosd
-```
-
-Change config files (set the node name, add persistent peers, set indexer = "null")
-
-```bash
-sed -i -e "s%^moniker *=.*%moniker = \"$moniker\"%; " $HOME/.evmosd/config/config.toml
-sed -i -e "s%^indexer *=.*%indexer = \"null\"%; " $HOME/.evmosd/config/config.toml
-sed -i -e "s%^persistent_peers *=.*%persistent_peers = \"$PEER\"%; " $HOME/.evmosd/config/config.toml
-```
-
-Set the variables for start from snapshot
-
-```bash
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-```
-
-Check
-
-```bash
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-```
-
-Output example (numbers will be different):
-
-```bash
-376080 374080 F0C78FD4AE4DB5E76A298206AE3C602FF30668C521D753BB7C435771AEA47189
-```
-
-If output is OK do next
-
-```bash
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC1\"| ; \
-
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" ~/.evmosd/config/config.toml
-```
-
-### Create evmosd service
-
-```bash
-echo "[Unit]
-Description=Evmosd Node
-After=network.target
-#
-[Service]
-User=$USER
-Type=simple
-ExecStart=$(which evmosd) start
-Restart=on-failure
-LimitNOFILE=65535
-#
-[Install]
-WantedBy=multi-user.target" > $HOME/evmosd.service; sudo mv $HOME/evmosd.service /etc/systemd/system/
-```
-
-```bash
-sudo systemctl enable evmosd.service && sudo systemctl daemon-reload
-```
-
-### Run evmosd
-
-```bash
-sytemctl start evmosd
-```
-
-### Check logs
-
-```bash
-journalctl -u evmosd -f
-```
-
-When the node is started it will then attempt to find a state sync snapshot in the network, and restore it:
 
 ```bash
 Started node                   module=main nodeInfo="..."
@@ -325,13 +230,4 @@ Committed state                height=3002 txs=25 appHash=40D12E4B3
 
 The node is now state synced, having joined the network in seconds
 
-### Use this command to switch off your State Sync mode, after node fully synced to avoid problems in future node restarts!
 
-```bash
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1false|" $HOME/.evmosd/config/config.toml
-```
-
-:::tip
-
-**Note**: Information included in this document is sourced from [Erik Grinaker](https://medium.com/@erikgrinaker), specifically his state sync guides for [Tendermint Core](https://medium.com/tendermint/tendermint-core-state-sync-for-developers-70a96ba3ee35) and the [Cosmos SDK](https://medium.com/cosmos-blockchain/cosmos-sdk-state-sync-guide-99e4cf43be2f).
-:::

@@ -7,12 +7,12 @@ slug: '/dapps'
 
 Before engaging with dApps, it is important to have a wallet with some BBC tokens. If you have not installed a wallet,
 please visit our [wallet's](./../use/wallet) section to select an appropriate wallet. If you do not have any BBC tokens,
-you can acquire them by reading the [Onramp to Butane](../transfer-tokens/index.md#onramp-to-evmos) strategies.
+you can acquire them by reading the [Onramp to Butane](../transfer-tokens/index.md#onramp-to-Butane) strategies.
 
 <!-- add link to [dApps](../intro#what-are-dapps) -->
 
 You can start by using the Butane dApps that are built and maintained by the Butane core development team or use our
-[Ecosystem Page](https://evmos.org/ecosystem) to browse through the rich ecosystem of dApps on Evmos.
+[Ecosystem Page](https://butane.tech/) to browse through the rich ecosystem of dApps on Butane.
 
 ## Queries and Transactions
 
@@ -37,7 +37,7 @@ A typical flow to interact with a dApp can look like this:
 ## Butane dApps
 
 Alongside the applications built by the developer community, the Butane Core Development Team also builds its own
-[Butane dApps](https://app.evmos.org). An easy way to get started is by staking and voting for governance proposals.
+[Butane dApps](https://flamez.io/). An easy way to get started is by staking and voting for governance proposals.
 
 ### Staking
 
@@ -52,9 +52,9 @@ earn you a daily interest in form of new Butane tokens (aka. staking rewards). A
 cannot transfer or use them in other dApps. At any given time, you can undelegate your tokens. This will allow you to
 start using your tokens again after an unbonding period that is defined in the protocol (e.g. two weeks).
 
-![evmos_staking.png](/img/evmos_staking.png)
 
-You can choose validators to stake your tokens with from a list on the [Butane Staking dApp](https://app.evmos.org/staking).
+
+You can choose validators to stake your tokens with from a list on the [Butane Staking dApp](https://staking.bbcscan.io).
 We recommend choosing a reputable validator, that can promise to stay online and doesn't have a large voting power
 (e.g. is not in the top 20). Validators that are offline for an extended period or act maliciously can get slashed,
 resulting in a loss of your stake. Also, delegating to validators with less voting power keeps the network more
@@ -70,15 +70,15 @@ Developers propose changes through code updates and the community votes on wheth
 Every participant can vote for proposals, as long as they have staked Butane tokens. Each vote is weighted by the amount
 of staked tokens.
 
-![evmos_governance.png](/img/evmos_governance.png)
+
 
 Butane is known for hosting one of the most active governance communities in the blockchain space. Anyone can participate
 in governance so the ownership, norms, and culture of the Butane network are thus spread across the community. Once you
-have staked your tokens, head over to the [Evmos Governance dApp](https://app.evmos.org/governance) to start voting on
+have staked your tokens, head over to the [Butane Governance dApp](https://commonwealth.im/butane) to start voting on
 governance proposals.
 
 :::note
-Engage with our community on [Commonwealth](https://commonwealth.im/evmos) and learn about upcoming proposals. If you are
-interested in launching your own governance proposals, head over [here](https://academy.evmos.org/community/governance/)
+Engage with our community on [Commonwealth](https://commonwealth.im/butane) and learn about upcoming proposals. If you are
+interested in launching your own governance proposals, head over [here](https://commonwealth.im/butane)
 for a guide.
 :::

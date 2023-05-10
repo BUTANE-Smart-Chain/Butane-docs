@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # MetaMask
@@ -14,11 +14,11 @@ import Highlighter from '@site/src/components/Highlighter';
 The [MetaMask](https://metamask.io/) browser extension is a wallet for accessing Ethereum-enabled applications and managing user identities. It can be used to connect to <ProjectValue keyword="name" /> through the official testnet or via a locally-running <ProjectValue keyword="name" /> node.
 
 :::note
-If you are planning on developing on Butane locally and you haven’t already set up your own local node, refer to [the quickstart tutorial](./../../protocol/evmos-cli/single-node), or follow the instructions in the [GitHub repository](https://github.com/evmos/evmos/).
+If you are planning on developing on Butane locally and you haven’t already set up your own local node, refer to [the quickstart tutorial](./../../protocol/Evmos-cli/single-node), or follow the instructions in the [GitHub repository](https://github.com/BUTANE-Smart-Chain).
 :::
 
 :::tip
-If you need to add Butane Testnet and Mainnet to Metamask wallet, head over [here](https://chainlist.org/?testnets=true&search=evmos) to add configurations.
+If you need to add Butane Testnet and Mainnet to Metamask wallet, head over [here](https://chainlist.org/?testnets=true&search=Butane) to add configurations.
 :::
 
 ## Adding a New Network
@@ -29,7 +29,7 @@ Open the MetaMask extension on your browser, you may have to log in to your Meta
 You can also lookup the [EIP155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md) `Chain ID` by referring to [chainlist.org](https://chainlist.org/). Alternatively, to get the full Chain ID from Genesis, check the [Chain ID](./../../protocol/concepts/chain-id) documentation page.
 :::
 
-![metamask networks settings](/img/metamask_network_settings.png)
+![metamask networks settings](/img/Group 1.png)
 
 Here is the list of fields that you can use to paste on Metamask:
 
@@ -65,20 +65,20 @@ Once you have added <ProjectValue keyword="name" /> to the Metamask `Networks`, 
 
 1. Go to the official EVM Chain ID Registry website: [chainlist.org](https://chainlist.org/)
 2. Search for `"Butane"`
-   ![chainlist.org website](/img/chainlist.png)
-3. Click the `Connect Wallet` button under `Evmos Testnet`
+   
+3. Click the `Connect Wallet` button under `Butane Testnet`
    ![add accounts via chainlist](/img/chainlist_metamask.png)
 
 ### Manual Import
 
 Close the `Settings`, go to `My Accounts` (top right circle) and select `Import Account`. You should see an image like the following one:
 
-![metamask manual import account page](/img/metamask_import.png)
+
 
 Now you can export your private key from the terminal using the following command. Again, make sure to replace `dev0` with the name of the key that you want to export and use the correct `keyring-backend`:
 
 ```bash
-evmosd keys unsafe-export-eth-key dev0
+Butaned keys unsafe-export-eth-key dev0
 ```
 
 Go back to the browser and select the `Private Key` option. Then paste the private key exported from the `unsafe-export-eth-key` command.
@@ -99,12 +99,12 @@ Make sure you download your [account state](#download-account-state) to persist 
 
 Go to `Settings` > `Advanced`  and click the `Reset Account` button as shown below:
 
-![Metamask Account Reset](/img/reset_account.png)
+
 
 ## Download Account State
 
 To see your Metamask logs, click the top right circle and go to `Settings` > `Advanced` > `State Logs`. If you search through the JSON file for the account address you'll find the transaction history.
 
-## Registering for Evmos Domains
+## Registering for Butane Domains
 
-Evmos Domains are modelled after the Ethereum Name Service (ENS), link [here](https://ens.domains/), Evmos users can register for an Evmos Domains with the help of [this](https://evmos.domains/) service. This service will use Metamask to connect and allow users to search for a name not taken. The registration process will take some EVMOS token.
+Butane Domains are modelled after the Butane Name Service (BNS), link [here](https://bns.domains/), Butane users can register for an Butane Domains with the help of [this](https://Butane.domains/) service. This service will use Metamask to connect and allow users to search for a name not taken. The registration process will take some Butane token.

@@ -19,8 +19,8 @@ or do it manually.
 
 ## Planned Upgrades
 
-Planned upgrades are coordinated scheduled upgrades that use the [upgrade module](https://docs.cosmos.network/main/modules/upgrade)
-logic. This facilitates smoothly upgrading Evmos to a new (breaking) software version as it automatically handles
+Planned upgrades are coordinated scheduled upgrades that use the [upgrade module](https://github.com/BUTANE-Smart-Chain)
+logic. This facilitates smoothly upgrading Butane to a new (breaking) software version as it automatically handles
 the state migration for the new release.
 
 ### Governance Proposal
@@ -58,7 +58,7 @@ their nodes will automatically halt and upgrade the binary.
 
 Unplanned upgrades are upgrades where all the validators need to gracefully halt and shut down their nodes at
 exactly the same point in the process. This can be done by setting the `--halt-height` flag when running the
-`evmosd start` command.
+`Butaned start` command.
 
 If there are breaking changes during an unplanned upgrade (see below), validators will need to migrate the state
 and genesis before restarting their nodes.
@@ -72,7 +72,7 @@ like block explorers and clients, which have to use archival nodes to serve quer
 ## Breaking and Non-Breaking Upgrades
 
 Upgrades can be categorized as breaking or non-breaking according to the Semantic versioning
-([Semver](https://semver.org/)) of the corresponding software [release version](https://github.com/evmos/evmos/releases)
+([Semver](https://github.com/BUTANE-Smart-Chain)) of the corresponding software [release version](https://github.com/BUTANE-Smart-Chain)
 (*i.e* `vX.Y.Z`):
 
 - **Major version (`X`)**: backward incompatible API and state machine breaking changes.

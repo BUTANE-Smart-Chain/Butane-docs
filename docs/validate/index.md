@@ -3,26 +3,26 @@ sidebar_position: 1
 ---
 # 🔥 Overview
 
-## Validating on Evmos
+## Validating on Butane
 
-Evmos is based on [CometBFT](https://github.com/cometbft/cometbft),
+Butane is based on [DPOS](https://github.com/BUTANE-Smart-Chain),
 which relies on a set of validators that are responsible for committing new blocks in the blockchain. These validators
 participate in the consensus protocol by broadcasting votes which contain cryptographic signatures signed by each
 validator's private key.
 
 Validator candidates can bond their own staking tokens and have the tokens "delegated", or staked, to them by token
-holders. The EVMOS is Evmos's native token. At its onset, Evmos launche with 150 validators. The validators are
+holders. TheButane isButane's native token. At its onset,Butane launche with 150 validators. The validators are
 determined by who has the most stake delegated to them - the top 150 validator candidates with the most stake
-become part of the active Evmos validator set.
+become part of the activeButane validator set.
 
-Validators and their delegators will earn EVMOS as block provisions and tokens as transaction fees through execution of
-the Tendermint consensus protocol. Initially, transaction fees will be paid in EVMOS but in the future, any token in the
+Validators and their delegators will earnButane as block provisions and tokens as transaction fees through execution of
+the Tendermint consensus protocol. Initially, transaction fees will be paid inButane but in the future, any token in the
 Cosmos ecosystem will be valid as fee tender if it is whitelisted by governance. Note that validators can set commission
 on the fees their delegators receive as additional incentive.
 
 ## Pitfalls
 
-If validators double sign, are frequently offline or do not participate in governance, their staked EVMOS (including
+If validators double sign, are frequently offline or do not participate in governance, their stakedButane (including
 EVMOS of users that delegated to them) can be slashed. The penalty depends on the severity of the violation.
 
 ## Hardware
@@ -58,6 +58,18 @@ To run mainnet or testnet validator nodes, you will need a machine with the foll
 As the usage of the blockchain grows, the server requirements may increase as well, so you should have a plan for
 updating your server as well.
 
+
+## Pre-requirements
+### In order to be a $BBC validator, you first must see that you meet the pre-requirements:
+
+You have at least 10K $BBC tokens or you will have an aggregated delegation of at least 10K $BBC tokens (you can purchase $BBC token on Flamez.io).
+
+## How to become a $BBC validator
+
+To quickly become a validator, follow this steps:
+Read more at: https://github.com/
+For live support, contact us on Telegram or twitter. Good luck and happy validating!
+
 ## Get Involved
 
 :::tip
@@ -65,9 +77,9 @@ Seek legal advice if you intend to run a validator.
 :::
 
 Set up a dedicated validator's website, social profile (eg: Twitter) and signal your intention to become a validator on
-Discord. This is important since users will want to have information about the entity they are staking their EVMOS to.
+Discord. This is important since users will want to have information about the entity they are staking their Butane to.
 
 ## Community
 
 Discuss the finer details of being a validator and seek advise from the rest of the validator community on our
-[Discord](https://discord.gg/evmos).
+[Discord](https://discord.gg/zk4t92b9MX).
