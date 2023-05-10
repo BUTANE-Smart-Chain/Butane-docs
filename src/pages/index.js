@@ -13,8 +13,8 @@ function Home() {
         <br />
         <h1 align="center" style={{ fontWeight: '650' }}>Welcome to </h1>
         <div align="center">
-          <img src="img/Group 1.png" alt="Butane Logo" width="400" height="400" style={{ margin: '20px 20px' }} />
-          <h1 align="center" style={{ fontWeight: '850' }}>Docs</h1>
+          <img src="img/Group 1.png" alt="Butane Logo" width="800" height="800" style={{ margin: '20px 20px' }} />
+          <h1 align="center" style={{ fontWeight: '950' }}>Docs</h1>
         </div>
         <section className={styles.features}>
           <div className="container">
