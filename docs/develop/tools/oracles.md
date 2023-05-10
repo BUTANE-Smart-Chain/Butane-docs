@@ -75,51 +75,8 @@ Return Result refers to the process of returning the result of the action perfor
 
 ## Partner Details
 
-### Adrastia
+### Adrastia (Coming Soon)
 
-Evmos data and contract address can be found [here](https://docs.adrastia.io/deployments/evmos).
-
-The ultimate goal of Adrastia is to provide a decentralized and permissionless oracle network that is secure, reliable,
-and easy to use. Anyone should be able to start a price feed for any asset by simply sending a transaction, provided
-there is enough decentralized exchange (DEX) liquidity. Merely send the chain's gas token to an Adrastia contract, and
- a network of updater bots will start providing price feeds for that asset.
-
-Evmos data feed can be found [here](https://adrastia.io/app/price-feeds/evmos).
-
-Adrastia uses three types of contracts to provide secure data feeds. [These three](https://docs.adrastia.io/structure/contracts)
-are:
-
-1. Accumulators: At the lowest level, accumulators collect observations from various DEXs.
-2. Intermediate oracles: Intermediate oracles use data from accumulators to collect, produce, and store derived data
-such as time-weighted average price and liquidity at a single source.
-3. Aggregator oracles: Aggregators combine data from multiple sources and reduce them to singular data points.
-
-The interaction can be shown as a flow-chart below:
-
-![adrastia-overview.png](/img/adrastia-overview.png)
-
-### DIA
-
-The DIA platform enables the sourcing, validation and sharing of transparent and verified data feeds for traditional and
-digital financial applications. DIA’s institutional-grade data feeds cover asset prices, metaverse data, lending rates
-and more.
-DIA’s data is directly sourced from a broad array of on-chain and off-chain sources at individual trade-level. This
-allows DIA feeds to be fully customized with regards to the mix of sources and methodologies, resulting in tailor-made,
-high resilience feeds and thereby setting a new paradigm for oracles.
-
-![dia-architecture.png](/img/dia-architecture.png)
-
-The [Evmos](https://docs.diadata.org/documentation/oracle-documentation/deployed-contracts#evmos) Mainnet and Testnet
-contract are available for use. The update frequency is 2 hours (demo oracles). To use their API, head over to
-[here](https://docs.diadata.org/documentation/api-1).
-
-DIA has a [custom feed builder](https://app.diadata.org/feed-builder) and the supported token pairs are located 
-[here](https://docs.diadata.org/documentation/oracle-documentation/deployed-contracts#evmos).
-
-:::note
-Project deployed to the mainnet can request custom oracle that is catered to the project's needs by reaching out
-the [DIA team](https://go.diadata.org/dev-discord) on Discord. Custom oracles would have higher performance.
-:::
 
 ### Redstone
 

@@ -3,7 +3,7 @@ sidebar_position: 4
 slug: '/dapps'
 ---
 
-# Use dApps
+# 🪄  Use dApps
 
 Before engaging with dApps, it is important to have a wallet with some BBC tokens. If you have not installed a wallet,
 please visit our [wallet's](./../use/wallet) section to select an appropriate wallet. If you do not have any BBC tokens,

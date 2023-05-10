@@ -4,6 +4,7 @@ sidebar_position: 2
 
 # Audits
 
+
 Butane is connecting two major worlds in the crypto universe by enabling
 compatibility between the Ethereum and Cosmos ecosystems.
 This does not come without its difficulties, and security always
@@ -20,4 +21,4 @@ also for anyone deploying on or using Butane.
 This page lists the publicly available audits,
 that have been conducted on the Butane and Ethermint codebases:
 
-- [Informal Systems Security Audit](https://github.com/informalsystems/audits/blob/main/Evmos2021Q4/informal-evmos-report-2021q4.pdf)
+- [Informal Systems Security Audit](https://github.com/BUTANE-Smart-Chain)

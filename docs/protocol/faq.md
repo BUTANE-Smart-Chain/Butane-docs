@@ -2,6 +2,8 @@
 
 ## Concepts
 
+![My Image](images/Group.png)
+
 <details>
 
 <summary><b>What is the difference between "secp256k1" and "ed25519"?</b></summary>

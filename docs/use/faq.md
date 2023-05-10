@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Frequently Asked Questions
+# ❓ Frequently Asked Questions
 
 ## Wallets
 
@@ -32,7 +32,7 @@ Keplr, and WalletConnect all work with Ledger. Ledger setup will be required bef
 
 The Butane network supports both formats: bech32 and hex. Other EVM peers and its ecosystem uses hex encoding while
 Cosmos-native uses bech32 formatted addresses. Keplr is unique and the EVM-compatible chains shows both formats. If you
-are sending tokens (via [IBC](https://www.mintscan.io/Butane/relayers)), you will use bech32 formatted addresses unless
+are sending tokens (via [IBC](https://status.bbcscan.io/)), you will use bech32 formatted addresses unless
 the receiving chain support EVM (i.e. Ethermint-based chains). You can further details [here](./../protocol/concepts/accounts).
 
 </details>
@@ -45,8 +45,8 @@ the receiving chain support EVM (i.e. Ethermint-based chains). You can further d
 
 There are several paths users can take to acquire Butane Token.
 
-- Decentralized Exchanges: [Osmosis](https://app.osmosis.zone/?from=ATOM&to=EVMOS)
+- Decentralized Exchanges: [Flamez](https://flamez.io/)
 - [C14 Money](https://pay.c14.money/) is an onramp service
-- [Testnet Faucet](https://faucet.evmos.dev/) dispenses a small amount of testnet tokens
+- [Testnet Faucet](https://faucet.bbcscan.io/) dispenses a small amount of testnet tokens
 
 </details>

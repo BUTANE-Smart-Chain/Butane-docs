@@ -2,7 +2,10 @@
 sidebar_position: 4
 ---
 
-# Module Accounts
+# 📳 Module Accounts
+
+
+![My Image](images/Group.png)
 
 Some modules have their own module account. Think of this as a wallet that can only be controlled by that module.
 Below is a table of modules, their respective wallet addresses and permissions:

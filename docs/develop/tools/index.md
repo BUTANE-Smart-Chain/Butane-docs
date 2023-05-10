@@ -23,5 +23,6 @@ help developers interact with our core protocol features by providing interfaces
 involves validating the authenticity and accuracy of smart contract code before deploying it to the blockchain. Contract
 verification serves to increase transparency, improves contract accuracy, prevents fraud and malicious activities,
 and increases adoption.
+- [BNS](./butane-name-service.md): Is a distributed, open, and extensible naming system based on the Butane Network.BNS’s job is to map human-readable names like ‘alice.bbc’ to machine-readable identifiers such as Ethereum addresses
 
 Dive in further into the above toolings by visiting the subsequent pages.

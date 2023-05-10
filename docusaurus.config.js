@@ -31,7 +31,7 @@ const SECTIONS = [
 const config = {
   title: 'Butane Docs',
   tagline: 'Develop on Butane',
-  url: 'https://docs.evmos.org',
+  url: 'https://docs.butane.tech',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -53,26 +53,26 @@ const config = {
 
   customFields: {
     project: {
-      name: "Evmos",
-      denom: "Evmos",
-      ticker: "EVMOS",
-      binary: "evmosd",
-      testnet_denom: "tEvmos",
-      testnet_ticker: "tEVMOS",
-      rpc_url: "https://eth.bd.evmos.org:8545",
-      rpc_url_testnet: "https://eth.bd.evmos.dev:8545",
+      name: "Butane",
+      denom: "BBC",
+      ticker: "$BBC",
+      binary: "bbcsd",
+      testnet_denom: "tBBC",
+      testnet_ticker: "tBBC",
+      rpc_url: "https://mainnet-rpc.bbcscan.io/",
+      rpc_url_testnet: "https://testnet-rpc.bbcscan.io/",
       rpc_url_local: "http://localhost:8545/",
-      chain_id: "9001",
-      testnet_chain_id: "9000",
+      chain_id: "535037",
+      testnet_chain_id: "892272",
       latest_version: "v11.0.1",
       mainnet_version: "v11.0.1",
       testnet_version: "v11.0.1",
       version_number: "2",
       testnet_version_number: "4",
-      testnet_evm_explorer_url: "https://evm.evmos.dev",
-      evm_explorer_url: "https://escan.live",
-      testnet_cosmos_explorer_url: "https://testnet.mintscan.io/evmos-testnet",
-      cosmos_explorer_url: "https://www.mintscan.io/evmos",
+      testnet_evm_explorer_url: "https://testnet.bbcscan.io/",
+      evm_explorer_url: "https://bbcscan.io/",
+      testnet_butane_explorer_url: "https://testnet.bbcscan.io/",
+      butane_explorer_url: "https://bbcscan.io/",
     },
   },
 
@@ -150,12 +150,12 @@ const config = {
           },
           {
             position: 'left',
-            label: 'Validate',
+            label: 'Validators',
             to: '/validate',
           },
           {
             position: 'left',
-            label: 'Protocol',
+            label: '$BBC Protocol',
             to: '/protocol',
           },
           {
@@ -170,7 +170,7 @@ const config = {
           },
           {
             position: 'right',
-            label: 'App',
+            label: 'dApp',
             to: 'https://butane.tech/',
           },
           {
@@ -235,7 +235,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Built with ❤️ by the Butane Core Development Team. © ${new Date().getFullYear()} All rights reserved.`,
+        copyright: `Built with 🔥by the Butane Core Development Team. © ${new Date().getFullYear()} All rights reserved.`,
       },
       prism: {
         theme: lightCodeTheme,

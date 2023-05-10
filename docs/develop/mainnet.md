@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Mainnet
+# 💠 Mainnet
 
 Before real users begin to transact with actual funds on your dApp, it is important to take into account certain factors
 when launching it on Mainnet. Although moving your dApp from Testnet to Mainnet may be a straightforward process of
@@ -10,8 +10,11 @@ deploying your contracts to the Mainnet network, ensuring success and enhancing 
 additional business development efforts. Here is an overview of some of the key factors to consider.
 
 :::note
-An Evmos validator, Stakely.io, runs a [faucet](https://stakely.io/en/faucet/evmos-evm) for builders to request dust.
+An Butane validator, Stakely.io, runs a [faucet](https://faucet.bbcscan.io/) for builders to request dust.
 :::
+
+![My Image](images/node.jpg)
+
 
 ## Deployment
 
@@ -82,6 +85,9 @@ If you are curious on how this is implemented on the protocol,
 check out the [revenue module specification](./../protocol/modules/incentives).
 
 ## Community
+
+![My Image](images/logo.jpg)
+
 
 Make yourself heard in the Butane community and explain what value your dApp provides.
 An essential part of building a dApp is getting in touch with the community to showcase how they can take ownership or

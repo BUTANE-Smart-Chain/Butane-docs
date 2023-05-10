@@ -2,11 +2,11 @@
 sidebar_position: 3
 ---
 
-# Cosmos gRPC & REST
+# Cosmos (Coming Soon) gRPC & REST
 
 ## Cosmos gRPC
 
-Evmos exposes gRPC endpoints for all the integrated Cosmos SDK modules. This makes it easier for
+Butane exposes gRPC endpoints for all the integrated Cosmos SDK modules. This makes it easier for
 wallets and block explorers to interact with the Proof-of-Stake logic and native Cosmos transactions and queries.
 
 ## Cosmos HTTP REST (gRPC-Gateway)

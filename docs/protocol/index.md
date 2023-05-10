@@ -2,9 +2,11 @@
 sidebar_position: 0
 ---
 
-# Technical Architecture
+#  Technical Architecture
 
-Butane is a scalable Proof-of-Stake blockchain that is fully compatible and
+![My Image](images/Group.png)
+
+Butane is a scalable Delgated Proof-of-Stake blockchain that is fully compatible and
 interoperable with the Ethereum Virtual Machine (EVM). It is built using the [Butane SDK](https://github.com/Butane/Butane-sdk/)
 which runs on top of the [CometBFT](https://github.com/cometbft/cometbft) (a fork of [Tendermint Core](https://docs.tendermint.com/)) consensus engine,
 to accomplish fast finality, high transaction throughput and short block times (~2 seconds).
@@ -77,7 +79,7 @@ we recommend understanding the following concepts:
 ## Contributing
 
 There are several ways to contribute to the Butane core protocol. To get some hands-on experience,
-we recommend you spin up a local Butane node using the [Butane CLI](Butane-cli/index.md)
+we recommend you spin up a local Butane node using the [Butane CLI](Evmos-cli/index.md)
 and interact with it through queries and transactions using the supported [clients](../develop/api#clients).
 
 Then if you're hooked you can
@@ -86,3 +88,5 @@ Then if you're hooked you can
 using the [Butane Contributor Guideline](https://github.com/Butane/Butane/blob/main/CONTRIBUTING.md)
 * Apply to [open positions at Butane](https://boards.eu.greenhouse.io/Butane)
 * Search for [bugs and earn a bounty](bugs.md)
+
+![My Image](images/Group.png)

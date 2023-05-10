@@ -15,7 +15,7 @@ its simplicity and speed. For more complex setups, please refer to the [Multi No
 
 ## Automated Script
 
-The simplest way to start a local Evmos node is by using the provided helper script on the base level of the [Evmos repository](https://github.com/evmos/evmos/blob/main/local_node.sh),
+The simplest way to start a local Butane node is by using the provided helper script on the base level of the [Butane repository](https://github.com/BUTANE-Smart-Chain),
 which will create a sensible default configuration for testing purposes:
 
 ```bash
@@ -24,16 +24,16 @@ $ local_node.sh
 ```
 
 :::tip
-To avoid overwriting any data for a real node used in production, it was decided to store the automatically generated testing configuration at `~/.tmp-evmosd` instead of the default `~/.evmosd`.
+To avoid overwriting any data for a real node used in production, it was decided to store the automatically generated testing configuration at `~/.tmp-bbcsd` instead of the default `~/.bbcsd`.
 :::
 
-When working with the `local_node.sh` script, it is necessary to extend all `evmosd` commands, that target the local test node, with the `--home ~/.tmp-evmosd` flag. This is mandatory, because the `home` directory cannot be stored in the `evmosd` configuration, which can be seen in the output below. For ease of use, it might be sensible to export this directory path as an environment variable:
+When working with the `local_node.sh` script, it is necessary to extend all `bbcsd` commands, that target the local test node, with the `--home ~/.tmp-bbcsd` flag. This is mandatory, because the `home` directory cannot be stored in the `bbcsd` configuration, which can be seen in the output below. For ease of use, it might be sensible to export this directory path as an environment variable:
 
 ```
 $ export TMP=$HOME/.tmp-evmosd`
-$ evmosd config --home $TMP
+$ bbcsd config --home $TMP
 {
-"chain-id": "evmos_9000-1",
+"chain-id": "BBC_9892272",
 "keyring-backend": "test",
 "output": "text",
 "node": "tcp://localhost:26657",
@@ -49,7 +49,7 @@ See the following excerpt from the script for ideas on what can be adjusted:
 KEYS[0]="dev0"
 KEYS[1]="dev1"
 KEYS[2]="dev2"
-CHAINID="evmos_9000-1"
+CHAINID="BBC_892272"
 MONIKER="localtestnet"
 # Remember to change to other types of keyring like 'file' in-case exposing to outside world,
 # otherwise your balance will be wiped quickly
@@ -57,8 +57,8 @@ MONIKER="localtestnet"
 KEYRING="test"
 KEYALGO="eth_secp256k1"
 LOGLEVEL="info"
-# Set dedicated home directory for the evmosd instance
-HOMEDIR="$HOME/.tmp-evmosd"
+# Set dedicated home directory for the bbcsd instance
+HOMEDIR="$HOME/.tmp-bbcsd"
 # to trace evm
 #TRACE="--trace"
 TRACE=""
@@ -85,10 +85,10 @@ with the `init` subcommand:
 ```bash
 $MONIKER=testing
 $KEY=dev0
-$CHAINID="evmos_9000-4"
+$CHAINID="bbcs_9000-4"
 
 # The argument $MONIKER is the custom username of your node, it should be human-readable.
-evmosd init $MONIKER --chain-id=$CHAINID
+bbcsd init $MONIKER --chain-id=$CHAINID
 ```
 
 :::tip
@@ -97,7 +97,7 @@ You can [edit](./configuration#client-configuration) this `moniker` later by upd
 
 The command above creates all the configuration files needed for your node and validator to run, as well as a default
 genesis file, which defines the initial state of the network. All these
-[configuration files](./configuration#client-configuration) are in `~/.evmosd` by default, but you can overwrite the
+[configuration files](./configuration#client-configuration) are in `~/.bbcsd` by default, but you can overwrite the
 location of this folder by passing the `--home` flag.
 
 ### Genesis Procedure
@@ -107,14 +107,14 @@ location of this folder by passing the `--home` flag.
 Before starting the chain, you need to populate the state with at least one account using the [keyring](./../../protocol/concepts/keyring#add-keys):
 
 ```bash
-evmosd keys add my_validator
+bbcsd keys add my_validator
 ```
 
-Once you have created a local account, go ahead and grant it some `aevmos` tokens in your chain's genesis file. Doing
+Once you have created a local account, go ahead and grant it some `abbcs` tokens in your chain's genesis file. Doing
 so will also make sure your chain is aware of this account's existence:
 
 ```bash
-evmosd add-genesis-account my_validator 10000000000aevmos
+bbcsd add-genesis-account my_validator 10000000000abbcs
 ```
 
 Now that your account has some tokens, you need to add a validator to your chain.
@@ -127,7 +127,7 @@ file called a `gentx`:
 # Create a gentx
 # NOTE: this command lets you set the number of coins.
 # Make sure this account has some coins with the genesis.app_state.staking.params.bond_denom denom
-evmosd add-genesis-account my_validator 1000000000stake,10000000000aevmos
+bbcsd add-genesis-account my_validator 1000000000stake,10000000000abbcs
 ```
 
 A `gentx` does three things:
@@ -135,12 +135,12 @@ A `gentx` does three things:
 1. Registers the `validator` account you created as a validator operator account (i.e. the account that controls the validator).
 2. Self-delegates the provided `amount` of staking tokens.
 3. Link the operator account with a Tendermint node pubkey that will be used for signing blocks. If no `--pubkey` flag
-is provided, it defaults to the local node pubkey created via the `evmosd init` command above.
+is provided, it defaults to the local node pubkey created via the `bbcsd init` command above.
 
 For more information on `gentx`, use the following command:
 
 ```bash
-evmosd gentx --help
+bbcd gentx --help
 ```
 
 ### Collecting `gentx`
@@ -154,23 +154,23 @@ A `gentx` can be added manually to the genesis file, or via the following comman
 
 ```bash
 # Add the gentx to the genesis file
-evmosd collect-gentxs
+bbcsd collect-gentxs
 ```
 
-This command will add all the `gentxs` stored in `~/.evmosd/config/gentx` to the genesis file.
+This command will add all the `gentxs` stored in `~/.bbcd/config/gentx` to the genesis file.
 
 ### Run Single Node
 
 Finally, check the correctness of the `genesis.json` file:
 
 ```bash
-evmosd validate-genesis
+bbcd validate-genesis
 ```
 
 Now that everything is set up, you can finally start your node:
 
 ```bash
-evmosd start
+bbcd start
 ```
 
 :::tip
@@ -188,46 +188,46 @@ You can then stop the node using `Ctrl+C`.
 
 ### Key Management
 
-To run a node with the same key every time: replace `evmosd keys add $KEY` in `./local_node.sh` with:
+To run a node with the same key every time: replace `bbcd keys add $KEY` in `./local_node.sh` with:
 
 ```bash
-echo "your mnemonic here" | evmosd keys add $KEY --recover
+echo "your mnemonic here" | bbcd keys add $KEY --recover
 ```
 
 :::tip
-Evmos currently only supports 24 word mnemonics.
+bbc currently only supports 24 word mnemonics.
 :::
 
 You can generate a new key/mnemonic with:
 
 ```bash
-evmosd keys add $KEY
+bbcd keys add $KEY
 ```
 
-To export your Evmos key as an Ethereum private key (for use with [Metamask](./../../../use/connect-your-wallet/metamask)
+To export your bbc key as an Ethereum private key (for use with [Metamask](./../../../use/connect-your-wallet/metamask)
 for example):
 
 ```bash
-evmosd keys unsafe-export-eth-key $KEY
+bbcd keys unsafe-export-eth-key $KEY
 ```
 
 For more about the available key commands, use the `--help` flag
 
 ```bash
-evmosd keys -h
+bbcd keys -h
 ```
 
 ### Keyring backend options
 
 The instructions above include commands to use `test` as the `keyring-backend`. This is an unsecured
 keyring that doesn't require entering a password and should not be used in production. Otherwise,
-Evmos supports using a file or OS keyring backend for key storage. To create and use a file
+butane supports using a file or OS keyring backend for key storage. To create and use a file
 stored key instead of defaulting to the OS keyring, add the flag `--keyring-backend file` to any
 relevant command and the password prompt will occur through the command line. This can also be saved
 as a CLI config option with:
 
 ```bash
-evmosd config keyring-backend file
+bbcd config keyring-backend file
 ```
 
 :::tip
@@ -253,7 +253,7 @@ evmosd start --evm.tracer $TRACER --tracestore $TRACESTORE --pruning=nothing $TR
 Alternatively, you can **reset** the blockchain database, remove the node's address book files, and reset the `priv_validator.json` to the genesis state.
 
 :::danger
-If you are running a **validator node**, always be careful when doing `evmosd unsafe-reset-all`. You should never use
+If you are running a **validator node**, always be careful when doing `bbcd unsafe-reset-all`. You should never use
 this command if you are not switching `chain-id`.
 :::
 
@@ -265,8 +265,8 @@ from an old node to multiple new nodes. Running two nodes with the same `priv_va
 First, remove the outdated files and reset the data.
 
 ```bash
-rm $HOME/.evmosd/config/addrbook.json $HOME/.evmosd/config/genesis.json
-evmosd tendermint unsafe-reset-all --home $HOME/.evmosd
+rm $HOME/.bbcd/config/addrbook.json $HOME/.bbcd/config/genesis.json
+bbcd tendermint unsafe-reset-all --home $HOME/.bbcd
 ```
 
 Your node is now in a pristine state while keeping the original `priv_validator.json` and `config.toml`.
@@ -282,7 +282,7 @@ Data for the <ProjectValue keyword="binary" /> binary should be stored at <Highl
 respectively by default. To **delete** the existing binaries and configuration, run:
 
 ```bash
-rm -rf ~/.evmosd
+rm -rf ~/.bbcd
 ```
 
 To clear all data except key storage (if keyring backend chosen) and then you can rerun the full node installation
@@ -299,10 +299,10 @@ global:
 scrape_interval: 10s
 
 external_labels:
-  monitor: 'evmos'
+  monitor: 'butane'
 
 scrape_configs:
-- job_name: 'evmos'
+- job_name: 'butane'
 
   scrape_interval: 10s
 

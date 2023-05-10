@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 ---
-# Overview
+# 🔥 Overview
 
 ## Validating on Evmos
 

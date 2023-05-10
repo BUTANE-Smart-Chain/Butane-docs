@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Security Overview
 
-The [Security Policy on Butane](https://github.com/Butane/Butane/security/policy)
+The [Security Policy on Butane](https://github.com/BUTANE-Smart-Chain)
 includes a vulnerability disclosure policy and guidelines for
 reporting vulnerabilities in the Butane ecosystem.
 It explains the process for reporting and disclosing vulnerabilities through
@@ -23,8 +23,8 @@ The payment process for reported vulnerabilities is also outlined
 and instructions for contacting the Butane Security Team are provided.
 For more information, visit the Security Policy documentation sites:
 
-* [Butane Security Policy](https://github.com/Butane/Butane/security/policy)
-* [Ethermint Security Policy](https://github.com/Butane/ethermint/security/policy)
+* [Butane Security Policy](https://github.com/BUTANE-Smart-Chain)
+* [Ethermint Security Policy](https://github.com/BUTANE-Smart-Chain)
 
 Additionally, Butane has a [Simple Arrangement for Funding Upload (SAFU)](./safu.md).
 The SAFU is a simple yet extensible way to specify

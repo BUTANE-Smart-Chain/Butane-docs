@@ -3,7 +3,7 @@ sidebar_position: 3
 slug: '/transfer'
 ---
 
-# Transfer Tokens
+# ↔️ Transfer Tokens
 
 Once connected to the Evmos network, you can use your wallet to transfer tokens peer-to-peer without the need for a bank or an intermediary payment service. This gives you full ownership of your assets but also full responsibility for safekeeping your passwords.
 

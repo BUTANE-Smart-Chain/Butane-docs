@@ -6,12 +6,12 @@ sidebar_position: 5
 
 ## CLI Flags
 
-A list of commonly used flags of `evmosd` is listed below:
+A list of commonly used flags of `bbcd` is listed below:
 
 | Option              | Description                                   | Type            | Default Value              |
 |---------------------|-----------------------------------------------|-----------------|----------------------------|
 | `--chain-id`        | Full Chain ID                                 | `string`        | `""`                       |
-| `--home`            | Directory for config and data                 | `string`        | `~/.evmosd`                |
+| `--home`            | Directory for config and data                 | `string`        | `~/.bbcd`                |
 | `--keyring-backend` | Select keyring's backend                      | `string`        | `"os"`                     |
 | `--output`          | Output format                                 | `string`        | `"text"`                   |
 | `--node`            | Tendermint RPC interface                      | `<host>:<port>` | `"tcp://localhost:26657"`  |
@@ -19,7 +19,7 @@ A list of commonly used flags of `evmosd` is listed below:
 
 ## Command list
 
-A list of commonly used `evmosd` commands. You can obtain the full list by using the `evmosd -h` command.
+A list of commonly used `bbcd` commands. You can obtain the full list by using the `bbcd -h` command.
 
 | Command              | Description                   | Subcommands (example)                                                     |
 |----------------------|-------------------------------|---------------------------------------------------------------------------|
@@ -30,6 +30,6 @@ A list of commonly used `evmosd` commands. You can obtain the full list by using
 | `config`             | Client configuration          |                                                                           |
 | `init`               | Initialize full node          |                                                                           |
 | `start`              | Run full node                 |                                                                           |
-| `version`            | Evmos version                 |                                                                           |
+| `version`            | bbc version                 |                                                                           |
 | `validate-genesis`   | Validates the genesis file    |                                                                           |
 | `status`             | Query remote node for status  |                                                                           |

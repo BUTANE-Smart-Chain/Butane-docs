@@ -9,9 +9,9 @@ that consists of a 4-node local chain.
 This setup can be useful for developers to test their applications and
 protocol features on a multi-node setup.
 
-A similar setup is used by the Evmos team to get insights
+A similar setup is used by the Butane team to get insights
 about the impact of new features and testing different user flows.
-This testing setup can be found on the [Evmos testing repository](https://github.com/evmos/testing).
+This testing setup can be found on the [Butane testing repository](https://github.com/BUTANE-Smart-Chain).
 
 ### Build & Start
 
@@ -21,15 +21,15 @@ To build start a 4 node testnet using [docker](https://docs.docker.com/engine/in
 make localnet-start
 ```
 
-This command creates a 4-node network using the `evmosdnode` Docker image.
+This command creates a 4-node network using the `bbcdnode` Docker image.
 The ports for each node are found in this table:
 
 | Node ID      | P2P Port | Tendermint RPC Port | REST/ Ethereum JSON-RPC Port | WebSocket Port |
 | ------------ | -------- | ------------------- | ---------------------------- | -------------- |
-| `evmosnode0` | `26656`  | `26657`             | `8545`                       | `8546`         |
-| `evmosnode1` | `26659`  | `26660`             | `8547`                       | `8548`         |
-| `evmosnode2` | `26661`  | `26662`             | `8549`                       | `8550`         |
-| `evmosnode3` | `26663`  | `26664`             | `8551`                       | `8552`         |
+| `bbcnode0` | `26656`  | `26657`             | `8545`                       | `8546`         |
+| `bbcnode1` | `26659`  | `26660`             | `8547`                       | `8548`         |
+| `bbcnode2` | `26661`  | `26662`             | `8549`                       | `8550`         |
+| `bbcnode3` | `26663`  | `26664`             | `8551`                       | `8552`         |
 
 To update the binary, just rebuild it and restart the nodes
 
@@ -41,11 +41,11 @@ The command above  command will run containers in the background using Docker co
 
 ```bash
 ...
-Creating network "evmos_localnet" with driver "bridge"
-Creating evmosdnode0 ... done
-Creating evmosdnode2 ... done
-Creating evmosdnode1 ... done
-Creating evmosdnode3 ... done
+Creating network "bbc_localnet" with driver "bridge"
+Creating bbcdnode0 ... done
+Creating bbcdnode2 ... done
+Creating bbcdnode1 ... done
+Creating bbcdnode3 ... done
 ```
 
 ### Stop Localnet
@@ -59,55 +59,55 @@ make localnet-stop
 ### Configuration
 
 The `make localnet-start` creates files for a 4-node testnet in `./build` by
-calling the `evmosd testnet` command. This outputs a handful of files in the
+calling the `bbcd testnet` command. This outputs a handful of files in the
 `./build` directory:
 
 ```bash
 tree -L 3 build/
 
 build/
-├── evmosd
-├── evmosd
+├── bbcd
+├── bbcd
 ├── gentxs
 │   ├── node0.json
 │   ├── node1.json
 │   ├── node2.json
 │   └── node3.json
 ├── node0
-│   ├── evmosd
+│   ├── bbcd
 │   │   ├── key_seed.json
 │   │   └── keyring-test-cosmos
-│   └── evmosd
+│   └── bbcd
 │       ├── config
 │       ├── data
-│       └── evmosd.log
+│       └── bbcd.log
 ├── node1
-│   ├── evmosd
+│   ├── bbcd
 │   │   ├── key_seed.json
 │   │   └── keyring-test-cosmos
-│   └── evmosd
+│   └── bbcd
 │       ├── config
 │       ├── data
-│       └── evmosd.log
+│       └── bbcd.log
 ├── node2
-│   ├── evmosd
+│   ├── bbcd
 │   │   ├── key_seed.json
 │   │   └── keyring-test-cosmos
-│   └── evmosd
+│   └── bbcd
 │       ├── config
 │       ├── data
-│       └── evmosd.log
+│       └── bbcd.log
 └── node3
-├── evmosd
+├── bbcd
 │   ├── key_seed.json
 │   └── keyring-test-cosmos
-└── evmosd
+└── bbcd
     ├── config
     ├── data
-    └── evmosd.log
+    └── bbcd.log
 ```
 
-Each `./build/nodeN` directory is mounted to the `/evmosd` directory in each container.
+Each `./build/nodeN` directory is mounted to the `/bbcd` directory in each container.
 
 ### Logging
 
@@ -115,10 +115,10 @@ In order to see the logs of a particular node you can use the following command:
 
 ```bash
 # node 0: daemon logs
-docker exec evmosdnode0 tail evmosd.log
+docker exec bbcdnode0 tail bbcd.log
 
 # node 0: REST & RPC logs
-docker exec evmosdnode0 tail evmosd.log
+docker exec bbcdnode0 tail bbcd.log
 ```
 
 The logs for the daemon will look like:
@@ -156,7 +156,7 @@ You can also watch logs as they are produced via Docker with the `--follow` (`-f
 example:
 
 ```bash
-docker logs -f evmosdnode0
+docker logs -f bbcdnode0
 ```
 
 ### Interact with the Localnet
@@ -184,19 +184,19 @@ Additional instructions on how to interact with the WebSocket can be found on th
 
 ### Keys & Accounts
 
-To interact with `evmosd` and start querying state or creating txs, you use the
-`evmosd` directory of any given node as your `home`, for example:
+To interact with `bbcd` and start querying state or creating txs, you use the
+`bbcd` directory of any given node as your `home`, for example:
 
 ```bash
-evmosd keys list --home ./build/node0/evmosd
+bbcd keys list --home ./build/node0/bbcd
 ```
 
 Now that accounts exists, you may create new accounts and send those accounts
 funds!
 
 :::tip
-**Note**: Each node's seed is located at `./build/nodeN/evmosd/key_seed.json` and can be restored to the CLI using the
-`evmosd keys add --restore` command
+**Note**: Each node's seed is located at `./build/nodeN/bbcd/key_seed.json` and can be restored to the CLI using the
+`bbcd keys add --restore` command
 :::
 
 ### Special Binaries
@@ -206,5 +206,5 @@ variable. The path of the binary is relative to the attached volume. For example
 
 ```bash
 # Run with custom binary
-BINARY=evmos make localnet-start
+BINARY=bbc make localnet-start
 ```

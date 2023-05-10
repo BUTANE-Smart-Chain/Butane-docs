@@ -2,7 +2,7 @@
 sidebar_position: 6
 ---
 
-# Run an IBC Relayer
+# 💨 Run an IBC Relayer
 
 ## What is an IBC Relayer?
 
