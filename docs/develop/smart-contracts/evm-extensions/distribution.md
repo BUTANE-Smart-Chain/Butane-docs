@@ -13,11 +13,11 @@ they can interact with staking functions using the Ethereum interface they are f
 
 ### Interface `Distribution.sol`
 
-Find the [Solidity interface in the evmos/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/stateful/Distribution.sol).
+
 
 ### ABI
 
-Find the [ABI in the Butane/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/abi/distribution.json).
+
 
 ## Transactions
 

@@ -2,7 +2,7 @@
 
 Stateful EVM Extensions on the core protocol allow dApps and users to access logic outside of the EVM.
 Acting as a gateway, these EVM Extensions define how smart contracts can perform cross-chain transactions
-(via IBC) and interact with core functionalities on the Evmos chain (e.g. staking, voting) from the EVM.
+(via IBC) and interact with core functionalities on the Butane chain (e.g. staking, voting) from the EVM.
 
 :::tip
 **Note**: Not sure what EVM extensions are?

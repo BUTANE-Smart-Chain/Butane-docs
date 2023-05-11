@@ -15,11 +15,10 @@ to allow users to approve the corresponding messages and amounts if needed.
 
 ### `Authorization.sol`
 
-Find the [Solidity interface in the evmos/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/common/Authorization.sol).
 
 ### `GenericAuthorization.sol`
 
-Find the [Solidity interface in the evmos/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/common/GenericAuthorization.sol).
+
 
 ## Transactions
 
