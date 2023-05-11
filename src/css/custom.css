@@ -294,6 +294,7 @@ ul {
   box-shadow: 0 8px 15px 2px rgb(246, 243, 243);
 }
 
+
 .card a {
   text-decoration: none;
 }
@@ -333,5 +334,11 @@ article a[href^="http"]::after {
 }
 
 .footer {
+  margin-top: 2rem;
   background-color: var(--ifm-color-primary);
+  border-radius: 20px;
+  padding: 1rem;
+  margin-top: 2rem;
+  color: var(--ifm-color-white);
+
 }
