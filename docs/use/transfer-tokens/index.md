@@ -7,7 +7,7 @@ slug: '/transfer'
 
 Once connected to the Butane network, you can use your wallet to transfer tokens peer-to-peer without the need for a bank or an intermediary payment service. This gives you full ownership of your assets but also full responsibility for safekeeping your passwords.
 
-Using either your wallet directly or connecting it to a dApp like the [Butane Assets page](https://app.Butane.org/assets), gives you access to view your token balances, transfer tokens on the Butane network, or deposit & withdraw tokens from & to other blockchain networks.
+Using either your wallet directly or connecting it to a dApp like the  gives you access to view your token balances, transfer tokens on the Butane network, or deposit & withdraw tokens from & to other blockchain networks.
 
 ## View Balances
 
