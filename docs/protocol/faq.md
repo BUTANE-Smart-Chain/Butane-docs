@@ -2,7 +2,6 @@
 
 ## Concepts
 
-![My Image](images/Group.png)
 
 <details>
 
@@ -31,6 +30,7 @@ of security and performance, and you can afford to sacrifice some compatibility,
 
 </details>
 
+![My Image](images/Group.png)
 
 <details>
 

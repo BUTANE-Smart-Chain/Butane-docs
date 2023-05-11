@@ -216,6 +216,10 @@ const config = {
                 href: 'https://discord.gg/zk4t92b9MX',
               },
               {
+                label: 'Discord Developers',
+                href: 'https://discord.gg/je3pBf2h',
+              },
+              {
                 label: 'Twitter',
                 href: 'https://twitter.com/Butane_Network',
               },

@@ -4,7 +4,6 @@ sidebar_position: 0
 
 #  Technical Architecture
 
-![My Image](images/Group.png)
 
 Butane is a scalable Delgated Proof-of-Stake blockchain that is fully compatible and
 interoperable with the Ethereum Virtual Machine (EVM). It is built using the [Butane SDK](https://github.com/Butane/Butane-sdk/)

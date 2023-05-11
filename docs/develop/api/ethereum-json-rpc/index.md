@@ -6,7 +6,7 @@ sidebar_position: 1
 
 The JSON-PRC Server provides an API that allows you to connect to the Butane blockchain and interact with the EVM. This
 gives you direct access to reading Ethereum-formatted transactions or sending them to the network which otherwise
-wouldn't be possible on a Cosmos chain, such as Butane.
+wouldn't be possible on a butane chain, such as Butane.
 
 [JSON-RPC](http://www.jsonrpc.org/specification) is a stateless, light-weight remote procedure call (RPC) protocol. It
 defines several data structures and the rules around their processing. JSON-RPC is provided on multiple transports.
@@ -69,16 +69,14 @@ Then you can check if the state changes with the [`eth_getFilterChanges`](https:
 ```bash
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterChanges","params":["0x3503de5f0c766c68f78a03a3b05036a5"],"id":1}' -H "Content-Type: application/json" http://localhost:8545
 
-{"jsonrpc":"2.0","id":1,"result":["0x7d44dceff05d5963b5bc81df7e9f79b27e777b0a03a6feca09f3447b99c6fa71","0x3961e4050c27ce0145d375255b3cb829a5b4e795ac475c05a219b3733723d376","0xd7a497f95167d63e6feca70f344d9f6e843d097b62729b8f43bdcd5febf142ab","0x55d80a4ba6ef54f2a8c0b99589d017b810ed13a1fda6a111e1b87725bc8ceb0e","0x9e8b92c17280dd05f2562af6eea3285181c562ebf41fc758527d4c30364bcbc4","0x7353a4b9d6b35c9eafeccaf9722dd293c46ae2ffd4093b2367165c3620a0c7c9","0x026d91bda61c8789c59632c349b38fd7e7557e6b598b94879654a644cfa75f30","0x73e3245d4ddc3bba48fa67633f9993c6e11728a36401fa1206437f8be94ef1d3"]}
-```
+
 
 ### Ethereum Websocket
 
 The Ethereum Websocket allows you to subscribe to Ethereum logs and events emitted in smart contracts. This way you
 don't need to continuously make requests when you want specific information.
 
-Since Butane is built with the Cosmos SDK framework and uses Tendermint Core as it's consensus Engine, it inherits the
-[event format](./tendermint-rpc#subscribing-to-cosmos-and-tendermint-events) from them. However, in order to support the
+
 native Web3 compatibility for websockets of the [Ethereum's PubSubAPI](https://geth.ethereum.org/docs/interacting-with-geth/rpc/pubsub),
 Butane needs to cast the Tendermint
 responses retrieved into the Ethereum types.

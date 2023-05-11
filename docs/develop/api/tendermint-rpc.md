@@ -30,7 +30,7 @@ of supported Tendermint RPC endpoints using Swagger [here](../api#clients).
 
 ## RPC/Websocket
 
-### Cosmos and Tendermint Events
+### Butaneand Tendermint Events
 
 `Event`s are objects that contain information about the execution of the application
 and are triggered after a block is committed. They are mainly used by service providers
@@ -39,7 +39,7 @@ You can get the full list of `event` categories and values [here](#list-of-tende
 
 More on Events:
 
-- [Cosmos SDK Events](https://docs.cosmos.network/main/core/events.html)
+- [ButaneSDK Events](https://docs.cosmos.network/main/core/events.html)
 
 ### Subscribing to Events via Websocket
 
@@ -98,7 +98,7 @@ The main events you can subscribe to are:
 - `ValidatorSetUpdates`: Contains validator set updates for the block.
 
 :::tip
-👉 The list of events types and values for each Cosmos SDK module can be found in the [Modules Specification](./../../../../protocol/modules/) section.
+👉 The list of events types and values for each ButaneSDK module can be found in the [Modules Specification](./../../../../protocol/modules/) section.
 Check the `Events` page to obtain the event list of each supported module on Evmos.
 :::
 
@@ -170,7 +170,7 @@ Example response:
 ```
 
 :::tip
-**Note:** When querying Ethereum transactions versus Cosmos transactions, the transaction hashes are different.
+**Note:** When querying Ethereum transactions versus Butanetransactions, the transaction hashes are different.
 When querying Ethereum transactions, users need to use event query.
 Here's an example with the CLI:
 

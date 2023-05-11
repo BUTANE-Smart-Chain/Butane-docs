@@ -13,11 +13,11 @@ they can interact with staking functions using the Ethereum interface they are f
 
 ### Interface `Staking.sol`
 
-Find the [Solidity interface in the Butane/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/stateful/Staking.sol).
+Coming soon
 
 ### ABI
 
-Find the [ABI in the Butane/extensions repo](https://github.com/evmos/extensions/blob/main/precompiles/abi/staking.json).
+Coming Soon
 
 ## Transactions
 
@@ -219,9 +219,7 @@ Below are some examples of how to interact with this Solidity interface from you
 
 Make sure to import the precompiled interface, e.g.:
 
-```solidity
-import "https://github.com/evmos/extensions/blob/main/precompiles/stateful/Staking.sol";
-```
+
 
 ### Grant approval for the desired messages
 

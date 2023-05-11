@@ -249,9 +249,7 @@ Below are some examples of how to interact with this Solidity interface from you
 
 Make sure to import the precompiled interface, e.g.:
 
-```solidity
-import "https://github.com/evmos/extensions/blob/main/precompiles/stateful/Distribution.sol";
-```
+
 
 ### Grant approval for the desired messages
 

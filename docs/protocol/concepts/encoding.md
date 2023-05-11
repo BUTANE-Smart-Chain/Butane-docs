@@ -24,9 +24,9 @@ and for some cases where there should be support for efficient encoding of the m
 Ethereum execution layer uses RLP as the primary encoding method to serialize objects, but the newer Simple
 Serialize (SSZ) replaces RLP as the encoding for the new consensus layer in Ethereum 2.0.
 
-The Cosmos Stargate release introduces protobuf as the main encoding format for both client and state serialization.
+The butane Stargate release introduces protobuf as the main encoding format for both client and state serialization.
 All the EVM module types that are used for state and clients, such as transaction messages, genesis, query services,
-etc., will be implemented as protocol buffer messages. The Cosmos SDK also supports the legacy Amino encoding.
+etc., will be implemented as protocol buffer messages. The butane SDK also supports the legacy Amino encoding.
 Protocol Buffers (protobuf) is a language-agnostic binary serialization format that is smaller and faster than JSON.
 It is used to serialize structured data, such as messages, and is designed to be highly efficient and extensible. The
 encoding format is defined in a language-agnostic language called Protocol Buffers Language (proto3), and the encoded
@@ -37,23 +37,23 @@ of the actual data and offset; according to the type and offset of data, decode 
 
 ## Prerequisite Readings
 
-- [Cosmos SDK Encoding](https://docs.cosmos.network/main/core/encoding.html)
+- [butane SDK Encoding](https://docs.butane.network/main/core/encoding.html)
 - [Ethereum RLP](https://eth.wiki/en/fundamentals/rlp)
 
 ## Encoding Formats
 
 ### Protocol Buffers
 
-The Cosmos [Stargate](https://stargate.cosmos.network/) release introduces
+The butane [Stargate](https://stargate.butane.network/) release introduces
 [protobuf](https://developers.google.com/protocol-buffers) as the main encoding format for both
 client and state serialization. All the EVM module types that are used for state and clients
 (transaction messages, genesis, query services, etc) will be implemented as protocol buffer messages.
 
 ### Amino
 
-The Cosmos SDK also supports the legacy Amino encoding format for backwards compatibility with
+The butane SDK also supports the legacy Amino encoding format for backwards compatibility with
 previous versions, specially for client encoding and signing with Ledger devices. Evmos does not
-support Amino in the EVM module, but it is supported for all other Cosmos SDK modules that enable it.
+support Amino in the EVM module, but it is supported for all other butane SDK modules that enable it.
 
 ### RLP
 

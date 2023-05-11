@@ -23,7 +23,7 @@ In a nutshell, the transaction lifecycle once a signed transaction is submitted 
 - The transaction is broadcasted to the network and added to a transaction pool consisting of all other pending network transactions.
 - A validator must pick your transaction and include it in a block in order to verify the transaction and consider it "successful".
 
-For a more detailed explanation of the transaction lifecyle, see [the corresponding section](https://docs.cosmos.network/main/basics/tx-lifecycle).
+
 
 The transaction hash is a unique identifier and can be used to check transaction information,
 for example, the events emitted, if was successful or not.
@@ -43,37 +43,35 @@ Find a more detailed explanation on the section below.
 
 ## Transaction Types
 
-Evmos supports two transaction types:
+Butane supports two transaction types:
 
-1. Cosmos transactions
+1. Butane transactions
 2. Ethereum transactions
 
-This is possible because Evmos uses the [Cosmos-SDK](https://docs.cosmos.network/main)
 and implements the [Ethereum Virtual Machine](https://ethereum.org/en/developers/docs/evm/) as a module.
-In this way, Evmos provides the features and functionalities of Ethereum and Cosmos chains combined, and more.
+In this way, Butane provides the features and functionalities of Ethereum and Butane chains combined, and more.
 
 Although most of the information included on both of these transaction types is similar,
 there are differences among them.
-An important difference, is that Cosmos transactions allow multiple messages on the same transaction.
+An important difference, is that Butane transactions allow multiple messages on the same transaction.
 Conversely, Ethereum transactions don't have this possibility.
-To bring these two types together, Evmos implements Ethereum transactions as a single [`sdk.Msg`](https://godoc.org/github.com/cosmos/cosmos-sdk/types#Msg)
-contained in an [`auth.StdTx`](https://pkg.go.dev/github.com/cosmos/cosmos-sdk/x/auth#StdTx).
+To bring these two types together, Butane implements Ethereum transactions as a single 
 All relevant Ethereum transaction information is contained in this message.
 This includes the signature, gas, payload, etc.
 
 Find more information about these two types on the following sections.
 
-### Cosmos Transactions
+### Butane Transactions
 
-On Cosmos chains, transactions are comprised of metadata held in contexts and `sdk.Msg`s
-that trigger state changes within a module through the module's Protobuf [Msg service](https://docs.cosmos.network/main/building-modules/msg-services).
+On Butane chains, transactions are comprised of metadata held in contexts and `sdk.Msg`s
+that trigger state changes within a module through the module's Protobuf 
 
 When users want to interact with an application and make state changes (e.g. sending coins), they create transactions.
-Cosmos transactions can have multiple `sdk.Msg`s.
+Butane transactions can have multiple `sdk.Msg`s.
 Each of these must be signed using the private key associated with the appropriate account(s),
 before the transaction is broadcasted to the network.
 
-A Cosmos transaction includes the following information:
+A Butane transaction includes the following information:
 
 - `Msgs`: an array of msgs (`sdk.Msg`)
 - `GasLimit`: option chosen by the users for how to calculate how much gas they will need to pay
@@ -82,7 +80,7 @@ A Cosmos transaction includes the following information:
 - `Signatures`: array of signatures from all signers of the tx
 - `Memo`: a note or comment to send with the transaction
 
-To submit a Cosmos transaction, users must use one of the provided clients.
+To submit a Butane transaction, users must use one of the provided clients.
 
 ### Ethereum Transactions
 
@@ -114,7 +112,7 @@ An Ethereum transaction includes the following information:
 
 For more information on Ethereum transactions and the transaction lifecycle, [go here](https://ethereum.org/en/developers/docs/transactions/).
 
-Evmos supports the following Ethereum transactions.
+Butane supports the following Ethereum transactions.
 
 :::tip
 **Note**: Unprotected legacy transactions are not supported by default.
@@ -124,19 +122,19 @@ Evmos supports the following Ethereum transactions.
 - Access List Transactions ([EIP-2930](https://eips.ethereum.org/EIPS/eip-2930))
 - Legacy Transactions ([EIP-2718](https://eips.ethereum.org/EIPS/eip-2718))
 
-Evmos is capable of processing Ethereum transactions by wrapping them on a `sdk.Msg`.
-Evmos achieves this by using the `MsgEthereumTx`.
+Butane is capable of processing Ethereum transactions by wrapping them on a `sdk.Msg`.
+Butane achieves this by using the `MsgEthereumTx`.
 This message encapsulates an Ethereum transaction as an SDK message and contains the necessary transaction data fields.
 
 One remark about the `MsgEthereumTx` is that it implements both the `sdk.Msg` and `sdk.Tx` interfaces
 (generally SDK messages only implement the former, while the latter is a group of messages bundled together).
 The reason of this, is because the `MsgEthereumTx` must not be included in a `auth.StdTx`
 (SDK's standard transaction type) as it performs gas and fee checks using the Ethereum logic
-from Geth instead of the Cosmos SDK checks done on the auth module `AnteHandler`.
+from Geth instead of the Butane SDK checks done on the auth module `AnteHandler`.
 
 #### Ethereum Tx Type
 
-There are three types of transaction types used in Evmos's [Go Ethereum](https://github.com/ethereum/go-ethereum/blob/b946b7a13b749c99979e312c83dce34cac8dd7b1/core/types/transaction.go#L43-L48)
+There are three types of transaction types used in Butane's [Go Ethereum](https://github.com/ethereum/go-ethereum/blob/b946b7a13b749c99979e312c83dce34cac8dd7b1/core/types/transaction.go#L43-L48)
 implementation that came from Ethereum Improvement Proposals(EIPs):
 
 1. LegacyTxType (EIP-155):

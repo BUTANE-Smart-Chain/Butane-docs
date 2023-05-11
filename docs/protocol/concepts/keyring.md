@@ -20,21 +20,21 @@ You can use the following commands for help with the `keys` command and for more
 respectively:
 
 ```bash
-evmosd keys
+butaned keys
 ```
 
 ```bash
-evmosd keys [command] --help
+butaned keys [command] --help
 ```
 
 To create a new key in the keyring, run the `add` subcommand with a `<key_name>` argument. You will have to provide a password
 for the newly generated key. This key will be used in the next section.
 
 ```bash
-evmosd keys add dev0
+butaned keys add dev0
 
 # Put the generated address in a variable for later use.
-MY_VALIDATOR_ADDRESS=$(evmosd keys show dev0 -a)
+MY_VALIDATOR_ADDRESS=$(butaned keys show dev0 -a)
 ```
 
 This command generates a new 24-word mnemonic phrase, persists it to the relevant backend, and outputs information about
@@ -50,7 +50,7 @@ by passing the `--algo` flag. A keyring can of course hold both types of keys si
 :::
 
 :::warning
-**NOTE**: Cosmos `secp256k1` keys are not supported on Evmos due to compatibility issues with Ethereum transactions.
+**NOTE**: Cosmos `secp256k1` keys are not supported on butane due to compatibility issues with Ethereum transactions.
 :::
 
 ## Keyring Backends
@@ -92,10 +92,10 @@ for multiple prompts:
 
 ```bash
 # assuming that KEYPASSWD is set in the environment
-yes $KEYPASSWD | evmosd keys add me
-yes $KEYPASSWD | evmosd keys show me
-# start evmosd with keyring-backend flag
-evmosd --keyring-backend=file start
+yes $KEYPASSWD | butaned keys add me
+yes $KEYPASSWD | butaned keys show me
+# start butaned with keyring-backend flag
+butaned --keyring-backend=file start
 ```
 
 :::tip

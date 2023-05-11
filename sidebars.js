@@ -42,6 +42,11 @@ const sidebars = {
         },
         {
           type: 'link',
+          label: 'Discord Developer',
+          href: 'https://discord.gg/je3pBf2h',
+        },
+        {
+          type: 'link',
           label: 'Medium',
           href: 'https://medium.com/@butanegas101',
         },

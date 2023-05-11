@@ -17,9 +17,6 @@ the smart contract by using its address and ABI. They also need to be able to re
 provider and write data to it with a signer. They need to choose the right network for the smart contract and ensure
 that the wallet is on the same network.
 
- To develop dApps, it is essential to know how to interact with blockchain programmatically and understand the software
-development aspect of it. Some applications build to leverage the Evmos Network involves
-[Orbital Apes](https://www.orbitalapes.com), [SpaceFi](https://app.spacefi.io/#/home), and [more](https://evmos.org/ecosystem).
 
 ## Indexers
 
@@ -45,4 +42,4 @@ the wallet type of the user, create the transaction, request signatures from the
 
 - Leverage Keplr, Metamask, Ledger, WalletConnect and more with Evmos. The latest wallets are located [here](./../../../use/wallet).
 
-- Head over to our [Evmos Client Integrations](./../../develop/tools/client-integrations) to leverage our Typescript or Python libraries.
+- Head over to our [Butane Client Integrations](./../../develop/tools/client-integrations) to leverage our Typescript or Python libraries.

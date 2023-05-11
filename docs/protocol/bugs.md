@@ -2,7 +2,7 @@
 sidebar_position: 5
 ---
 
-# Bugs
+# 🐛 Bugs
 
 ![My Image](images/Group.png)
 
