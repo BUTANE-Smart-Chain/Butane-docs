@@ -48,7 +48,7 @@ function Home() {
                 }}
                 body={{
                   label:
-                    "Join Butane's Proof-of-Stake protocol to help secure the network and earn rewards",
+                    "Join Butane's Delegated Proof-of-Stake protocol to help secure the network and earn rewards",
                 }}
               />
 
