@@ -15,13 +15,7 @@ to signing, address converter (between `eth` and `Butane` addresses), and `EIP-7
 library bindings, in Javascript/Typescript and Python.
 
 - [ButaneJS](https://github.com/orgs/BUTANE-Smart-Chain) - is the official Butane client Typescript library. This library contains
- several packages:
-    - [Address Converter](https://www.npmjs.com/package/@evmos/address-converter)
-    - [EIP-712](https://www.npmjs.com/package/@evmos/eip712)
-    - [Proto](https://www.npmjs.com/package/@evmos/proto)
-    - [Provider](https://www.npmjs.com/package/@evmos/provider)
-    - [Transactions](https://www.npmjs.com/package/@evmos/transactions)
-- [Pybute](https://github.com/sterliakov/pyevmos) - is a community-led Python library developed by [sterliakov](https://github.com/sterliakov)
+ 
 
 ## Ethereum Client Integrations
 
