@@ -2,17 +2,17 @@
 
 ## Abstract
 
-This document specifies the internal `x/revenue` module of the Evmos Hub.
+This document specifies the internal `x/revenue` module of the Butane Hub.
 
-The `x/revenue` module enables the Evmos Hub to support splitting transaction fees
+The `x/revenue` module enables the Butane Hub to support splitting transaction fees
 between block proposer and smart contract deployers.
-As a part of the [Evmos Token Model](https://evmos.blog/the-evmos-token-model-edc07014978b),
-this mechanism aims to increase the adoption of the Evmos Hub
+As a part of the,
+this mechanism aims to increase the adoption of the Butane Hub
 by offering a new stable source of income for smart contract deployers.
 Developers can register their smart contracts and everytime someone interacts with a registered smart contract,
 the contract deployer or their assigned withdrawal account receives a part of the transaction fees.
 
-Together, all registered smart contracts make up the Evmos dApp Store:
+Together, all registered smart contracts make up the Butane dApp Store:
 paying developers and network operators for their services via built-in shared fee revenue model.
 
 ## Contents
@@ -29,10 +29,10 @@ paying developers and network operators for their services via built-in shared f
 
 ## Concepts
 
-### Evmos dApp Store
+### Butane dApp Store
 
-The Evmos dApp store is a revenue-per-transaction model, which allows developers
-to get payed for deploying their decentralized application (dApps) on Evmos.
+The Butane dApp store is a revenue-per-transaction model, which allows developers
+to get payed for deploying their decentralized application (dApps) on Butane.
 Developers generate revenue, every time a user interacts with their dApp in the dApp store, gaining them a steady income.
 Users can discover new applications in the dApp store and pay for the transaction fees that finance the dApp's revenue.
 This value-reward exchange of dApp services for transaction fees is implemented by the `x/revenue` module.
@@ -59,7 +59,7 @@ As described above, developers will earn a portion of the transaction fee after 
 To understand how transaction fees are distributed, we look at the following two things in detail:
 
 * The transactions eligible are only [EVM transactions](evm.md) (`MsgEthereumTx`).
-  Cosmos SDK transactions are not eligible at this time.
+  Butane SDK transactions are not eligible at this time.
 * The registration of factory contracts (smart contracts that have been deployed by other contracts)
   requires the identification original contract's deployer.
   This is done through address derivation.
@@ -69,7 +69,7 @@ To understand how transaction fees are distributed, we look at the following two
 Users pay transaction fees to pay interact with smart contracts using the EVM.
 When a transaction is executed, the entire fee amount (`gasLimit * gasPrice`)
 is sent to the `FeeCollector` module account
-during the [Cosmos SDK AnteHandler](https://docs.cosmos.network/main/modules/auth#antehandlers) execution.
+during the [Butane SDK AnteHandler](https://docs.Butane.network/main/modules/auth#antehandlers) execution.
 After the EVM executes the transaction, the user receives a refund of `(gasLimit - gasUsed) * gasPrice`.
 In result a user pays a total transaction fee of `txFee = gasUsed * gasPrice` for the execution.
 
@@ -332,11 +332,11 @@ to the withdraw address set for that contract, or to the contract deployer.
     devFees := receipt.GasUsed * msg.GasPrice * params.DeveloperShares
     ```
 
-4. Transfer developer fee from the `FeeCollector` (Cosmos SDK `auth` module account)
+4. Transfer developer fee from the `FeeCollector` (Butane SDK `auth` module account)
    to the registered withdraw address for that contract.
    If there is no withdraw address, fees are sent to contract deployer's address.
 5. Distribute the remaining amount in the `FeeCollector` to validators according to the
-   [SDK  Distribution Scheme](https://docs.cosmos.network/main/modules/distribution#the-distribution-scheme).
+  
 
 
 ## Events
@@ -399,12 +399,12 @@ for deriving the smart contract address from the deployer's address.
 
 ### CLI
 
-Find below a list of  `evmosd` commands added with the  `x/revenue` module.
-You can obtain the full list by using the `evmosd -h` command.
+Find below a list of  `Butaned` commands added with the  `x/revenue` module.
+You can obtain the full list by using the `Butaned -h` command.
 A CLI command can look like this:
 
 ```bash
-evmosd query revenue params
+Butaned query revenue params
 ```
 
 #### Queries
@@ -431,33 +431,33 @@ evmosd query revenue params
 
 | Verb   | Method                                            | Description                              |
 | :----- | :------------------------------------------------ | :--------------------------------------- |
-| `gRPC` | `evmos.revenue.v1.Query/Params`                  | Get revenue params                          |
-| `gRPC` | `evmos.revenue.v1.Query/Revenue`                | Get the revenue for a given contract   |
-| `gRPC` | `evmos.revenue.v1.Query/Revenues`               | Get all revenues                       |
-| `gRPC` | `evmos.revenue.v1.Query/DeployerRevenues`       | Get all revenues of a given deployer   |
-| `gRPC` | `evmos.revenue.v1.Query/WithdrawerRevenues`     | Get all revenues of a given withdrawer |
-| `GET`  | `/evmos/revenue/v1/params`                       | Get revenue params                          |
-| `GET`  | `/evmos/revenue/v1/revenues/{contract_address}`  | Get the revenue for a given contract   |
-| `GET`  | `/evmos/revenue/v1/revenues`                    | Get all revenues                       |
-| `GET`  | `/evmos/revenue/v1/revenues/{deployer_address}` | Get all revenues of a given deployer   |
-| `GET`  | `/evmos/revenue/v1/revenues/{withdraw_address}` | Get all revenues of a given withdrawer |
+| `gRPC` | `Butane.revenue.v1.Query/Params`                  | Get revenue params                          |
+| `gRPC` | `Butane.revenue.v1.Query/Revenue`                | Get the revenue for a given contract   |
+| `gRPC` | `Butane.revenue.v1.Query/Revenues`               | Get all revenues                       |
+| `gRPC` | `Butane.revenue.v1.Query/DeployerRevenues`       | Get all revenues of a given deployer   |
+| `gRPC` | `Butane.revenue.v1.Query/WithdrawerRevenues`     | Get all revenues of a given withdrawer |
+| `GET`  | `/Butane/revenue/v1/params`                       | Get revenue params                          |
+| `GET`  | `/Butane/revenue/v1/revenues/{contract_address}`  | Get the revenue for a given contract   |
+| `GET`  | `/Butane/revenue/v1/revenues`                    | Get all revenues                       |
+| `GET`  | `/Butane/revenue/v1/revenues/{deployer_address}` | Get all revenues of a given deployer   |
+| `GET`  | `/Butane/revenue/v1/revenues/{withdraw_address}` | Get all revenues of a given withdrawer |
 
 #### Transactions
 
 | Verb   | Method                                     | Description                                |
 | :----- | :----------------------------------------- | :----------------------------------------- |
-| `gRPC` | `evmos.revenue.v1.Msg/RegisterRevenue`   | Register a contract for receiving revenue     |
-| `gRPC` | `evmos.revenue.v1.Msg/UpdateRevenue`     | Update the withdraw address for a contract |
-| `gRPC` | `evmos.revenue.v1.Msg/CancelRevenue`     | Remove the revenue for a contract        |
-| `POST` | `/evmos/revenue/v1/tx/register_revenue` | Register a contract for receiving revenue     |
-| `POST` | `/evmos/revenue/v1/tx/update_revenue`   | Update the withdraw address for a contract |
-| `POST` | `/evmos/revenue/v1/tx/cancel_revenue`   | Remove the revenue for a contract        |
+| `gRPC` | `Butane.revenue.v1.Msg/RegisterRevenue`   | Register a contract for receiving revenue     |
+| `gRPC` | `Butane.revenue.v1.Msg/UpdateRevenue`     | Update the withdraw address for a contract |
+| `gRPC` | `Butane.revenue.v1.Msg/CancelRevenue`     | Remove the revenue for a contract        |
+| `POST` | `/Butane/revenue/v1/tx/register_revenue` | Register a contract for receiving revenue     |
+| `POST` | `/Butane/revenue/v1/tx/update_revenue`   | Update the withdraw address for a contract |
+| `POST` | `/Butane/revenue/v1/tx/cancel_revenue`   | Remove the revenue for a contract        |
 
 ## Future Improvements
 
 - The fee distribution registration could be extended to register the withdrawal address
   to the owner of the contract according to [EIP173](https://eips.ethereum.org/EIPS/eip-173).
-- Extend the supported message types for the transaction fee distribution to Cosmos transactions
+- Extend the supported message types for the transaction fee distribution to Butane transactions
   that interact with the EVM (eg: ERC20 module, IBC transactions).
 - Distribute fees for internal transaction calls to other registered contracts.
   At this time, we only send transaction fees to the deployer of the smart contract

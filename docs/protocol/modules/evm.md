@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document defines the specification of the Ethereum Virtual Machine (EVM) as a Cosmos SDK module.
+This document defines the specification of the Ethereum Virtual Machine (EVM) as a Butane SDK module.
 
 Since the introduction of Ethereum in 2015,
 the ability to control digital assets through [**smart contracts**](https://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/idea.html)
@@ -21,16 +21,16 @@ A solution is required that eliminates these concerns for developers,
 who build applications within a familiar EVM environment.
 
 The `x/evm` module provides this EVM familiarity on a scalable, high-throughput Proof-of-Stake blockchain.
-It is built as a [Cosmos SDK module](https://docs.cosmos.network/main/building-modules/intro.html)
+It is built as a [Butane SDK module](https://docs.Butane.network/main/building-modules/intro.html)
 which allows for the deployment of smart contracts,
 interaction with the EVM state machine (state transitions),
 and the use of EVM tooling.
-It can be used on Cosmos application-specific blockchains,
+It can be used on Butane application-specific blockchains,
 which alleviate the aforementioned concerns through high transaction throughput
 via [Tendermint Core](https://github.com/tendermint/tendermint), fast transaction finality,
 and horizontal scalability via [IBC](https://ibcprotocol.org/).
 
-The `x/evm` module is part of the [ethermint library](https://pkg.go.dev/github.com/evmos/ethermint).
+The `x/evm` module is part of the [ethermint library](https://pkg.go.dev/github.com/Butane/ethermint).
 
 ## Contents
 
@@ -47,7 +47,7 @@ The `x/evm` module is part of the [ethermint library](https://pkg.go.dev/github.
 ## Module Architecture
 
 > **NOTE:**: If you're not familiar with the overall module structure from
-the SDK modules, please check this [document](https://docs.cosmos.network/main/building-modules/structure.html) as
+the SDK modules, please check this  as
 prerequisite reading.
 
 ```shell
@@ -108,7 +108,7 @@ To make a clear distinction:
   It is an isolated runtime, which means
   that code running inside the EVM has no access to network, filesystem, or other processes (not external APIs).
 
-The `x/evm` module implements the EVM as a Cosmos SDK module.
+The `x/evm` module implements the EVM as a Butane SDK module.
 It allows users to interact with the EVM by submitting Ethereum txs
 and executing their containing messages on the given state to evoke a state transition.
 
@@ -187,16 +187,16 @@ For further reading, please refer to:
 * [What is Ethereum](https://ethdocs.org/en/latest/introduction/what-is-ethereum.html#what-is-ethereum)
 * [Opcodes](https://www.ethervm.io/)
 
-### Evmos as Geth implementation
+### Butane as Geth implementation
 
-Evmos contains an implementation of the [Ethereum protocol in Golang](https://geth.ethereum.org/docs/getting-started)
-(Geth) as a Cosmos SDK module.
+Butane contains an implementation of the [Ethereum protocol in Golang](https://geth.ethereum.org/docs/getting-started)
+(Geth) as a Butane SDK module.
 Geth includes an implementation of the EVM to compute state transitions.
 Have a look at the [go-ethereum source code](https://github.com/ethereum/go-ethereum/blob/master/core/vm/instructions.go)
 to see how the EVM opcodes are implemented.
 Just as Geth can be run as an Ethereum node,
-Evmos can be run as a node to compute state transitions with the EVM.
-Evmos supports Geth's standard [Ethereum JSON-RPC APIs](https://docs.evmos.org/develop/api/ethereum-json-rpc/methods)
+Butane can be run as a node to compute state transitions with the EVM.
+Butane supports Geth's standard
 in order to be Web3 and EVM compatible.
 
 #### JSON-RPC
@@ -210,7 +210,7 @@ It uses JSON (RFC 4627) as a data format.
 
 ##### JSON-RPC Example: `eth_call`
 
-The JSON-RPC method [`eth_call`](https://docs.evmos.org/develop/api/ethereum-json-rpc/methods#eth-call) allows you
+The JSON-RPC method allows you
 to execute messages against contracts.
 Usually, you need to send a transaction to a Geth node to include it in the mempool,
 then nodes gossip between each other and eventually the transaction is included in a block and gets executed.
@@ -235,15 +235,15 @@ In the Geth implementation, calling the endpoint roughly goes through the follow
 7. [`Run()`](https://github.com/ethereum/go-ethereum/blob/d575a2d3bc76dfbdefdd68b6cffff115542faf75/core/vm/interpreter.go#L116)
    performs a loop to execute the opcodes.
 
-The Evmos implementation is similar and makes use of the gRPC query client which is included in the Cosmos SDK:
+The Butane implementation is similar and makes use of the gRPC query client which is included in the Butane SDK:
 
 1. `eth_call` request is transformed to call the `func (e *PublicAPI) Call` function using the `eth` namespace
-2. [`Call()`](https://github.com/evmos/ethermint/blob/main/rpc/namespaces/ethereum/eth/api.go#L639) calls `doCall()`
-3. [`doCall()`](https://github.com/evmos/ethermint/blob/main/rpc/namespaces/ethereum/eth/api.go#L656)
+2. [`Call()`](https://github.com/Butane/ethermint/blob/main/rpc/namespaces/ethereum/eth/api.go#L639) calls `doCall()`
+3. [`doCall()`](https://github.com/Butane/ethermint/blob/main/rpc/namespaces/ethereum/eth/api.go#L656)
    transforms the arguments into a `EthCallRequest` and calls `EthCall()` using the query client of the evm module.
-4. [`EthCall()`](https://github.com/evmos/ethermint/blob/main/x/evm/keeper/grpc_query.go#L212)
+4. [`EthCall()`](https://github.com/Butane/ethermint/blob/main/x/evm/keeper/grpc_query.go#L212)
    transforms the arguments into a `ethtypes.message` and calls `ApplyMessageWithConfig()
-5. [`ApplyMessageWithConfig()`](https://github.com/evmos/ethermint/blob/d5598932a7f06158b7a5e3aa031bbc94eaaae32c/x/evm/keeper/state_transition.go#L341)
+5. [`ApplyMessageWithConfig()`](https://github.com/Butane/ethermint/blob/d5598932a7f06158b7a5e3aa031bbc94eaaae32c/x/evm/keeper/state_transition.go#L341)
    instantiates an EVM and either `Create()`s a new contract or `Call()`s a contract using the Geth implementation.
 
 #### StateDB
@@ -251,7 +251,7 @@ The Evmos implementation is similar and makes use of the gRPC query client which
 The `StateDB` interface from [go-ethereum](https://github.com/ethereum/go-ethereum/blob/master/core/vm/interface.go)
 represents an EVM database for full state querying.
 EVM state transitions are enabled by this interface, which in the `x/evm` module is implemented by the `Keeper`.
-The implementation of this interface is what makes Evmos EVM compatible.
+The implementation of this interface is what makes Butane EVM compatible.
 
 ### Consensus Engine
 
@@ -271,14 +271,14 @@ On every `x/evm` transaction, the result contains the Ethereum `Log`s from the s
 that are used by the JSON-RPC Web3 server for filter querying and for processing the EVM Hooks.
 
 The tx logs are stored in the transient store during tx execution
-and then emitted through cosmos events after the transaction has been processed.
+and then emitted through Butane events after the transaction has been processed.
 They can be queried via gRPC and JSON-RPC.
 
 ### Block Bloom
 
 Bloom is the bloom filter value in bytes for each block that can be used for filter queries.
 The block bloom value is stored in the transient store
-and then emitted through a cosmos event during `EndBlock` processing.
+and then emitted through a Butane event during `EndBlock` processing.
 They can be queried via gRPC and JSON-RPC.
 
 :::tip
@@ -305,7 +305,7 @@ The `x/evm` module keeps the following objects in state:
 | Block Bloom | Block bloom filter, used to accumulate the bloom filter of current block, emitted to events at end blocker.                              | `[]byte{1} + []byte(tx.Hash)` | `protobuf([]Log)`   | Transient |
 | Tx Index    | Index of current transaction in current block.                                                                                           | `[]byte{2}`                   | `BigEndian(uint64)` | Transient |
 | Log Size    | Number of the logs emitted so far in current block. Used to decide the log index of following logs.                                      | `[]byte{3}`                   | `BigEndian(uint64)` | Transient |
-| Gas Used    | Amount of gas used by ethereum messages of current cosmos-sdk tx, it's necessary when cosmos-sdk tx contains multiple ethereum messages. | `[]byte{4}`                   | `BigEndian(uint64)` | Transient |
+| Gas Used    | Amount of gas used by ethereum messages of current Butane-sdk tx, it's necessary when Butane-sdk tx contains multiple ethereum messages. | `[]byte{4}`                   | `BigEndian(uint64)` | Transient |
 
 ### StateDB
 
@@ -479,7 +479,7 @@ and revert the state to a given revision with `RevertToSnapshot()` to support th
 - `Snapshot()` creates a new snapshot and returns the identifier.
 - `RevertToSnapshot(rev)` undo all the modifications up to the snapshot identified as `rev`.
 
-Evmos adapted the [go-ethereum journal implementation](https://github.com/ethereum/go-ethereum/blob/master/core/state/journal.go#L39)
+Butane adapted the [go-ethereum journal implementation](https://github.com/ethereum/go-ethereum/blob/master/core/state/journal.go#L39)
 to support this, it uses a list of journal logs to record all the state modification operations done so far,
 snapshot is consists of a unique id and an index in the log list,
 and to revert to a snapshot it just undoes the journal logs after the snapshot index in reversed order.
@@ -497,7 +497,7 @@ and implements `statedb.Keeper` interface to support the `StateDB` implementatio
 The Keeper contains a store key that allows the DB
 to write to a concrete subtree of the multistore that is only accessible by the EVM module.
 Instead of using a trie and database for querying and persistence (the `StateDB` implementation),
-Evmos uses the Cosmos `KVStore` (key-value store) and Cosmos SDK `Keeper` to facilitate state transitions.
+Butane uses the Butane `KVStore` (key-value store) and Butane SDK `Keeper` to facilitate state transitions.
 
 To support the interface functionality, it imports 4 module Keepers:
 
@@ -565,14 +565,14 @@ type GenesisState struct {
 The `GenesisAccount` type corresponds to an adaptation of the Ethereum `GenesisAccount` type.
 It defines an account to be initialized in the genesis state.
 
-Its main difference is that the one on Evmos uses a custom `Storage` type
+Its main difference is that the one on Butane uses a custom `Storage` type
 that uses a slice instead of maps for the evm `State` (due to non-determinism),
 and that it doesn't contain the private key field.
 
-It is also important to note that since the `auth` module on the Cosmos SDK manages the account state,
+It is also important to note that since the `auth` module on the Butane SDK manages the account state,
 the `Address` field must correspond to an existing `EthAccount`
 that is stored in the `auth`'s module `Keeper` (i.e `AccountKeeper`).
-Addresses use the **[EIP55](https://eips.ethereum.org/EIPS/eip-55)** hex **[format](https://docs.evmos.org/protocol/concepts/accounts#address-formats-for-clients)**
+Addresses use the **[EIP55](https://eips.ethereum.org/EIPS/eip-55)** hex **[format](https://docs.Butane.org/protocol/concepts/accounts#address-formats-for-clients)**
 on `genesis.json`.
 
 ```go
@@ -614,8 +614,8 @@ to understand the State Transitions in detail.
 3. The `Tx` fields are validated (stateless) using `ValidateBasic()`
 4. The `Tx` is **signed** using the key associated with the sender address
    and the latest ethereum hard fork (`London`, `Berlin`, etc) from the `ChainConfig`
-5. The `Tx` is **built** from the msg fields using the Cosmos Config builder
-6. The `Tx` is **broadcast** in [sync mode](https://docs.cosmos.network/main/run-node/txs.html#broadcasting-a-transaction)
+5. The `Tx` is **built** from the msg fields using the Butane Config builder
+6. The `Tx` is **broadcast** in
    to ensure to wait for
    a [`CheckTx`](https://docs.tendermint.com/main/introduction/what-is-tendermint.html#intro-to-abci) execution response.
    Transactions are validated by the application using `CheckTx()`,
@@ -629,7 +629,7 @@ to understand the State Transitions in detail.
 Once a block (containing the `Tx`) has been committed during consensus,
 it is applied to the application in a series of ABCI msgs server-side.
 
-Each `Tx` is handled by the application by calling [`RunTx`](https://docs.cosmos.network/main/core/baseapp.html#runtx).
+Each `Tx` is handled by the application by calling [`RunTx`](https://docs.Butane.network/main/core/baseapp.html#runtx).
 After a stateless validation on each `sdk.Msg` in the `Tx`,
 the `AnteHandler` confirms whether the `Tx` is an Ethereum or SDK transaction.
 As an Ethereum transaction it's containing msgs are then handled
@@ -639,12 +639,12 @@ by the `x/evm` module to update the application's state.
 
 The `anteHandler` is run for every transaction.
 It checks if the `Tx` is an Ethereum transaction and routes it to an internal ante handler.
-Here, `Tx`s are handled using EthereumTx extension options to process them differently than normal Cosmos SDK transactions.
+Here, `Tx`s are handled using EthereumTx extension options to process them differently than normal Butane SDK transactions.
 The `antehandler` runs through a series of options and their `AnteHandle` functions for each `Tx`:
 
-- `EthSetUpContextDecorator()` is adapted from SetUpContextDecorator from cosmos-sdk,
+- `EthSetUpContextDecorator()` is adapted from SetUpContextDecorator from Butane-sdk,
   it ignores gas consumption by setting the gas meter to infinite
-- `EthValidateBasicDecorator(evmKeeper)` validates the fields of an Ethereum type Cosmos `Tx` msg
+- `EthValidateBasicDecorator(evmKeeper)` validates the fields of an Ethereum type Butane `Tx` msg
 - `EthSigVerificationDecorator(evmKeeper)` validates that the registered chain id is the same as the one on the message,
   and that the signer address matches the one defined on the message.
   It's not skipped for RecheckTx, because it set `From` address which is critical from other ante handler to work.
@@ -677,8 +677,8 @@ The `antehandler` runs through a series of options and their `AnteHandle` functi
   during the transaction execution and not within this AnteHandler decorator.
 
 The options `authante.NewMempoolFeeDecorator()`, `authante.NewTxTimeoutHeightDecorator()`
-and `authante.NewValidateMemoDecorator(ak)` are the same as for a Cosmos `Tx`.
-Click [here](https://docs.cosmos.network/main/basics/gas-fees.html#antehandler) for more on the `anteHandler`.
+and `authante.NewValidateMemoDecorator(ak)` are the same as for a Butane `Tx`.
+Click [here](https://docs.Butane.network/main/basics/gas-fees.html#antehandler) for more on the `anteHandler`.
 
 #### EVM module
 
@@ -716,8 +716,8 @@ This section defines the `sdk.Msg` concrete types that result in the state tra
 An EVM state transition can be achieved by using the `MsgEthereumTx`.
 This message encapsulates an Ethereum transaction data (`TxData`) as a `sdk.Msg`.
 It contains the necessary transaction data fields.
-Note, that the `MsgEthereumTx` implements both the [`sdk.Msg`](https://github.com/cosmos/cosmos-sdk/blob/v0.39.2/types/tx_msg.go#L7-L29)
-and [`sdk.Tx`](https://github.com/cosmos/cosmos-sdk/blob/v0.39.2/types/tx_msg.go#L33-L41) interfaces.
+Note, that the `MsgEthereumTx` implements both the [`sdk.Msg`](https://github.com/Butane/Butane-sdk/blob/v0.39.2/types/tx_msg.go#L7-L29)
+and [`sdk.Tx`](https://github.com/Butane/Butane-sdk/blob/v0.39.2/types/tx_msg.go#L33-L41) interfaces.
 Normally, SDK messages only implement the former, while the latter is a group of messages bundled together.
 
 ```go
@@ -852,13 +852,13 @@ type LegacyTx struct {
  // nonce corresponds to the account nonce (transaction sequence).
  Nonce uint64 `protobuf:"varint,1,opt,name=nonce,proto3" json:"nonce,omitempty"`
  // gas price defines the value for each gas unit
- GasPrice *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,2,opt,name=gas_price,json=gasPrice,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"gas_price,omitempty"`
+ GasPrice *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,2,opt,name=gas_price,json=gasPrice,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"gas_price,omitempty"`
  // gas defines the gas limit defined for the transaction.
  GasLimit uint64 `protobuf:"varint,3,opt,name=gas,proto3" json:"gas,omitempty"`
  // hex formatted address of the recipient
  To string `protobuf:"bytes,4,opt,name=to,proto3" json:"to,omitempty"`
  // value defines the unsigned integer value of the transaction amount.
- Amount *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,5,opt,name=value,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"value,omitempty"`
+ Amount *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,5,opt,name=value,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"value,omitempty"`
  // input defines the data payload bytes of the transaction.
  Data []byte `protobuf:"bytes,6,opt,name=data,proto3" json:"data,omitempty"`
  // v defines the signature value
@@ -884,19 +884,19 @@ The transaction data of EIP-1559 dynamic fee transactions.
 ```go
 type DynamicFeeTx struct {
  // destination EVM chain ID
- ChainID *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"chainID"`
+ ChainID *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"chainID"`
  // nonce corresponds to the account nonce (transaction sequence).
  Nonce uint64 `protobuf:"varint,2,opt,name=nonce,proto3" json:"nonce,omitempty"`
  // gas tip cap defines the max value for the gas tip
- GasTipCap *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,3,opt,name=gas_tip_cap,json=gasTipCap,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"gas_tip_cap,omitempty"`
+ GasTipCap *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,3,opt,name=gas_tip_cap,json=gasTipCap,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"gas_tip_cap,omitempty"`
  // gas fee cap defines the max value for the gas fee
- GasFeeCap *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,4,opt,name=gas_fee_cap,json=gasFeeCap,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"gas_fee_cap,omitempty"`
+ GasFeeCap *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,4,opt,name=gas_fee_cap,json=gasFeeCap,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"gas_fee_cap,omitempty"`
  // gas defines the gas limit defined for the transaction.
  GasLimit uint64 `protobuf:"varint,5,opt,name=gas,proto3" json:"gas,omitempty"`
  // hex formatted address of the recipient
  To string `protobuf:"bytes,6,opt,name=to,proto3" json:"to,omitempty"`
  // value defines the the transaction amount.
- Amount *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,7,opt,name=value,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"value,omitempty"`
+ Amount *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,7,opt,name=value,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"value,omitempty"`
  // input defines the data payload bytes of the transaction.
  Data     []byte     `protobuf:"bytes,8,opt,name=data,proto3" json:"data,omitempty"`
  Accesses AccessList `protobuf:"bytes,9,rep,name=accesses,proto3,castrepeated=AccessList" json:"accessList"`
@@ -926,17 +926,17 @@ The transaction data of EIP-2930 access list transactions.
 ```go
 type AccessListTx struct {
  // destination EVM chain ID
- ChainID *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"chainID"`
+ ChainID *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"chainID"`
  // nonce corresponds to the account nonce (transaction sequence).
  Nonce uint64 `protobuf:"varint,2,opt,name=nonce,proto3" json:"nonce,omitempty"`
  // gas price defines the value for each gas unit
- GasPrice *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,3,opt,name=gas_price,json=gasPrice,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"gas_price,omitempty"`
+ GasPrice *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,3,opt,name=gas_price,json=gasPrice,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"gas_price,omitempty"`
  // gas defines the gas limit defined for the transaction.
  GasLimit uint64 `protobuf:"varint,4,opt,name=gas,proto3" json:"gas,omitempty"`
  // hex formatted address of the recipient
  To string `protobuf:"bytes,5,opt,name=to,proto3" json:"to,omitempty"`
  // value defines the unsigned integer value of the transaction amount.
- Amount *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,6,opt,name=value,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"value,omitempty"`
+ Amount *github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,6,opt,name=value,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"value,omitempty"`
  // input defines the data payload bytes of the transaction.
  Data     []byte     `protobuf:"bytes,7,opt,name=data,proto3" json:"data,omitempty"`
  Accesses AccessList `protobuf:"bytes,8,rep,name=accesses,proto3,castrepeated=AccessList" json:"accessList"`
@@ -1002,7 +1002,7 @@ The main objective of this function is to:
 
 The `x/evm` module implements an `EvmHooks` interface that extend and customize the `Tx` processing logic externally.
 
-This supports EVM contracts to call native cosmos modules by
+This supports EVM contracts to call native Butane modules by
 
 1. defining a log signature and emitting the specific log from the smart contract,
 2. recognizing those logs in the native tx processing code, and
@@ -1042,11 +1042,11 @@ The error returned by the hooks is translated to a VM error `failed to process n
 the detailed error message is stored in the return value.
 The message is sent to native modules asynchronously, there's no way for the caller to catch and recover the error.
 
-### Use Case: Call Native ERC20 Module on Evmos
+### Use Case: Call Native ERC20 Module on Butane
 
-Here is an example taken from the Evmos [erc20 module](erc20.md)
+Here is an example taken from the Butane [erc20 module](erc20.md)
 that shows how the `EVMHooks` supports a contract calling a native module
-to convert ERC-20 Tokens into Cosmos native Coins.
+to convert ERC-20 Tokens into Butane native Coins.
 Following the steps from above.
 
 You can define and emit a `Transfer` log signature in the smart contract like this:
@@ -1141,7 +1141,7 @@ func (k Keeper) PostTxProcessing(
   if !pair.Enabled {
    // continue to allow transfers for the ERC20 in case the token pair is disabled
    h.k.Logger(ctx).Debug(
-    "ERC20 token -> Cosmos coin conversion is disabled for pair",
+    "ERC20 token -> Butane coin conversion is disabled for pair",
     "coin", pair.Denom, "contract", pair.Erc20Address,
    )
    continue
@@ -1154,7 +1154,7 @@ func (k Keeper) PostTxProcessing(
   }
 
   // check that the event is Burn from the ERC20Burnable interface
-  // NOTE: assume that if they are burning the token that has been registered as a pair, they want to mint a Cosmos coin
+  // NOTE: assume that if they are burning the token that has been registered as a pair, they want to mint a Butane coin
 
   // create the corresponding sdk.Coin that is paired with ERC20
   coins := sdk.Coins{{Denom: pair.Denom, Amount: sdk.NewIntFromBigInt(tokens)}}
@@ -1203,7 +1203,7 @@ app.EvmKeeper = app.EvmKeeper.SetHooks(app.Erc20Keeper)
 
 ## Events
 
-The `x/evm` module emits the Cosmos SDK events after a state execution.
+The `x/evm` module emits the Butane SDK events after a state execution.
 The EVM module emits events of the relevant transaction fields, as well as the transaction logs (ethereum events).
 
 ### MsgEthereumTx
@@ -1238,7 +1238,7 @@ The evm module contains the following parameters:
 
 | Key            | Type        | Default Value   |
 |----------------|-------------|-----------------|
-| `EVMDenom`     | string      | `"aevmos"`      |
+| `EVMDenom`     | string      | `"aButane"`      |
 | `EnableCreate` | bool        | `true`          |
 | `EnableCall`   | bool        | `true`          |
 | `ExtraEIPs`    | []int       | TBD             |
@@ -1250,13 +1250,13 @@ The evm denomination parameter defines the token denomination
 used on the EVM state transitions and gas consumption for EVM messages.
 
 For example, on Ethereum, the `evm_denom` would be `ETH`.
-In the case of Evmos, the default denomination is the **atto evmos**.
-In terms of precision, `EVMOS` and `ETH` share the same value,
-*i.e.* `1 EVMOS = 10^18 atto evmos` and `1 ETH = 10^18 wei`.
+In the case of Butane, the default denomination is the **atto Butane**.
+In terms of precision, `Butane` and `ETH` share the same value,
+*i.e.* `1 Butane = 10^18 atto Butane` and `1 ETH = 10^18 wei`.
 
 :::tip
 Note: SDK applications that want to import the EVM module as a dependency
-will need to set their own `evm_denom` (i.e not `"aevmos"`).
+will need to set their own `evm_denom` (i.e not `"aButane"`).
 :::
 
 ### Enable Create
@@ -1326,8 +1326,8 @@ A user can query and interact with the `evm` module using the CLI, JSON-RPC, g
 
 ### CLI
 
-Find below a list of `evmosd` commands added with the `x/evm` module.
-You can obtain the full list by using the `evmosd -h` command.
+Find below a list of `Butaned` commands added with the `x/evm` module.
+You can obtain the full list by using the `Butaned -h` command.
 
 #### Queries
 
@@ -1338,12 +1338,12 @@ The `query` commands allow users to query `evm` state.
 Allows users to query the smart contract code at a given address.
 
 ```bash
-evmosd query evm code ADDRESS [flags]
+Butaned query evm code ADDRESS [flags]
 ```
 
 ```bash
 # Example
-$ evmosd query evm code 0x7bf7b17da59880d9bcca24915679668db75f9397
+$ Butaned query evm code 0x7bf7b17da59880d9bcca24915679668db75f9397
 
 # Output
 code: "0xef616c92f3cfc9e92dc270d6acff9cea213cecc7020a76ee4395af09bdceb4837a1ebdb5735e11e7d3adb6104e0c3ac55180b4ddf5e54d022cc5e8837f6a4f971b"
@@ -1354,12 +1354,12 @@ code: "0xef616c92f3cfc9e92dc270d6acff9cea213cecc7020a76ee4395af09bdceb4837a1ebdb
 Allows users to query storage for an account with a given key and height.
 
 ```bash
-evmosd query evm storage ADDRESS KEY [flags]
+Butaned query evm storage ADDRESS KEY [flags]
 ```
 
 ```bash
 # Example
-$ evmosd query evm storage 0x0f54f47bf9b8e317b214ccd6a7c3e38b893cd7f0 0 --height 0
+$ Butaned query evm storage 0x0f54f47bf9b8e317b214ccd6a7c3e38b893cd7f0 0 --height 0
 
 # Output
 value: "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -1371,15 +1371,15 @@ The `tx` commands allow users to interact with the `evm` module.
 
 **`raw`**
 
-Allows users to build cosmos transactions from raw ethereum transaction.
+Allows users to build Butane transactions from raw ethereum transaction.
 
 ```bash
-evmosd tx evm raw TX_HEX [flags]
+Butaned tx evm raw TX_HEX [flags]
 ```
 
 ```bash
 # Example
-$ evmosd tx evm raw 0xf9ff74c86aefeb5f6019d77280bbb44fb695b4d45cfe97e6eed7acd62905f4a85034d5c68ed25a2e7a8eeb9baf1b84
+$ Butaned tx evm raw 0xf9ff74c86aefeb5f6019d77280bbb44fb695b4d45cfe97e6eed7acd62905f4a85034d5c68ed25a2e7a8eeb9baf1b84
 
 # Output
 value: "0x0000000000000000000000000000000000000000000000000000000000000000"
@@ -1387,8 +1387,8 @@ value: "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 ### JSON-RPC
 
-For an overview on the JSON-RPC methods and namespaces supported on Evmos,
-please refer to [https://docs.evmos.org/develop/api/ethereum-json-rpc/methodsl](https://docs.evmos.org/develop/api/ethereum-json-rpc/methods)
+For an overview on the JSON-RPC methods and namespaces supported on Butane,
+please refer to [https://docs.Butane.org/develop/api/ethereum-json-rpc/methodsl](https://docs.Butane.org/develop/api/ethereum-json-rpc/methods)
 
 ### gRPC
 
@@ -1397,7 +1397,7 @@ please refer to [https://docs.evmos.org/develop/api/ethereum-json-rpc/methodsl](
 | Verb   | Method                                               | Description                                                               |
 | ------ | ---------------------------------------------------- | ------------------------------------------------------------------------- |
 | `gRPC` | `ethermint.evm.v1.Query/Account`                     | Get an Ethereum account                                                   |
-| `gRPC` | `ethermint.evm.v1.Query/CosmosAccount`               | Get an Ethereum account's Cosmos Address                                  |
+| `gRPC` | `ethermint.evm.v1.Query/ButaneAccount`               | Get an Ethereum account's Butane Address                                  |
 | `gRPC` | `ethermint.evm.v1.Query/ValidatorAccount`            | Get an Ethereum account's from a validator consensus Address              |
 | `gRPC` | `ethermint.evm.v1.Query/Balance`                     | Get the balance of a the EVM denomination for a single EthAccount.        |
 | `gRPC` | `ethermint.evm.v1.Query/Storage`                     | Get the balance of all coins for a single account                         |
@@ -1408,7 +1408,7 @@ please refer to [https://docs.evmos.org/develop/api/ethereum-json-rpc/methodsl](
 | `gRPC` | `ethermint.evm.v1.Query/TraceTx`                     | Implements the debug_traceTransaction rpc api                             |
 | `gRPC` | `ethermint.evm.v1.Query/TraceBlock`                  | Implements the debug_traceBlockByNumber and debug_traceBlockByHash rpc api |
 | `GET`  | `/ethermint/evm/v1/account/{address}`                | Get an Ethereum account                                                   |
-| `GET`  | `/ethermint/evm/v1/cosmos_account/{address}`         | Get an Ethereum account's Cosmos Address                                  |
+| `GET`  | `/ethermint/evm/v1/Butane_account/{address}`         | Get an Ethereum account's Butane Address                                  |
 | `GET`  | `/ethermint/evm/v1/validator_account/{cons_address}` | Get an Ethereum account's from a validator consensus Address              |
 | `GET`  | `/ethermint/evm/v1/balances/{address}`               | Get the balance of a the EVM denomination for a single EthAccount.        |
 | `GET`  | `/ethermint/evm/v1/storage/{address}/{key}`          | Get the balance of all coins for a single account                         |

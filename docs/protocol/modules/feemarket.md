@@ -4,7 +4,7 @@
 
 This document specifies the feemarket module which allows to define a global transaction fee for the network.
 
-This module has been designed to support EIP1559 in cosmos-sdk.
+This module has been designed to support EIP1559 in Butane-sdk.
 
 The `MempoolFeeDecorator` in `x/auth` module needs to be overwritten
 to check the `baseFee` along with the `minimal-gas-prices` allowing
@@ -62,10 +62,10 @@ Optionally, the `priorityTip` can be specified,
 which covers both the priority fee and the block's network fee per gas (aka: base fee).
 
 :::tip
-The Cosmos SDK uses a different terminology for `gas` than Ethereum.
-What is called `gasLimit` on Ethereum is called `gasWanted` on Cosmos.
-You might encounter both terminologies on Evmos since it builds Ethereum on top of the SDK,
-e.g. when using different wallets like Keplr for Cosmos and Metamask for Ethereum.
+The Butane SDK uses a different terminology for `gas` than Ethereum.
+What is called `gasLimit` on Ethereum is called `gasWanted` on Butane.
+You might encounter both terminologies on Butane since it builds Ethereum on top of the SDK,
+e.g. when using different wallets like Keplr for Butane and Metamask for Ethereum.
 :::
 
 ### Base Fee
@@ -81,7 +81,7 @@ and gas target (`block gas limit / elasticity multiplier`):
 
 Instead of burning the base fee (as implemented on Ethereum),
 the `feemarket` module allocates the base fee
-for regular [Cosmos SDK fee distribution](https://docs.cosmos.network/main/modules/distribution).
+for regular [Butane SDK fee distribution](https://docs.Butane.network/main/modules/distribution).
 
 ### Priority Tip
 
@@ -89,10 +89,10 @@ In EIP-1559, the `max_priority_fee_per_gas`, often referred to as `tip`,
 is an additional gas price that can be added to the `baseFee` in order to incentivize transaction prioritization.
 The higher the tip, the more likely the transaction is included in the block.
 
-Until the Cosmos SDK version v0.46, however, there is no notion of transaction prioritization.
-Thus, the tip for an EIP-1559 transaction on Evmos should be zero
+Until the Butane SDK version v0.46, however, there is no notion of transaction prioritization.
+Thus, the tip for an EIP-1559 transaction on Butane should be zero
 (`MaxPriorityFeePerGas` JSON-RPC endpoint returns `0`).
-Have a look at the [mempool](https://docs.evmos.org/validate/setup-and-configuration/mempool) docs
+Have a look at the  docs
 to read more about how to leverage transaction prioritization.
 
 ### Effective Gas price
@@ -111,13 +111,13 @@ min(baseFee + gasTipCap, gasFeeCap)
 Minimum gas prices are used to discard spam transactions in the network,
 by raising the cost of transactions to the point that it is not economically viable for the spammer.
 This is achieved by defining a minimum gas price for accepting txs in the mempool
-for both Cosmos and EVM transactions.
+for both Butane and EVM transactions.
 A transaction is discarded from the mempool
 if it doesn't provide at least one of the two types of min gas prices:
 
 Minimum gas prices are used to discard spam transactions in the network,
 by raising the cost of transactions to the point that it is not economically viable for the spammer.
-This is achieved by defining a minimum gas price for accepting txs in the mempool for both Cosmos and EVM transactions.
+This is achieved by defining a minimum gas price for accepting txs in the mempool for both Butane and EVM transactions.
 A transaction is discarded from the mempool if it doesn't provide at least one of the two types of min gas prices:
 
 1. the local min gas prices that validators can set on their node config and
@@ -137,7 +137,7 @@ The lower bound for a transaction gas price is determined by comparing of gas pr
 
 The comparison of transaction gas price and the lower bound is implemented through AnteHandler decorators.
 For EVM transactions, this is done in the `EthMempoolFeeDecorator` and `EthMinGasPriceDecorator` `AnteHandler`
-and for Cosmos transactions in `NewMempoolFeeDecorator` and `MinGasPriceDecorator` `AnteHandler`.
+and for Butane transactions in `NewMempoolFeeDecorator` and `MinGasPriceDecorator` `AnteHandler`.
 
 :::tip
 If the base fee decreases to a value below the global `MinGasPrice`, it is set to the `MinGasPrice`.
@@ -282,7 +282,7 @@ A user can query and interact with the `feemarket` module using the CLI.
 The `query` commands allow users to query `feemarket` state.
 
 ```bash
-evmosd query feemarket --help
+Butaned query feemarket --help
 ```
 
 ##### Base Fee
@@ -290,13 +290,13 @@ evmosd query feemarket --help
 The `base-fee` command allows users to query the block base fee by height.
 
 ```bash
-evmosd query feemarket base-fee [flags]
+Butaned query feemarket base-fee [flags]
 ```
 
 Example:
 
 ```bash
-evmosd query feemarket base-fee ...
+Butaned query feemarket base-fee ...
 ```
 
 Example Output:
@@ -310,13 +310,13 @@ base_fee: "512908936"
 The `block-gas` command allows users to query the block gas by height.
 
 ```bash
-evmosd query feemarket block-gas [flags]
+Butaned query feemarket block-gas [flags]
 ```
 
 Example:
 
 ```bash
-evmosd query feemarket block-gas ...
+Butaned query feemarket block-gas ...
 ```
 
 Example Output:
@@ -330,13 +330,13 @@ gas: "21000"
 The `params` command allows users to query the module params.
 
 ```bash
-evmosd query params subspace [subspace] [key] [flags]
+Butaned query params subspace [subspace] [key] [flags]
 ```
 
 Example:
 
 ```bash
-evmosd query params subspace feemarket ElasticityMultiplier ...
+Butaned query params subspace feemarket ElasticityMultiplier ...
 ```
 
 Example Output:
@@ -364,8 +364,8 @@ value: "2"
 ## AnteHandlers
 
 The `x/feemarket` module provides `AnteDecorator`s that are recursively chained together
-into a single [`Antehandler`](https://github.com/cosmos/cosmos-sdk/blob/v0.43.0-alpha1/docs/architecture/adr-010-modular-antehandler.md).
-These decorators perform basic validity checks on an Ethereum or Cosmos SDK transaction,
+into a single [`Antehandler`](https://github.com/Butane/Butane-sdk/blob/v0.43.0-alpha1/docs/architecture/adr-010-modular-antehandler.md).
+These decorators perform basic validity checks on an Ethereum or Butane SDK transaction,
 such that it could be thrown out of the transaction Mempool.
 
 Note that the `AnteHandler` is run for every transaction
@@ -375,7 +375,7 @@ and called on both `CheckTx` and `DeliverTx`.
 
 ### `MinGasPriceDecorator`
 
-Rejects Cosmos SDK transactions with transaction fees lower than `MinGasPrice * GasLimit`.
+Rejects Butane SDK transactions with transaction fees lower than `MinGasPrice * GasLimit`.
 
 ### `EthMinGasPriceDecorator`
 

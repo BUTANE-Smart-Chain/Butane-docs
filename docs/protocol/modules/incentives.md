@@ -2,19 +2,19 @@
 
 ## Abstract
 
-This document specifies the internal `x/incentives` module of the Evmos Hub.
+This document specifies the internal `x/incentives` module of the Butane Hub.
 
-The `x/incentives` module is part of the Evmos tokenomics and aims
+The `x/incentives` module is part of the Butane tokenomics and aims
 to increase the growth of the network by distributing rewards
 to users who interact with incentivized smart contracts.
-The rewards drive users to interact with applications on Evmos and reinvest their rewards in more services in the network.
+The rewards drive users to interact with applications on Butane and reinvest their rewards in more services in the network.
 
 The usage incentives are taken from block reward emission (inflation)
 and are pooled up in the Incentives module account (escrow address).
-The incentives functionality is fully governed by native EVMOS token holders
+The incentives functionality is fully governed by native Butane token holders
 who manage the registration of `Incentives`,
-so that native EVMOS token holders decide which application should be part of the usage incentives.
-This governance functionality is implemented using the Cosmos-SDK `gov` module
+so that native Butane token holders decide which application should be part of the usage incentives.
+This governance functionality is implemented using the Butane-SDK `gov` module
 with custom proposal types for registering the incentives.
 
 Users participate in incentives by submitting transactions to an incentivized contract.
@@ -113,7 +113,7 @@ type Incentive struct {
 	// contract address
 	Contract string `protobuf:"bytes,1,opt,name=contract,proto3" json:"contract,omitempty"`
 	// denoms and percentage of rewards to be allocated
-	Allocations github_com_cosmos_cosmos_sdk_types.DecCoins `protobuf:"bytes,2,rep,name=allocations,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.DecCoins" json:"allocations"`
+	`protobuf:"bytes,2,rep,name=allocations,proto3,castrepeated=github.com/Butane/Butane-sdk/types.DecCoins" json:"allocations"`
 	// number of remaining epochs
 	Epochs uint32 `protobuf:"varint,3,opt,name=epochs,proto3" json:"epochs,omitempty"`
 	// distribution start time
@@ -125,7 +125,7 @@ type Incentive struct {
 
 As long as an incentive has remaining epochs, it distributes rewards according to its allocations.
 The allocations are stored as `sdk.DecCoins` where each containing
-[`sdk.DecCoin`](https://github.com/cosmos/cosmos-sdk/blob/master/types/dec_coin.go) describes the percentage of rewards
+ describes the percentage of rewards
 (`Amount`) that are allocated to the contract for a given coin denomination (`Denom`).
 An incentive can contain several allocations, resulting in users to receive rewards in form of several different denominations.
 
@@ -149,10 +149,10 @@ type GasMeter struct {
 An allocation meter stores the sum of all registered incentives’ allocations for a given denomination
 and is used to limit the amount of registered incentives.
 
-Say, there are several incentives that have registered an allocation for the EVMOS coin
-and the allocation meter for EVMOS is at 97%.
-Then a new incentve proposal can only include an EVMOS allocation at up to 3%,
-claiming the last remaining allocation capacity from the EVMOS rewards in the inflation pool.
+Say, there are several incentives that have registered an allocation for the Butane coin
+and the allocation meter for Butane is at 97%.
+Then a new incentve proposal can only include an Butane allocation at up to 3%,
+claiming the last remaining allocation capacity from the Butane rewards in the inflation pool.
 
 ### Genesis State
 
@@ -186,13 +186,13 @@ Once the proposal passes (i.e is approved by governance),
 the incentive module creates the incentive and distributes rewards.
 
 1. User submits a `RegisterIncentiveProposal`.
-2. Validators of the Evmos Hub vote on the proposal using `MsgVote` and proposal passes.
+2. Validators of the Butane Hub vote on the proposal using `MsgVote` and proposal passes.
 3. Create incentive for the contract with a `TotalGas = 0` and set its `startTime` to `ctx.Blocktime`
    if the following conditions are met:
     1. Incentives param is globally enabled
     2. Incentive is not yet registered
     3. Balance in the inflation pool is > 0 for each allocation denom except for the mint denomination.
-       We know that the amount of the minting denom (e.g. EVMOS) will be added to every block
+       We know that the amount of the minting denom (e.g. Butane) will be added to every block
        but for other denominations (IBC vouchers, ERC20 tokens using the `x/erc20` module)
        the module account needs to have a positive amount to distribute the incentives
     4. The sum of all registered allocations for each denom (current + proposed) is < 100%
@@ -217,7 +217,7 @@ type RegisterIncentiveProposal struct {
 	// contract address
 	Contract string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
 	// denoms and percentage of rewards to be allocated
-	Allocations github_com_cosmos_cosmos_sdk_types.DecCoins `protobuf:"bytes,4,rep,name=allocations,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.DecCoins" json:"allocations"`
+	Allocations github_com_Butane_Butane_sdk_types.DecCoins `protobuf:"bytes,4,rep,name=allocations,proto3,castrepeated=github.com/Butane/Butane-sdk/types.DecCoins" json:"allocations"`
 	// number of remaining epochs
 	Epochs uint32 `protobuf:"varint,5,opt,name=epochs,proto3" json:"epochs,omitempty"`
 }
@@ -285,7 +285,7 @@ This distribution process first 1) allocates the rewards for each incentive from
 and then 2) distributes these rewards to all participants of each incentive.
 
 1. A `RegisterIncentiveProposal` passes and an `incentive` for the proposed contract is created.
-2. An `epoch` begins and `rewards` (EVMOS and other denoms) that are minted on every block for inflation
+2. An `epoch` begins and `rewards` (Butane and other denoms) that are minted on every block for inflation
    are added to the inflation pool every block.
 3. Users submit transactions and call functions on the incentivized smart contracts to interact
    and gas gets logged through the EVM Hook.
@@ -375,8 +375,8 @@ A user can query the `x/incentives` module using the CLI, JSON-RPC, gRPC or REST
 
 ### CLI
 
-Find below a list of `evmosd` commands added with the `x/incentives` module.
-You can obtain the full list by using the `evmosd -h` command.
+Find below a list of `Butaned` commands added with the `x/incentives` module.
+You can obtain the full list by using the `Butaned -h` command.
 
 #### Queries
 
@@ -387,7 +387,7 @@ The `query` commands allow users to query `incentives` state.
 Allows users to query all registered incentives.
 
 ```go
-evmosd query incentives incentives [flags]
+Butaned query incentives incentives [flags]
 ```
 
 **`incentive`**
@@ -395,7 +395,7 @@ evmosd query incentives incentives [flags]
 Allows users to query an incentive for a given contract.
 
 ```go
-evmosd query incentives incentive CONTRACT_ADDRESS [flags]
+Butaned query incentives incentive CONTRACT_ADDRESS [flags]
 ```
 
 **`gas-meters`**
@@ -403,7 +403,7 @@ evmosd query incentives incentive CONTRACT_ADDRESS [flags]
 Allows users to query all gas meters for a given incentive.
 
 ```bash
-evmosd query incentives gas-meters CONTRACT_ADDRESS [flags]
+Butaned query incentives gas-meters CONTRACT_ADDRESS [flags]
 ```
 
 **`gas-meter`**
@@ -411,7 +411,7 @@ evmosd query incentives gas-meters CONTRACT_ADDRESS [flags]
 Allows users to query a gas meter for a given incentive and user.
 
 ```go
-evmosd query incentives gas-meter CONTRACT_ADDRESS PARTICIPANT_ADDRESS [flags]
+Butaned query incentives gas-meter CONTRACT_ADDRESS PARTICIPANT_ADDRESS [flags]
 ```
 
 **`params`**
@@ -419,7 +419,7 @@ evmosd query incentives gas-meter CONTRACT_ADDRESS PARTICIPANT_ADDRESS [flags]
 Allows users to query incentives params.
 
 ```bash
-evmosd query incentives params [flags]
+Butaned query incentives params [flags]
 ```
 
 #### Proposals
@@ -431,7 +431,7 @@ The `tx gov submit-legacy-proposal` commands allow users to query create a propo
 Allows users to submit a `RegisterIncentiveProposal`.
 
 ```bash
-evmosd tx gov submit-legacy-proposal register-incentive CONTRACT_ADDRESS ALLOCATION EPOCHS [flags]
+Butaned tx gov submit-legacy-proposal register-incentive CONTRACT_ADDRESS ALLOCATION EPOCHS [flags]
 ```
 
 **`cancel-incentive`**
@@ -439,7 +439,7 @@ evmosd tx gov submit-legacy-proposal register-incentive CONTRACT_ADDRESS ALLOCAT
 Allows users to submit a `CanelIncentiveProposal`.
 
 ```bash
-evmosd tx gov submit-legacy-proposal cancel-incentive CONTRACT_ADDRESS [flags]
+Butaned tx gov submit-legacy-proposal cancel-incentive CONTRACT_ADDRESS [flags]
 ```
 
 **`param-change`**
@@ -447,7 +447,7 @@ evmosd tx gov submit-legacy-proposal cancel-incentive CONTRACT_ADDRESS [flags]
 Allows users to submit a `ParameterChangeProposal``.
 
 ```bash
-evmosd tx gov submit-legacy-proposal param-change PROPOSAL_FILE [flags]
+Butaned tx gov submit-legacy-proposal param-change PROPOSAL_FILE [flags]
 ```
 
 ### gRPC
@@ -456,17 +456,17 @@ evmosd tx gov submit-legacy-proposal param-change PROPOSAL_FILE [flags]
 
 | Verb   | Method                                                     | Description                                   |
 | ------ | ---------------------------------------------------------- | --------------------------------------------- |
-| `gRPC` | `evmos.incentives.v1.Query/Incentives`                     | Gets all registered incentives                |
-| `gRPC` | `evmos.incentives.v1.Query/Incentive`                      | Gets incentive for a given contract           |
-| `gRPC` | `evmos.incentives.v1.Query/GasMeters`                      | Gets gas meters for a given incentive         |
-| `gRPC` | `evmos.incentives.v1.Query/GasMeter`                       | Gets gas meter for a given incentive and user |
-| `gRPC` | `evmos.incentives.v1.Query/AllocationMeters`               | Gets all allocation meters                    |
-| `gRPC` | `evmos.incentives.v1.Query/AllocationMeter`                | Gets allocation meter for a denom             |
-| `gRPC` | `evmos.incentives.v1.Query/Params`                         | Gets incentives params                        |
-| `GET`  | `/evmos/incentives/v1/incentives`                          | Gets all registered incentives                |
-| `GET`  | `/evmos/incentives/v1/incentives/{contract}`               | Gets incentive for a given contract           |
-| `GET`  | `/evmos/incentives/v1/gas_meters`                          | Gets gas meters for a given incentive         |
-| `GET`  | `/evmos/incentives/v1/gas_meters/{contract}/{participant}` | Gets gas meter for a given incentive and user |
-| `GET`  | `/evmos/incentives/v1/allocation_meters`                   | Gets all allocation meters                    |
-| `GET`  | `/evmos/incentives/v1/allocation_meters/{denom}`           | Gets allocation meter for a denom             |
-| `GET`  | `/evmos/incentives/v1/params`                              | Gets incentives params                        |
+| `gRPC` | `Butane.incentives.v1.Query/Incentives`                     | Gets all registered incentives                |
+| `gRPC` | `Butane.incentives.v1.Query/Incentive`                      | Gets incentive for a given contract           |
+| `gRPC` | `Butane.incentives.v1.Query/GasMeters`                      | Gets gas meters for a given incentive         |
+| `gRPC` | `Butane.incentives.v1.Query/GasMeter`                       | Gets gas meter for a given incentive and user |
+| `gRPC` | `Butane.incentives.v1.Query/AllocationMeters`               | Gets all allocation meters                    |
+| `gRPC` | `Butane.incentives.v1.Query/AllocationMeter`                | Gets allocation meter for a denom             |
+| `gRPC` | `Butane.incentives.v1.Query/Params`                         | Gets incentives params                        |
+| `GET`  | `/Butane/incentives/v1/incentives`                          | Gets all registered incentives                |
+| `GET`  | `/Butane/incentives/v1/incentives/{contract}`               | Gets incentive for a given contract           |
+| `GET`  | `/Butane/incentives/v1/gas_meters`                          | Gets gas meters for a given incentive         |
+| `GET`  | `/Butane/incentives/v1/gas_meters/{contract}/{participant}` | Gets gas meter for a given incentive and user |
+| `GET`  | `/Butane/incentives/v1/allocation_meters`                   | Gets all allocation meters                    |
+| `GET`  | `/Butane/incentives/v1/allocation_meters/{denom}`           | Gets allocation meter for a denom             |
+| `GET`  | `/Butane/incentives/v1/params`                              | Gets incentives params                        |

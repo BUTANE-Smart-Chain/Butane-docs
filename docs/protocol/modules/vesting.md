@@ -2,10 +2,10 @@
 
 ## Abstract
 
-This document specifies the internal `x/vesting` module of the Evmos Hub.
+This document specifies the internal `x/vesting` module of the Butane Hub.
 
 The `x/vesting` module introduces the `ClawbackVestingAccount`,  a new vesting account type
-that implements the Cosmos SDK [`VestingAccount`](https://docs.cosmos.network/main/modules/auth/vesting#vesting-account-types)
+
 interface.
 This account is used to allocate tokens that are subject to vesting, lockup, and clawback.
 
@@ -21,7 +21,7 @@ At any time, the funder of a `ClawbackVestingAccount` can perform a clawback to 
 The circumstances under which a clawback should be performed can be agreed upon in a contract
 (e.g. smart contract).
 
-For Evmos, the `ClawbackVestingAccount` is used to allocate tokens to core team members and advisors
+For Butane, the `ClawbackVestingAccount` is used to allocate tokens to core team members and advisors
 to incentivize long-term participation in the project.
 
 ## Contents
@@ -36,10 +36,6 @@ to incentivize long-term participation in the project.
 
 ## References
 
-- SDK vesting specification: [https://docs.cosmos.network/main/modules/auth/vesting](https://docs.cosmos.network/main/modules/auth/vesting)
-- SDK vesting implementation: [https://github.com/cosmos/cosmos-sdk/tree/master/x/auth/vesting](https://github.com/cosmos/cosmos-sdk/tree/master/x/auth/vesting)
-- Agoric’s Vesting Clawback Account: [https://github.com/Agoric/agoric-sdk/issues/4085](https://github.com/Agoric/agoric-sdk/issues/4085)
-- Agoric’s `vestcalc` tool: [https://github.com/agoric-labs/cosmos-sdk/tree/Agoric/x/auth/vesting/cmd/vestcalc](https://github.com/agoric-labs/cosmos-sdk/tree/Agoric/x/auth/vesting/cmd/vestcalc)
 
 
 ## Concepts
@@ -56,8 +52,8 @@ The duration until which the first tokens are vested is called the `cliff`.
 
 The lockup describes the schedule by which tokens are converted from a `locked` to an `unlocked` state.
 As long as all tokens are locked, the account cannot perform any Ethereum transactions
-that spend EVMOS using the `x/evm` module.
-However, the account can perform Ethereum transactions that don't spend EVMOS tokens.
+that spend Butane using the `x/evm` module.
+However, the account can perform Ethereum transactions that don't spend Butane tokens.
 Additionally, locked tokens cannot be transferred to other accounts.
 In the case in which tokens are both locked and vested at the same time,
 it is possible to delegate them to validators, but not transfer them to other accounts.
@@ -65,7 +61,7 @@ it is possible to delegate them to validators, but not transfer them to other ac
 The following table summarizes the actions that are allowed for tokens
 that are subject to the combination of vesting and lockup:
 
-| Token Status            | Transfer | Delegate | Vote | Eth Txs that spend EVMOS\*\* | Eth Txs that don't spend EVMOS (amount = 0)\*\* |
+| Token Status            | Transfer | Delegate | Vote | Eth Txs that spend Butane\*\* | Eth Txs that don't spend Butane (amount = 0)\*\* |
 | ----------------------- | :------: | :------: | :--: | :--------------------------: | :---------------------------------------------: |
 | `locked` & `unvested`   |    ❌    |    ❌    |  ❌  |              ❌              |                       ✅                        |
 | `locked` & `vested`     |    ❌    |    ✅    |  ✅  |              ❌              |                       ✅                        |
@@ -74,24 +70,24 @@ that are subject to the combination of vesting and lockup:
 
 \*Staking rewards are unlocked and vested
 
-\*\*EVM transactions only fail if they involve sending locked or unvested EVMOS tokens,
-e.g. send EVMOS to EOA or Smart Contract (fails if amount > 0 ).
+\*\*EVM transactions only fail if they involve sending locked or unvested Butane tokens,
+e.g. send Butane to EOA or Smart Contract (fails if amount > 0 ).
 
 ### Schedules
 
 Vesting and lockup schedules specify the amount and time at which tokens are vested or unlocked.
-They are defined as [`periods`](https://docs.cosmos.network/main/modules/auth/vesting#period)
+They are defined as 
 where each period has its own length and amount.
 A typical vesting schedule for instance would be defined starting with a one-year period to represent the vesting cliff,
 followed by several monthly vesting periods until the total allocated vesting amount is vested.
 
 Vesting or lockup schedules can be easily created
-with Agoric’s [`vestcalc`](https://github.com/agoric-labs/cosmos-sdk/tree/Agoric/x/auth/vesting/cmd/vestcalc) tool.
+with Agoric’s 
 E.g.
 to calculate a four-year vesting schedule with a one year cliff, starting in January 2022, you can run vestcalc with:
 
 ```bash
-vestcalc --write --start=2022-01-01 --coins=200000000000000000000000aevmos --months=48 --cliffs=2023-01-01
+vestcalc --write --start=2022-01-01 --coins=200000000000000000000000aButane --months=48 --cliffs=2023-01-01
 ```
 
 ### Clawback
@@ -108,13 +104,13 @@ Alternatively, they can specify a destination address to send unvested funds to.
 
 The `x/vesting` module does not keep objects in its own store.
 Instead, it uses the SDK `auth` module to store account objects in state
-using the [Account Interface](https://docs.cosmos.network/main/modules/auth#account-interface).
+using the 
 Accounts are exposed externally as an interface and stored internally as a clawback vesting account.
 
 ### ClawbackVestingAccount
 
 An instance that implements
-the [Vesting Account](https://docs.cosmos.network/main/modules/auth/vesting#vesting-account-types) interface.
+the 
 It provides an account that can hold contributions subject to lockup,
 or vesting which is subject to clawback of unvested tokens,
 or a combination (tokens vest, but are still locked).
@@ -306,7 +302,7 @@ The msg content stateless validation fails if:
 ## AnteHandlers
 
 The `x/vesting` module provides `AnteDecorator`s that are recursively chained together
-into a single [`Antehandler`](https://github.com/cosmos/cosmos-sdk/blob/v0.43.0-alpha1/docs/architecture/adr-010-modular-antehandler.md).
+into a single
 These decorators perform basic validity checks on an Ethereum or SDK transaction,
 such that it could be thrown out of the transaction Mempool.
 
@@ -372,12 +368,12 @@ The `x/vesting` module emits the following events:
 
 ## Clients
 
-A user can query the Evmos `x/vesting` module using the CLI, gRPC, or REST.
+A user can query the Butane `x/vesting` module using the CLI, gRPC, or REST.
 
 ### CLI
 
-Find below a list of `evmosd` commands added with the `x/vesting` module.
-You can obtain the full list by using the `evmosd -h` command.
+Find below a list of `Butaned` commands added with the `x/vesting` module.
+You can obtain the full list by using the `Butaned -h` command.
 
 #### Genesis
 
@@ -394,10 +390,10 @@ The described amount of coins will be transferred from the --from address to the
 Unvested coins may be "clawed back" by the funder with the clawback command.
 Coins may not be transferred out of the account if they are locked or unvested.
 Only vested coins may be staked.
-For an example of how to set this see [this link](https://github.com/evmos/evmos/pull/303).
+For an example of how to set this see 
 
 ```go
-evmosd add-genesis-account ADDRESS_OR_KEY_NAME COIN... [flags]
+Butaned add-genesis-account ADDRESS_OR_KEY_NAME COIN... [flags]
 ```
 
 #### Queries
@@ -409,7 +405,7 @@ The `query` commands allow users to query `vesting` account state.
 Allows users to query the locked, unvested and vested tokens for a given vesting account
 
 ```go
-evmosd query vesting balances ADDRESS [flags]
+Butaned query vesting balances ADDRESS [flags]
 ```
 
 #### Transactions
@@ -427,10 +423,10 @@ The described amount of coins will be transferred from the --from address to the
 Unvested coins may be "clawed back" by the funder with the clawback command.
 Coins may not be transferred out of the account if they are locked or unvested.
 Only vested coins may be staked.
-For an example of how to set this see [this link](https://github.com/evmos/evmos/pull/303).
+For an example of how to set this see [this link](https://github.com/Butane/Butane/pull/303).
 
 ```go
-evmosd tx vesting create-clawback-vesting-account TO_ADDRESS [flags]
+Butaned tx vesting create-clawback-vesting-account TO_ADDRESS [flags]
 ```
 
 **`clawback`**
@@ -442,7 +438,7 @@ Delegated or undelegating staking tokens will be transferred in the delegated (u
 The recipient is vulnerable to slashing, and must act to unbond the tokens if desired.
 
 ```go
-evmosd tx vesting clawback ADDRESS [flags]
+Butaned tx vesting clawback ADDRESS [flags]
 ```
 
 **`update-vesting-funder`**
@@ -455,7 +451,7 @@ To perform this action, the user needs to provide two arguments:
 2. the vesting account address
 
 ```go
-evmosd tx vesting update-vesting-funder VESTING_ACCOUNT_ADDRESS NEW_FUNDER_ADDRESS --from=FUNDER_ADDRESS [flags]
+Butaned tx vesting update-vesting-funder VESTING_ACCOUNT_ADDRESS NEW_FUNDER_ADDRESS --from=FUNDER_ADDRESS [flags]
 ```
 
 **`convert`**
@@ -466,7 +462,7 @@ To perform this action a user needs to provide one argument:
 1.the vesting account address
 
 ```go
-evmosd tx vesting convert VESTING_ACCOUNT_ADDRESS [flags]
+Butaned tx vesting convert VESTING_ACCOUNT_ADDRESS [flags]
 ```
 
 ### gRPC
@@ -475,17 +471,17 @@ evmosd tx vesting convert VESTING_ACCOUNT_ADDRESS [flags]
 
 | Verb   | Method                                 | Description                            |
 | ------ | -------------------------------------- | -------------------------------------- |
-| `gRPC` | `evmos.vesting.v1.Query/Balances`      | Gets locked, unvested and vested coins |
-| `GET`  | `/evmos/vesting/v1/balances/{address}` | Gets locked, unvested and vested coins |
+| `gRPC` | `Butane.vesting.v1.Query/Balances`      | Gets locked, unvested and vested coins |
+| `GET`  | `/Butane/vesting/v1/balances/{address}` | Gets locked, unvested and vested coins |
 
 #### Transactions
 
 | Verb   | Method                                                 | Description                      |
 | ------ | ------------------------------------------------------ | -------------------------------- |
-| `gRPC` | `evmos.vesting.v1.Msg/CreateClawbackVestingAccount`    | Creates clawback vesting account |
-| `gRPC` | `/evmos.vesting.v1.Msg/Clawback`                       | Performs clawback                |
-| `gRPC` | `/evmos.vesting.v1.Msg/UpdateVestingFunder`            | Updates vesting account funder   |
-| `GET`  | `/evmos/vesting/v1/tx/create_clawback_vesting_account` | Creates clawback vesting account |
-| `GET`  | `/evmos/vesting/v1/tx/clawback`                        | Performs clawback                |
-| `GET`  | `/evmos/vesting/v1/tx/update_vesting_funder`           | Updates vesting account funder   |
+| `gRPC` | `Butane.vesting.v1.Msg/CreateClawbackVestingAccount`    | Creates clawback vesting account |
+| `gRPC` | `/Butane.vesting.v1.Msg/Clawback`                       | Performs clawback                |
+| `gRPC` | `/Butane.vesting.v1.Msg/UpdateVestingFunder`            | Updates vesting account funder   |
+| `GET`  | `/Butane/vesting/v1/tx/create_clawback_vesting_account` | Creates clawback vesting account |
+| `GET`  | `/Butane/vesting/v1/tx/clawback`                        | Performs clawback                |
+| `GET`  | `/Butane/vesting/v1/tx/update_vesting_funder`           | Updates vesting account funder   |
 

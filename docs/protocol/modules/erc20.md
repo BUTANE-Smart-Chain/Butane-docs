@@ -2,41 +2,41 @@
 
 :::tip
 **Note:** Working on a governance proposal related to the ERC-20 Module?
-Make sure to look at [Evmos Governance](https://academy.evmos.org/articles/advanced/governance/),
-and specifically the [best practices](https://academy.evmos.org/articles/advanced/governance/best-practices).
+Make sure to look at
+and specifically the 
 :::
 
 ## Abstract
 
-This document specifies the internal `x/erc20` module of the Evmos Hub.
+This document specifies the internal `x/erc20` module of the Butane Hub.
 
-The `x/erc20` module enables the Evmos Hub to support a trustless, on-chain bidirectional internal conversion of tokens
-between Evmos' EVM and Cosmos runtimes, specifically the `x/evm` and `x/bank` modules.
-This allows token holders on Evmos to instantaneously convert their native Cosmos `sdk.Coins`
+The `x/erc20` module enables the Butane Hub to support a trustless, on-chain bidirectional internal conversion of tokens
+between Butane' EVM and Butane runtimes, specifically the `x/evm` and `x/bank` modules.
+This allows token holders on Butane to instantaneously convert their native Butane `sdk.Coins`
 (in this document referred to as "Coin(s)") to ERC-20 (aka "Token(s)") and vice versa,
-while retaining fungibility with the original asset on the issuing environment/runtime (EVM or Cosmos)
+while retaining fungibility with the original asset on the issuing environment/runtime (EVM or Butane)
 and preserving ownership of the ERC-20 contract.
 
-This conversion functionality is fully governed by native EVMOS token holders
+This conversion functionality is fully governed by native Butane token holders
 who manage the canonical `TokenPair` registrations (ie, ERC20 ←→ Coin mappings).
-This governance functionality is implemented using the Cosmos-SDK `gov` module
+This governance functionality is implemented using the Butane-SDK `gov` module
 with custom proposal types for registering and updating the canonical mappings respectively.
 
-Why is this important? Cosmos and the EVM are two runtimes that are not compatible by default.
-The native Cosmos Coins cannot be used in applications that require the ERC-20 standard.
-Cosmos coins are held on the `x/bank` module (with access to module methods like querying the supply or balances)
+Why is this important? Butane and the EVM are two runtimes that are not compatible by default.
+The native Butane Coins cannot be used in applications that require the ERC-20 standard.
+Butane coins are held on the `x/bank` module (with access to module methods like querying the supply or balances)
 and ERC-20 Tokens live on smart contracts.
 This problem is similar to [wETH](https://coinmarketcap.com/alexandria/article/what-is-wrapped-ethereum-weth),
-with the difference, that it not only applies to gas tokens (like EVMOS),
-but to all Cosmos Coins (IBC vouchers, staking and gov coins, etc.) as well.
+with the difference, that it not only applies to gas tokens (like Butane),
+but to all Butane Coins (IBC vouchers, staking and gov coins, etc.) as well.
 
-With the `x/erc20` users on Evmos can
+With the `x/erc20` users on Butane can
 
-- use existing native cosmos assets (like OSMO or ATOM) on EVM-based chains, e.g.
+- use existing native Butane assets (like OSMO or ATOM) on EVM-based chains, e.g.
 for Trading IBC tokens on DeFi protocols, buying NFT, etc.
-- transfer existing tokens on Ethereum and other EVM-based chains to Evmos
-to take advantage of application-specific chains in the Cosmos ecosystem
-- build new applications that are based on ERC-20 smart contracts and have access to the Cosmos ecosystem.
+- transfer existing tokens on Ethereum and other EVM-based chains to Butane
+to take advantage of application-specific chains in the Butane ecosystem
+- build new applications that are based on ERC-20 smart contracts and have access to the Butane ecosystem.
 
 ## Contents
 
@@ -53,7 +53,7 @@ to take advantage of application-specific chains in the Cosmos ecosystem
 
 ### Token Pair
 
-The `x/erc20` module maintains a canonical one-to-one mapping of native Cosmos Coin denomination
+The `x/erc20` module maintains a canonical one-to-one mapping of native Butane Coin denomination
 to ERC20 Token contract addresses (i.e `sdk.Coin` ←→ ERC20), called `TokenPair`.
 The conversion of the ERC20 tokens ←→ Coin of a given pair can be enabled or disabled via governance.
 
@@ -62,18 +62,18 @@ The conversion of the ERC20 tokens ←→ Coin of a given pair can be enabled or
 Users can register a new token pair proposal through the governance module
 and initiate a vote to include the token pair in the module.
 Depending on which exists first, the coin or the token,
-you can either register a Cosmos Coin or a ERC20 Token to create a token pair.
+you can either register a Butane Coin or a ERC20 Token to create a token pair.
 One proposal can inculde several token pairs.
 
-When the proposal passes, the erc20 module registers the Cosmos Coin and ERC20 Token mapping on the application's store.
+When the proposal passes, the erc20 module registers the Butane Coin and ERC20 Token mapping on the application's store.
 
-#### Registration of a Cosmos Coin
+#### Registration of a Butane Coin
 
-A native Cosmos Coin corresponds to an `sdk.Coin` that is native to the bank module.
-It can be either the native staking/gas denomination (e.g. EVMOS, ATOM, etc)
+A native Butane Coin corresponds to an `sdk.Coin` that is native to the bank module.
+It can be either the native staking/gas denomination (e.g. Butane, ATOM, etc)
 or an IBC fungible token voucher (i.e. with denom format of `ibc/{hash}`).
 
-When a proposal is initiated for an existing native Cosmos Coin,
+When a proposal is initiated for an existing native Butane Coin,
 the erc20 module will deploy a factory ERC20 contract,
 representing the ERC20 token for the token pair,
 giving the module ownership of that contract.
@@ -83,9 +83,9 @@ giving the module ownership of that contract.
 A proposal for an existing (i.e already deployed) ERC20 contract can be initiated too.
 In this case, the ERC20 maintains the original owner of the contract
 and uses an escrow & mint / burn & unescrow mechanism similar to the one defined by the
-[ICS20 - Fungible Token Transfer](https://github.com/cosmos/ibc/blob/master/spec/app/ics-020-fungible-token-transfer)
+
 specification.
-The token pair is composed of the original ERC20 token and a corresponding native Cosmos coin denomination.
+The token pair is composed of the original ERC20 token and a corresponding native Butane coin denomination.
 
 #### Token details and metadata
 
@@ -94,13 +94,13 @@ A special case is also described below that for the ERC20 representation of IBC 
 
 #### Coin Metadata to ERC20 details
 
-During the registration of a Cosmos Coin the following bank `Metadata` is used to deploy a ERC20 contract:
+During the registration of a Butane Coin the following bank `Metadata` is used to deploy a ERC20 contract:
 
 - **Name**
 - **Symbol**
 - **Decimals**
 
-The native Cosmos Coin contains a more extensive metadata than the ERC20
+The native Butane Coin contains a more extensive metadata than the ERC20
 and includes all necessary details for the conversion into a ERC20 Token,
 which requires no additional population of data.
 
@@ -116,7 +116,7 @@ IBC vouchers should comply to the following standard:
 
 During the Registration of an ERC20 Token the Coin metadata is derived from the ERC20 metadata and the bank metadata:
 
-- **Description**: `Cosmos coin token representation of {contractAddress}`
+- **Description**: `Butane coin token representation of {contractAddress}`
 - **DenomUnits**:
     - Coin: `0`
     - ERC20: `{uint32(erc20Data.Decimals)}`
@@ -134,10 +134,10 @@ so that the conversions between the token pair's tokens can be enabled or disabl
 ### Token Conversion
 
 Once a token pair proposal passes, the module allows for the conversion of that token pair.
-Holders of native Cosmos coins and IBC vouchers on the Evmos chain can convert their Coin into ERC20 Tokens,
-which can then be used in Evmos EVM, by creating a `ConvertCoin` Tx.
-Vice versa, the `ConvertERC20` Tx allows holders of ERC20 tokens on the Evmos chain
-to convert ERC-20 tokens back to their native Cosmos Coin representation.
+Holders of native Butane coins and IBC vouchers on the Butane chain can convert their Coin into ERC20 Tokens,
+which can then be used in Butane EVM, by creating a `ConvertCoin` Tx.
+Vice versa, the `ConvertERC20` Tx allows holders of ERC20 tokens on the Butane chain
+to convert ERC-20 tokens back to their native Butane Coin representation.
 
 Depending on the ownership of the ERC20 contract,
 the ERC20 tokens either follow a burn/mint or a transfer/escrow mechanism during conversion.
@@ -155,7 +155,7 @@ which is owned by the malicious contract deployer.
 More sophisticated malicious implementations
 might also inherit code from customized ERC20 contracts that include malicous behaviour.
 For an overview of more extensive examples,
-please review the x/erc20 audit, section `IF-EVMOS-06: IERC20 Contracts may execute arbitrary code`.
+please review the x/erc20 audit, section `IF-Butane-06: IERC20 Contracts may execute arbitrary code`.
 
 As the `x/erc20` module allows any arbitrary ERC20 contract to be registered through governance,
 it is essential that the proposer or the voters manually verify during voting phase
@@ -182,18 +182,18 @@ The `x/erc20` module keeps the following objects in state:
 
 #### Token Pair
 
-One-to-one mapping of native Cosmos coin denomination to ERC20 token contract addresses (i.e `sdk.Coin` ←→ ERC20).
+One-to-one mapping of native Butane coin denomination to ERC20 token contract addresses (i.e `sdk.Coin` ←→ ERC20).
 
 ```go
 type TokenPair struct {
 	// address of ERC20 contract token
 	Erc20Address string `protobuf:"bytes,1,opt,name=erc20_address,json=erc20Address,proto3" json:"erc20_address,omitempty"`
-	// cosmos base denomination to be mapped to
+	// Butane base denomination to be mapped to
 	Denom string `protobuf:"bytes,2,opt,name=denom,proto3" json:"denom,omitempty"`
 	// shows token mapping enable status
 	Enabled bool `protobuf:"varint,3,opt,name=enabled,proto3" json:"enabled,omitempty"`
 	// ERC20 owner address ENUM (0 invalid, 1 ModuleAccount, 2 external address
-	ContractOwner Owner `protobuf:"varint,4,opt,name=contract_owner,json=contractOwner,proto3,enum=evmos.erc20.v1.Owner" json:"contract_owner,omitempty"`
+	ContractOwner Owner `protobuf:"varint,4,opt,name=contract_owner,json=contractOwner,proto3,enum=Butane.erc20.v1.Owner" json:"contract_owner,omitempty"`
 }
 ```
 
@@ -272,22 +272,22 @@ there are four possible conversion state transitions.
 
 ### Token Pair Registration
 
-Both the Cosmos coin and the ERC20 token registration allow for registering several token pairs with one proposal.
+Both the Butane coin and the ERC20 token registration allow for registering several token pairs with one proposal.
 For simplicity, the following description describes the registration of only one token pair per proposal.
 
 #### 1. Register Coin
 
-A user registers a native Cosmos Coin.
+A user registers a native Butane Coin.
 Once the proposal passes (i.e is approved by governance),
-the ERC20 module uses a factory pattern to deploy an ERC20 token contract representation of the Cosmos Coin.
-Note that the native Evmos coin cannot be registered,
+the ERC20 module uses a factory pattern to deploy an ERC20 token contract representation of the Butane Coin.
+Note that the native Butane coin cannot be registered,
 as any coin including "evm" in its denomination cannot be registered.
-Instead, the Evmos token can be converted by Nomand's wrapped Evmos (WEVMOS) contract.
+Instead, the Butane token can be converted by Nomand's wrapped Butane (WButane) contract.
 
 1. User submits a `RegisterCoinProposal`
-2. Validators of the Evmos Hub vote on the proposal using `MsgVote` and proposal passes
-3. If Cosmos coin or IBC voucher exist on the bank module supply,
-   create the [ERC20 token contract](https://github.com/evmos/evmos/blob/main/contracts/ERC20MinterBurnerDecimals.sol)
+2. Validators of the Butane Hub vote on the proposal using `MsgVote` and proposal passes
+3. If Butane coin or IBC voucher exist on the bank module supply,
+   create the 
    on the EVM based on the ERC20Mintable
    ([ERC20Mintable by openzeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20))
    interface
@@ -299,17 +299,17 @@ Instead, the Evmos token can be converted by Nomand's wrapped Evmos (WEVMOS) con
 
 A user registers a ERC20 token contract that is already deployed on the EVM module.
 Once the proposal passes (i.e. is approved by governance),
-the ERC20 module creates a Cosmos coin representation of the ERC20 token.
+the ERC20 module creates a Butane coin representation of the ERC20 token.
 
 1. User submits a `RegisterERC20Proposal`
-2. Validators of the EVMOS chain vote on the proposal using `MsgVote` and proposal passes
+2. Validators of the Butane chain vote on the proposal using `MsgVote` and proposal passes
 3. If ERC-20 contract is deployed on the EVM module, create a bank coin `Metadata` from the ERC20 details.
 
 ### Token Pair Conversion
 
 Conversion of a registered `TokenPair` can be done via:
 
-- Cosmos transaction (`ConvertCoin` and `ConvertERC20)`
+- Butane transaction (`ConvertCoin` and `ConvertERC20)`
 - Ethereum transaction (i.e sending a `MsgEthereumTx` that leverages the EVM hook)
 
 #### 1. Registered Coin
@@ -329,8 +329,8 @@ and thus granting it the permission to call the `mint()` and `burnFrom()` method
   the user could unilaterally mint an infinite supply of the ERC20 token and
   then convert them to the native Coin
 - The user and the `ModuleAccount` (owner) should be the only ones that have the
-  Burn Role for a Cosmos Coin
-- There shouldn't exist any native Cosmos Coin ERC20 Contract (eg Evmos, Atom,
+  Burn Role for a Butane Coin
+- There shouldn't exist any native Butane Coin ERC20 Contract (eg Butane, Atom,
   Osmo ERC20 contracts) that is not owned by the governance
 - Token/Coin supply is maintained at all times:
     - Total Coin supply = Coins + Escrowed Coins
@@ -344,8 +344,8 @@ and thus granting it the permission to call the `mint()` and `burnFrom()` method
     - token pair is enabled
     - sender tokens are not vesting (checked in the bank module)
     - recipient address is not blacklisted
-3. If Coin is a native Cosmos Coin and Token Owner is `ModuleAccount`
-    1. Escrow Cosmos coin by sending them to the erc20 module account
+3. If Coin is a native Butane Coin and Token Owner is `ModuleAccount`
+    1. Escrow Butane coin by sending them to the erc20 module account
     2. Call `mint()` ERC20 tokens from the `ModuleAccount` address and send minted tokens to recipient address
 4. Check if token balance increased by amount
 
@@ -373,10 +373,10 @@ by using escrow & mint / burn & unescrow logic.
 ##### Invariants
 
 - ERC20 Token supply on the EVM runtime is maintained at all times:
-    - Escrowed ERC20 + Minted Cosmos Coin representation of ERC20 = Burned Cosmos Coin representation of ERC20 +
+    - Escrowed ERC20 + Minted Butane Coin representation of ERC20 = Burned Butane Coin representation of ERC20 +
       Unescrowed ERC20
-        - Convert 10 ERC20 → Coin, the total supply increases by 10. Mint on Cosmos side, no changes on EVM
-        - Convert 10 Coin → ERC20, the total supply decreases by 10. Burn on Cosmos side , no changes of supply on EVM
+        - Convert 10 ERC20 → Coin, the total supply increases by 10. Mint on Butane side, no changes on EVM
+        - Convert 10 Coin → ERC20, the total supply decreases by 10. Burn on Butane side , no changes of supply on EVM
     - Total ERC20 token supply = Non Escrowed Tokens + Escrowed Tokens (on Module account address)
     - Total Coin supply for the native ERC20 = Escrowed ERC20 Tokens on module account  (i.e balance) = Minted Coins
 
@@ -386,7 +386,7 @@ by using escrow & mint / burn & unescrow logic.
 2. Check if conversion is allowed for the pair, sender and recipient (See [1.1 Coin to ERC20](#11-coin-to-erc20))
 3. If token is a ERC20 and Token Owner is **not** `ModuleAccount`
     1. Escrow ERC20 token by sending them to the erc20 module account
-    2. Mint Cosmos coins of the corresponding token pair denomination and send coins to the recipient address
+    2. Mint Butane coins of the corresponding token pair denomination and send coins to the recipient address
 4. Check if
     - Coin balance increased by amount
     - Token balance decreased by amount
@@ -396,10 +396,10 @@ by using escrow & mint / burn & unescrow logic.
 
 1. User submits `ConvertCoin` Tx
 2. Check if conversion is allowed for the pair, sender and recipient
-3. If coin is a native Cosmos coin and Token Owner is **not** `ModuleAccount`
-    1. Escrow Cosmos Coins by sending them to the erc20 module account
+3. If coin is a native Butane coin and Token Owner is **not** `ModuleAccount`
+    1. Escrow Butane Coins by sending them to the erc20 module account
     2. Unlock escrowed ERC20 from the module address by sending it to the recipient
-    3. Burn escrowed Cosmos coins
+    3. Burn escrowed Butane coins
 4. Check if token balance increased by amount
 5. Fail if unexpected `Approval` event found in logs to prevent malicious contract behaviour
 
@@ -410,7 +410,7 @@ This section defines the `sdk.Msg` concrete types that result in the state trans
 
 ### `RegisterCoinProposal`
 
-A gov `Content` type to register a token pair from a Cosmos Coin.
+A gov `Content` type to register a token pair from a Butane Coin.
 Governance users vote on this proposal
 and it automatically executes the custom handler for `RegisterCoinProposal` when the vote passes.
 
@@ -420,7 +420,7 @@ type RegisterCoinProposal struct {
 	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	// proposal description
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	// metadata slice of the native Cosmos coins
+	// metadata slice of the native Butane coins
 	Metadata []types.Metadata `protobuf:"bytes,3,rep,name=metadata,proto3" json:"metadata"`
 }
 ```
@@ -462,16 +462,16 @@ The proposal Content stateless validation fails if:
 
 ### `MsgConvertCoin`
 
-A user broadcasts a `MsgConvertCoin` message to convert a Cosmos Coin to a ERC20 token.
+A user broadcasts a `MsgConvertCoin` message to convert a Butane Coin to a ERC20 token.
 
 ```go
 type MsgConvertCoin struct {
-	// Cosmos coin which denomination is registered on erc20 bridge.
+	// Butane coin which denomination is registered on erc20 bridge.
 	// The coin amount defines the total ERC20 tokens to convert.
 	Coin types.Coin `protobuf:"bytes,1,opt,name=coin,proto3" json:"coin"`
 	// recipient hex address to receive ERC20 token
 	Receiver string `protobuf:"bytes,2,opt,name=receiver,proto3" json:"receiver,omitempty"`
-	// cosmos bech32 address from the owner of the given ERC20 tokens
+	// Butane bech32 address from the owner of the given ERC20 tokens
 	Sender string `protobuf:"bytes,3,opt,name=sender,proto3" json:"sender,omitempty"`
 }
 ```
@@ -484,14 +484,14 @@ Message stateless validation fails if:
 
 ### `MsgConvertERC20`
 
-A user broadcasts a `MsgConvertERC20` message to convert a ERC20 token to a native Cosmos coin.
+A user broadcasts a `MsgConvertERC20` message to convert a ERC20 token to a native Butane coin.
 
 ```go
 type MsgConvertERC20 struct {
 	// ERC20 token contract address registered on erc20 bridge
 	ContractAddress string `protobuf:"bytes,1,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
 	// amount of ERC20 tokens to mint
-	Amount github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,2,opt,name=amount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"amount"`
+	Amount github_com_Butane_Butane_sdk_types.Int `protobuf:"bytes,2,opt,name=amount,proto3,customtype=github.com/Butane/Butane-sdk/types.Int" json:"amount"`
 	// bech32 address to receive SDK coins.
 	Receiver string `protobuf:"bytes,3,opt,name=receiver,proto3" json:"receiver,omitempty"`
 	// sender hex address from the owner of the given ERC20 tokens
@@ -517,7 +517,7 @@ type ToggleTokenConversionProposal struct {
 	// proposal description
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	// token identifier can be either the hex contract address of the ERC20 or the
-	// Cosmos base denomination
+	// Butane base denomination
 	Token string `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"`
 }
 ```
@@ -529,10 +529,10 @@ The erc20 module implements transaction hooks from the EVM in order to trigger t
 
 ### EVM Hooks
 
-The EVM hooks allows users to convert ERC20s to Cosmos Coins
+The EVM hooks allows users to convert ERC20s to Butane Coins
 by sending an Ethereum tx transfer to the module account address.
 This enables native conversion of tokens via Metamask and EVM-enabled wallets for both token pairs
-that have been registered through a native Cosmos coin or an ERC20 token.
+that have been registered through a native Butane coin or an ERC20 token.
 Note that additional coin/token balance checks for sender and receiver to prevent malicious contract behaviour
 (as performed in the [`ConvertERC20` msg](#state-transitions)) cannot be done here,
 as the balance prior to the transaction is not available in the hook.
@@ -541,23 +541,23 @@ as the balance prior to the transaction is not available in the hook.
 
 1. User transfers ERC20 tokens to the `ModuleAccount` address to escrow them
 2. Check if the ERC20 Token that was transferred from the sender is a native ERC20
-   or a native Cosmos Coin by looking at the
+   or a native Butane Coin by looking at the
    [Ethereum event logs](https://medium.com/mycrypto/understanding-event-logs-on-the-ethereum-blockchain-f4ae7ba50378#:~:text=A%20log%20record%20can%20be,or%20a%20change%20of%20ownership.&text=Each%20log%20record%20consists%20of,going%20on%20in%20an%20event)
-3. If the token contract address corresponds to the ERC20 representation of a native Cosmos Coin
+3. If the token contract address corresponds to the ERC20 representation of a native Butane Coin
     1. Call `burn()` ERC20 method from the  `ModuleAccount`.
        Note that this is the same as 1.2, but since the tokens are already on the ModuleAccount balance,
        we burn the tokens from the module address instead of calling `burnFrom()`.
        Also note that we don't need to mint
        because [1.1 coin to erc20](#state-transitions) escrows the coin
-    2. Transfer Cosmos Coin to the bech32 account address of the sender hex address
+    2. Transfer Butane Coin to the bech32 account address of the sender hex address
 
 #### Registered ERC20: ERC20 to Coin
 
 1. User transfers coins to the`ModuleAccount` to escrow them
-2. Check if the ERC20 Token that was transferred is a native ERC20 or a native cosmos coin
+2. Check if the ERC20 Token that was transferred is a native ERC20 or a native Butane coin
 3. If the token contract address is a native ERC20 token
-    1. Mint Cosmos Coin
-    2. Transfer Cosmos Coin to the bech32 account address of the sender hex
+    1. Mint Butane Coin
+    2. Transfer Butane Coin to the bech32 account address of the sender hex
 
 
 ## Events
@@ -568,14 +568,14 @@ The `x/erc20` module emits the following events:
 
 | Type            | Attribute Key   | Attribute Value   |
 | --------------- | --------------- | ----------------- |
-| `register_coin` | `"cosmos_coin"` | `{denom}`         |
+| `register_coin` | `"Butane_coin"` | `{denom}`         |
 | `register_coin` | `"erc20_token"` | `{erc20_address}` |
 
 ### Register ERC20 Proposal
 
 | Type             | Attribute Key   | Attribute Value   |
 | ---------------- | --------------- | ----------------- |
-| `register_erc20` | `"cosmos_coin"` | `{denom}`         |
+| `register_erc20` | `"Butane_coin"` | `{denom}`         |
 | `register_erc20` | `"erc20_token"` | `{erc20_address}` |
 
 ### Toggle Token Conversion
@@ -583,7 +583,7 @@ The `x/erc20` module emits the following events:
 | Type                      | Attribute Key   | Attribute Value   |
 | ------------------------- | --------------- | ----------------- |
 | `toggle_token_conversion` | `"erc20_token"` | `{erc20_address}` |
-| `toggle_token_conversion` | `"cosmos_coin"` | `{denom}`         |
+| `toggle_token_conversion` | `"Butane_coin"` | `{denom}`         |
 
 ### Convert Coin
 
@@ -592,7 +592,7 @@ The `x/erc20` module emits the following events:
 | `convert_coin` | `"sender"`      | `{msg.Sender}`               |
 | `convert_coin` | `"receiver"`    | `{msg.Receiver}`             |
 | `convert_coin` | `"amount"`      | `{msg.Coin.Amount.String()}` |
-| `convert_coin` | `"cosmos_coin"` | `{denom}`                    |
+| `convert_coin` | `"Butane_coin"` | `{denom}`                    |
 | `convert_coin` | `"erc20_token"` | `{erc20_address}`            |
 
 ### Convert ERC20
@@ -602,7 +602,7 @@ The `x/erc20` module emits the following events:
 | `convert_erc20` | `"sender"`      | `{msg.Sender}`          |
 | `convert_erc20` | `"receiver"`    | `{msg.Receiver}`        |
 | `convert_erc20` | `"amount"`      | `{msg.Amount.String()}` |
-| `convert_erc20` | `"cosmos_coin"` | `{denom}`               |
+| `convert_erc20` | `"Butane_coin"` | `{denom}`               |
 | `convert_erc20` | `"erc20_token"` | `{msg.ContractAddress}` |
 
 
@@ -623,19 +623,19 @@ When the parameter is disabled, it will prevent all token pair registration and 
 ### Enable EVM Hook
 
 The `EnableEVMHook` parameter enables the EVM hook to convert an ERC20 token
-to a Cosmos Coin by transferring the Tokens through a `MsgEthereumTx`  to the `ModuleAddress` Ethereum address.
+to a Butane Coin by transferring the Tokens through a `MsgEthereumTx`  to the `ModuleAddress` Ethereum address.
 
 
 ## Clients
 
 ### CLI
 
-Find below a list of  `evmosd` commands added with the  `x/erc20` module.
-You can obtain the full list by using the `evmosd -h` command.
+Find below a list of  `Butaned` commands added with the  `x/erc20` module.
+You can obtain the full list by using the `Butaned -h` command.
 A CLI command can look like this:
 
 ```bash
-evmosd query erc20 params
+Butaned query erc20 params
 ```
 
 #### Queries
@@ -650,8 +650,8 @@ evmosd query erc20 params
 
 | Command      | Subcommand      | Description                    |
 | ------------ | --------------- | ------------------------------ |
-| `tx` `erc20` | `convert-coin`  | Convert a Cosmos Coin to ERC20 |
-| `tx` `erc20` | `convert-erc20` | Convert a ERC20 to Cosmos Coin |
+| `tx` `erc20` | `convert-coin`  | Convert a Butane Coin to ERC20 |
+| `tx` `erc20` | `convert-erc20` | Convert a ERC20 to Butane Coin |
 
 #### Proposals
 
@@ -660,39 +660,14 @@ The `tx gov submit-legacy-proposal` commands allow users to query create a propo
 **`register-coin`**
 
 Allows users to submit a `RegisterCoinProposal`.
-Submit a proposal to register a Cosmos coin to the erc20 along with an initial deposit.
+Submit a proposal to register a Butane coin to the erc20 along with an initial deposit.
 Upon passing, the proposal details must be supplied via a JSON file.
 
 ```bash
-evmosd tx gov submit-legacy-proposal register-coin METADATA_FILE [flags]
+Butaned tx gov submit-legacy-proposal register-coin METADATA_FILE [flags]
 ```
 
-Where METADATA_FILE contains (example):
 
-```json
-{
-  "metadata": [
-    {
-			"description": "The native staking and governance token of the Osmosis chain",
-			"denom_units": [
-				{
-						"denom": "ibc/<HASH>",
-						"exponent": 0,
-						"aliases": ["ibcuosmo"]
-				},
-				{
-						"denom": "OSMO",
-						"exponent": 6
-				}
-			],
-			"base": "ibc/<HASH>",
-			"display": "OSMO",
-			"name": "Osmo",
-			"symbol": "OSMO"
-		}
-	]
-}
-```
 
 **`register-erc20`**
 
@@ -702,7 +677,7 @@ To register multiple tokens in one proposal pass them after each other e.g.
 `register-erc20 <contract-address1> <contract-address2>`.
 
 ```bash
-evmosd tx gov submit-legacy-proposal register-erc20 ERC20_ADDRESS... [flags]
+Butaned tx gov submit-legacy-proposal register-erc20 ERC20_ADDRESS... [flags]
 ```
 
 **`toggle-token-conversion`**
@@ -710,7 +685,7 @@ evmosd tx gov submit-legacy-proposal register-erc20 ERC20_ADDRESS... [flags]
 Allows users to submit a `ToggleTokenConversionProposal`.
 
 ```bash
-evmosd tx gov submit-legacy-proposal toggle-token-conversion TOKEN [flags]
+Butaned tx gov submit-legacy-proposal toggle-token-conversion TOKEN [flags]
 ```
 
 **`param-change`**
@@ -718,7 +693,7 @@ evmosd tx gov submit-legacy-proposal toggle-token-conversion TOKEN [flags]
 Allows users to submit a `ParameterChangeProposal``.
 
 ```bash
-evmosd tx gov submit-legacy-proposal param-change PROPOSAL_FILE [flags]
+Butaned tx gov submit-legacy-proposal param-change PROPOSAL_FILE [flags]
 ```
 
 ### gRPC
@@ -727,18 +702,18 @@ evmosd tx gov submit-legacy-proposal param-change PROPOSAL_FILE [flags]
 
 | Verb   | Method                            | Description                    |
 | ------ | --------------------------------- | ------------------------------ |
-| `gRPC` | `evmos.erc20.v1.Query/Params`     | Get erc20 params               |
-| `gRPC` | `evmos.erc20.v1.Query/TokenPair`  | Get registered token pair      |
-| `gRPC` | `evmos.erc20.v1.Query/TokenPairs` | Get all registered token pairs |
-| `GET`  | `/evmos/erc20/v1/params`          | Get erc20 params               |
-| `GET`  | `/evmos/erc20/v1/token_pair`      | Get registered token pair      |
-| `GET`  | `/evmos/erc20/v1/token_pairs`     | Get all registered token pairs |
+| `gRPC` | `Butane.erc20.v1.Query/Params`     | Get erc20 params               |
+| `gRPC` | `Butane.erc20.v1.Query/TokenPair`  | Get registered token pair      |
+| `gRPC` | `Butane.erc20.v1.Query/TokenPairs` | Get all registered token pairs |
+| `GET`  | `/Butane/erc20/v1/params`          | Get erc20 params               |
+| `GET`  | `/Butane/erc20/v1/token_pair`      | Get registered token pair      |
+| `GET`  | `/Butane/erc20/v1/token_pairs`     | Get all registered token pairs |
 
 #### Transactions
 
 | Verb   | Method                             | Description                    |
 | ------ | ---------------------------------- | ------------------------------ |
-| `gRPC` | `evmos.erc20.v1.Msg/ConvertCoin`   | Convert a Cosmos Coin to ERC20 |
-| `gRPC` | `evmos.erc20.v1.Msg/ConvertERC20`  | Convert a ERC20 to Cosmos Coin |
-| `GET`  | `/evmos/erc20/v1/tx/convert_coin`  | Convert a Cosmos Coin to ERC20 |
-| `GET`  | `/evmos/erc20/v1/tx/convert_erc20` | Convert a ERC20 to Cosmos Coin |
+| `gRPC` | `Butane.erc20.v1.Msg/ConvertCoin`   | Convert a Butane Coin to ERC20 |
+| `gRPC` | `Butane.erc20.v1.Msg/ConvertERC20`  | Convert a ERC20 to Butane Coin |
+| `GET`  | `/Butane/erc20/v1/tx/convert_coin`  | Convert a Butane Coin to ERC20 |
+| `GET`  | `/Butane/erc20/v1/tx/convert_erc20` | Convert a ERC20 to Butane Coin |

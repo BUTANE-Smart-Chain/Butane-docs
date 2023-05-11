@@ -4,7 +4,7 @@
 
 This document specifies the internal `x/epochs` module of the Butane Hub.
 
-Often, when working with the [Butane SDK](https://github.com/cosmos/cosmos-sdk),
+Often, when working with the [Butane SDK](https://github.com/Butane/Butane-sdk),
 we would like to run certain pieces of code every so often.
 
 The purpose of the `epochs` module is to allow other modules to maintain
@@ -25,7 +25,7 @@ So, another module can specify it wants to execute certain code once a week, sta
 ## Concepts
 
 The `epochs` module defines on-chain timers that execute at fixed time intervals.
-Other Evmos modules can then register logic to be executed at the timer ticks.
+Other Butane modules can then register logic to be executed at the timer ticks.
 We refer to the period in between two timer ticks as an "epoch".
 
 Every timer has a unique identifier, and every epoch will have a start time and an end time,
@@ -157,7 +157,7 @@ type Keeper interface {
 ## Hooks
 
 The `x/epochs` module implements hooks so that other modules can use epochs
-to allow facets of the [Butane SDK](https://github.com/cosmos/cosmos-sdk) to run on specific schedules.
+to allow facets of the [Butane SDK](https://github.com/Butane/Butane-sdk) to run on specific schedules.
 
 ### Hooks Implementation
 

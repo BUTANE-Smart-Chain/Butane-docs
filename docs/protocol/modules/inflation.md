@@ -2,9 +2,9 @@
 
 ## Abstract
 
-The `x/inflation` module mints new Evmos tokens and allocates them in daily
-epochs according to the [Evmos Token
-Model](https://evmos.blog/the-evmos-token-model-edc07014978b) distribution to
+The `x/inflation` module mints new Butane tokens and allocates them in daily
+epochs according to the [Butane Token
+Model](https://Butane.blog/the-Butane-token-model-edc07014978b) distribution to
 
 * Staking Rewards `40%`,
 * Team Vesting `25%`,
@@ -13,7 +13,7 @@ Model](https://evmos.blog/the-evmos-token-model-edc07014978b) distribution to
 
 It replaces the currently used Cosmos SDK `x/mint` module.
 
-The allocation of new coins incentivizes specific behaviour in the Evmos
+The allocation of new coins incentivizes specific behaviour in the Butane
 network. Inflation allocates funds to 1) the `Fee Collector account` (in the sdk
 `x/auth` module) to increase staking rewards, 2) the  `x/incentives` module
 account  to provide supply for usage incentives and 3) the community pool
@@ -46,14 +46,14 @@ becomes *stable*, because assets are locked up instead of causing price changes
 through trading. And it becomes *decentralized,* because the power to vote for
 governance proposals is distributed amongst more people.
 
-### Evmos Token Model
+### Butane Token Model
 
-The Evmos Token Model outlines how the Evmos network is secured through a
+The Butane Token Model outlines how the Butane network is secured through a
 balanced incentivized interest from users, developers and validators. In this
 model, inflation plays a major role in sustaining this balance. With an initial
 supply of 200 million and over 300 million tokens being issued through inflation
 during the first year, the model suggests an exponential decline in inflation to
-issue 1 billion Evmos tokens within the first 4 years.
+issue 1 billion Butane tokens within the first 4 years.
 
 We implement two different inflation mechanisms to support the token model:
 
@@ -78,7 +78,7 @@ The inflation distribution for staking, usage incentives and community pool is
 implemented through an exponential formula, a.k.a. the Half Life.
 
 Inflation is minted in daily epochs. During a period of 365 epochs (one year), a
-daily provision (`epochProvison`) of Evmos tokens is minted and allocated to staking rewards,
+daily provision (`epochProvison`) of Butane tokens is minted and allocated to staking rewards,
 usage incentives and the community pool.
 The epoch provision depends on module parameters and is recalculated at the end of every epoch.
 
@@ -202,7 +202,7 @@ can be modified via governance.
 
 | Key                                   | Type                   | Default Value                                                                 |
 | ------------------------              | ---------------------- | ----------------------------------------------------------------------------- |
-| `ParamStoreKeyMintDenom`              | string                 | `evm.DefaultEVMDenom` // “aevmos”                                             |
+| `ParamStoreKeyMintDenom`              | string                 | `evm.DefaultEVMDenom` // “aButane”                                             |
 | `ParamStoreKeyExponentialCalculation` | ExponentialCalculation | `A: sdk.NewDec(int64(300_000_000))`                                           |
 |                                       |                        | `R: sdk.NewDecWithPrec(50, 2)`                                                |
 |                                       |                        | `C: sdk.NewDec(int64(9_375_000))`                                             |
@@ -233,13 +233,13 @@ The `ParamStoreKeyInflationDistribution` parameter defines the distribution in w
 inflation is allocated through minting on each epoch (`stakingRewards`,
 `usageIncentives`,  `CommunityPool`). The `x/inflation` excludes the team
 vesting distribution, as team vesting is minted once at genesis. To reflect this
-the distribution from the Evmos Token Model is recalculated into a distribution
+the distribution from the Butane Token Model is recalculated into a distribution
 that excludes team vesting. Note, that this does not change the inflation
-proposed in the Evmos Token Model. Each `InflationDistribution` can be
+proposed in the Butane Token Model. Each `InflationDistribution` can be
 calculated like this:
 
 ```markdown
-stakingRewards = evmosTokenModelDistribution / (1 - teamVestingDistribution)
+stakingRewards = ButaneTokenModelDistribution / (1 - teamVestingDistribution)
 0.5333333      = 40%                         / (1 - 25%)
 ```
 
@@ -257,8 +257,8 @@ REST.
 
 ### CLI
 
-Find below a list of `evmosd` commands added with the `x/inflation` module. You
-can obtain the full list by using the `evmosd -h` command.
+Find below a list of `Butaned` commands added with the `x/inflation` module. You
+can obtain the full list by using the `Butaned -h` command.
 
 #### Queries
 
@@ -269,7 +269,7 @@ The `query` commands allow users to query `inflation` state.
 Allows users to query the current inflation period.
 
 ```bash
-evmosd query inflation period [flags]
+Butaned query inflation period [flags]
 ```
 
 **`epoch-mint-provision`**
@@ -277,7 +277,7 @@ evmosd query inflation period [flags]
 Allows users to query the current inflation epoch provisions value.
 
 ```bash
-evmosd query inflation epoch-mint-provision [flags]
+Butaned query inflation epoch-mint-provision [flags]
 ```
 
 **`skipped-epochs`**
@@ -285,7 +285,7 @@ evmosd query inflation epoch-mint-provision [flags]
 Allows users to query the current number of skipped epochs.
 
 ```bash
-evmosd query inflation skipped-epochs [flags]
+Butaned query inflation skipped-epochs [flags]
 ```
 
 **`total-supply`**
@@ -293,7 +293,7 @@ evmosd query inflation skipped-epochs [flags]
 Allows users to query the total supply of tokens in circulation.
 
 ```bash
-evmosd query inflation total-supply [flags]
+Butaned query inflation total-supply [flags]
 ```
 
 **`inflation-rate`**
@@ -301,7 +301,7 @@ evmosd query inflation total-supply [flags]
 Allows users to query the inflation rate of the current period.
 
 ```bash
-evmosd query inflation inflation-rate [flags]
+Butaned query inflation inflation-rate [flags]
 ```
 
 **`params`**
@@ -309,7 +309,7 @@ evmosd query inflation inflation-rate [flags]
 Allows users to query the current inflation parameters.
 
 ```bash
-evmosd query inflation params [flags]
+Butaned query inflation params [flags]
 ```
 
 #### Proposals
@@ -322,7 +322,7 @@ using the governance module CLI:
 Allows users to submit a `ParameterChangeProposal`.
 
 ```bash
-evmosd tx gov submit-legacy-proposal param-change [proposal-file] [flags]
+Butaned tx gov submit-legacy-proposal param-change [proposal-file] [flags]
 ```
 
 ### gRPC
@@ -331,15 +331,15 @@ evmosd tx gov submit-legacy-proposal param-change [proposal-file] [flags]
 
 | Verb   | Method                                        | Description                                   |
 | ------ | --------------------------------------------- | --------------------------------------------- |
-| `gRPC` | `evmos.inflation.v1.Query/Period`             | Gets current inflation period                 |
-| `gRPC` | `evmos.inflation.v1.Query/EpochMintProvision` | Gets current inflation epoch provisions value |
-| `gRPC` | `evmos.inflation.v1.Query/Params`             | Gets current inflation parameters             |
-| `gRPC` | `evmos.inflation.v1.Query/SkippedEpochs`      | Gets current number of skipped epochs         |
-| `gRPC` | `evmos.inflation.v1.Query/TotalSupply`        | Gets current total supply                     |
-| `gRPC` | `evmos.inflation.v1.Query/InflationRate`      | Gets current inflation rate                   |
-| `GET`  | `/evmos/inflation/v1/period`                  | Gets current inflation period                 |
-| `GET`  | `/evmos/inflation/v1/epoch_mint_provision`    | Gets current inflation epoch provisions value |
-| `GET`  | `/evmos/inflation/v1/skipped_epochs`          | Gets current number of skipped epochs         |
-| `GET`  | `/evmos/inflation/v1/total_supply`          | Gets current total supply                     |
-| `GET`  | `/evmos/inflation/v1/inflation_rate`          | Gets current inflation rate                   |
-| `GET`  | `/evmos/inflation/v1/params`                  | Gets current inflation parameters             |
+| `gRPC` | `Butane.inflation.v1.Query/Period`             | Gets current inflation period                 |
+| `gRPC` | `Butane.inflation.v1.Query/EpochMintProvision` | Gets current inflation epoch provisions value |
+| `gRPC` | `Butane.inflation.v1.Query/Params`             | Gets current inflation parameters             |
+| `gRPC` | `Butane.inflation.v1.Query/SkippedEpochs`      | Gets current number of skipped epochs         |
+| `gRPC` | `Butane.inflation.v1.Query/TotalSupply`        | Gets current total supply                     |
+| `gRPC` | `Butane.inflation.v1.Query/InflationRate`      | Gets current inflation rate                   |
+| `GET`  | `/Butane/inflation/v1/period`                  | Gets current inflation period                 |
+| `GET`  | `/Butane/inflation/v1/epoch_mint_provision`    | Gets current inflation epoch provisions value |
+| `GET`  | `/Butane/inflation/v1/skipped_epochs`          | Gets current number of skipped epochs         |
+| `GET`  | `/Butane/inflation/v1/total_supply`          | Gets current total supply                     |
+| `GET`  | `/Butane/inflation/v1/inflation_rate`          | Gets current inflation rate                   |
+| `GET`  | `/Butane/inflation/v1/params`                  | Gets current inflation parameters             |
