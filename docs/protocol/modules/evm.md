@@ -716,8 +716,7 @@ This section defines the `sdk.Msg` concrete types that result in the state tra
 An EVM state transition can be achieved by using the `MsgEthereumTx`.
 This message encapsulates an Ethereum transaction data (`TxData`) as a `sdk.Msg`.
 It contains the necessary transaction data fields.
-Note, that the `MsgEthereumTx` implements both the [`sdk.Msg`](https://github.com/Butane/Butane-sdk/blob/v0.39.2/types/tx_msg.go#L7-L29)
-and [`sdk.Tx`](https://github.com/Butane/Butane-sdk/blob/v0.39.2/types/tx_msg.go#L33-L41) interfaces.
+Note, that the `MsgEthereumTx` implements both the `sdk.Msg` interfaces.
 Normally, SDK messages only implement the former, while the latter is a group of messages bundled together.
 
 ```go

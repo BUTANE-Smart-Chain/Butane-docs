@@ -11,7 +11,7 @@ It allows independent blockchains to communicate with each other
 and exchange value, particularly tokens. IBC relayers are software programs that facilitate communication between two
 distinct blockchain networks that support IBC.
 
-![TAO-IBC](https://tutorials.cosmos.network/resized-images/600/academy/3-ibc/images/connectionstate.png)
+
 
 Relayers can also open paths across chains, creating clients, connections, and channels. The
 IBC protocol consists of two layers: the TAO layer and the APP layer, built on top of TAO. The TAO layer, which is

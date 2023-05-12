@@ -157,7 +157,7 @@ type Keeper interface {
 ## Hooks
 
 The `x/epochs` module implements hooks so that other modules can use epochs
-to allow facets of the [Butane SDK](https://github.com/Butane/Butane-sdk) to run on specific schedules.
+to allow facets of the Butane SDK to run on specific schedules.
 
 ### Hooks Implementation
 

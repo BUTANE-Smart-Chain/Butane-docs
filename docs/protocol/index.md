@@ -6,32 +6,17 @@ sidebar_position: 0
 
 
 Butane is a scalable Delgated Proof-of-Stake blockchain that is fully compatible and
-interoperable with the Ethereum Virtual Machine (EVM). It is built using the [Butane SDK](https://github.com/Butane/Butane-sdk/)
-which runs on top of the [CometBFT](https://github.com/cometbft/cometbft) (a fork of [Tendermint Core](https://docs.tendermint.com/)) consensus engine,
+interoperable with the Ethereum Virtual Machine (EVM). It is built using the Butane SDK
+which runs on top of the  (a fork of [Tendermint Core](https://docs.tendermint.com/)) consensus engine,
 to accomplish fast finality, high transaction throughput and short block times (~2 seconds).
 
 This architecture allows users to perform both Butane and EVM formatted transactions,
-developers to scale EVM dApps cross-chain via [IBC](https://Butane.network/ibc),
+developers to scale EVM dApps cross-chain via ,
 and tokens and assets in the network to come from different independent sources.
 
-Butane enables these key features by:
 
-* Leveraging [modules](https://docs.Butane.network/main/building-modules/intro.html) and other mechanisms implemented by the [Butane SDK](https://docs.Butane.network/).
-* Implementing CometBFT's Application Blockchain Interface ([ABCI](https://docs.tendermint.com/master/spec/abci/)) to manage the blockchain.
-* Utilizing [`geth`](https://github.com/ethereum/go-ethereum) as a library to promote code reuse and improve maintainability.
-* Exposing a fully compatible Web3 [JSON-RPC](./../develop/api/ethereum-json-rpc/methods) layer for interacting with existing Ethereum clients and tooling (Metamask, Remix, Truffle, etc).
 
-The sum of these features allows developers to leverage existing Ethereum ecosystem tooling and
-software to seamlessly deploy smart contracts which interact with the rest of the Butane
-[ecosystem](https://Butane.network/ecosystem).
 
-## Butane SDK
-
-Butane enables the full composability and modularity of the [Butane SDK](https://docs.Butane.network/).
-As a Butane chain, Butane is a sovereign blockchain with its own native token,
-that can connect to other chains through IBC. It includes standard modules from the Butane SDK,
-that work side to side with Butane-specific modules, built by the Butane core development team.
-Check out the [list of modules](modules/index.md) to get an overview of what each module is responsible for.
 
 ## CometBFT & ABCI
 

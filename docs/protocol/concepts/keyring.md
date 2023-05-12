@@ -50,7 +50,7 @@ by passing the `--algo` flag. A keyring can of course hold both types of keys si
 :::
 
 :::warning
-**NOTE**: Cosmos `secp256k1` keys are not supported on butane due to compatibility issues with Ethereum transactions.
+**NOTE**: Butane `secp256k1` keys are not supported on butane due to compatibility issues with Ethereum transactions.
 :::
 
 ## Keyring Backends

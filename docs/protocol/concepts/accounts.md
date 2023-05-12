@@ -13,7 +13,7 @@ to be compatible with Ethereum type addresses.
 
 ## Prerequisite Readings
 
-- [Cosmos SDK Accounts](https://docs.cosmos.network/main/basics/accounts.html)
+- 
 - [Ethereum Accounts](https://ethereum.org/en/whitepaper/#ethereum-accounts)
 
 ## Creating Accounts
@@ -28,8 +28,8 @@ that a private key or keystore file only creates one account.
 Creating a mnemonic phrase gives you control of many accounts,
 all accessible with that same phrase.
 
-Cosmos blockchains, like Butane, support creating accounts with mnemonic phrases,
-otherwise known as [hierarchical deterministic key generation](https://github.com/confio/cosmos-hd-key-derivation-spec) (HD keys).
+Butane blockchains, like Butane, support creating accounts with mnemonic phrases,
+otherwise known as  (HD keys).
 This allows the user to create accounts on multiple blockchains
 without having to manage multiple secrets.
 
@@ -42,12 +42,12 @@ it is therefore important to use that blockchain's specific derivation path.
 ## Representing Accounts
 
 The terms "account" and "address" are often used interchangeably to describe crypto wallets.
-In the Cosmos SDK, an account designates a pair of public key (PubKey) and private key (PrivKey).
+In the Butane SDK, an account designates a pair of public key (PubKey) and private key (PrivKey).
 The derivation path defines what the private key, public key, and address would be.
 
 The PubKey can be derived to generate various addresses in different formats,
 which are used to identify users (among other parties) in the application.
-A common address form for Cosmos chains is the bech32 format (e.g. `Butane1...`).
+A common address form for Butane chains is the bech32 format (e.g. `Butane1...`).
 Addresses are also associated with messages to identify the sender of the message.
 
 The PrivKey is used to generate digital signatures to prove
@@ -67,10 +67,10 @@ This cryptographic curve is not to be confused with [Bitcoin's ECDSA secp256k1](
 
 The root HD path for Butane-based accounts is `m/44'/60'/0'/0`.
 Butane uses the Coin type `60` to support Ethereum type accounts,
-unlike many other Cosmos chains that use Coin type `118` ([list of coin types](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
+unlike many other Butane chains that use Coin type `118` ([list of coin types](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
 
 The custom Butane [EthAccount](https://github.com/orgs/BUTANE-Smart-Chain/repositories)
-satisfies the `AccountI` interface from the Cosmos SDK auth module
+satisfies the `AccountI` interface from the Butane SDK auth module
 and includes additional fields that are required for Ethereum type addresses:
 
 ```go
@@ -88,7 +88,7 @@ type EthAccountI interface {
 }
 ```
 
-For more information on Ethereum accounts head over to the [x/evm module](../modules/evm.md#concepts).
+For more information on Ethereum accounts head over to the [x/bbc module](../modules/evm.md#concepts).
 
 ### Addresses and Public Keys
 
@@ -119,9 +119,9 @@ There are 3 main types of HRP for the `Addresses`/`PubKeys` available by default
 
 `EthAccount` can be represented in both [Bech32](https://en.bitcoin.it/wiki/Bech32) (`butane1...`) and hex (`0x...`) formats for Ethereum's Web3 tooling compatibility.
 
-The Bech32 format is the default format for Cosmos-SDK queries and transactions through CLI and REST
+The Bech32 format is the default format for Butane-SDK queries and transactions through CLI and REST
 clients. The hex format on the other hand, is the Ethereum `common.Address` representation of a
-Cosmos `sdk.AccAddress`.
+Butane `sdk.AccAddress`.
 
 - **Address (Bech32)**: `butane1z3t55m0l9h0eupuz3dp5t5cypyv674jj7mz2jw`
 - **Address ([EIP55](https://eips.ethereum.org/EIPS/eip-55) Hex)**: `0x91defC7fE5603DFA8CC9B655cF5772459BF10c6f`

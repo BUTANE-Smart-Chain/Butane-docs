@@ -139,24 +139,5 @@ Verify that your key has been restored using the following command:
 
 ```bash
 $ butaned keys list
-[
-  {
-    "name": "dev0-imported",
-    "type": "local",
-    "address": "butane1n253dl2tgyhxjm592p580c38r4dn8023ctv28d",
-    "pubkey": '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"ArJhve4v5HkLm+F7ViASU/rAGx7YrwU4+XKV2MNJt+Cq"}'
-  },
-  {
-    "name": "dev0-restored",
-    "type": "local",
-    "address": "butane1n253dl2tgyhxjm592p580c38r4dn8023ctv28d",
-    "pubkey": '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"ArJhve4v5HkLm+F7ViASU/rAGx7YrwU4+XKV2MNJt+Cq"}'
-  },
-  {
-    "name": "dev0",
-    "type": "local",
-    "address": "butane1n253dl2tgyhxjm592p580c38r4dn8023ctv28d",
-    "pubkey": '{"@type":"/ethermint.crypto.v1.ethsecp256k1.PubKey","key":"ArJhve4v5HkLm+F7ViASU/rAGx7YrwU4+XKV2MNJt+Cq"}'
-  }
-]
+
 ```
