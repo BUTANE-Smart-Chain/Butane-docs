@@ -11,10 +11,10 @@ function Home() {
     <Layout title="Homepage" description="Butane Docs">
       <main>
         <br />
-        <h1 align="center" style={{ fontWeight: '650' }}>Welcome to </h1>
+        <h1 style={{ textAlign: 'center', fontWeight: ' bold ', fontSize: '1.5em', color: '#da351c' , textShadow: '2px 2px 2px #000000' }}>Welcome To</h1>
         <div align="center">
           <img src="img/Group 1.png" alt="Butane Logo" width="800" height="800" style={{ margin: '20px 20px' }} />
-          <h1 align="center" style={{ fontWeight: '950' }}>Docs</h1>
+          <h1 style={{ textAlign: 'center', fontWeight: ' bold ', fontSize: '1.5em', color: '#da351c', textShadow: '4px 2px 4px #000000' }}>DOC's</h1>
         </div>
         <section className={styles.features}>
           <div className="container">
@@ -44,7 +44,7 @@ function Home() {
               <Card
                 to="./validate"
                 header={{
-                  label: "🤑 Become a Validator",
+                  label: "✨ Become a Validator",
                 }}
                 body={{
                   label:
@@ -55,7 +55,7 @@ function Home() {
               <Card
                 to="./develop/api"
                 header={{
-                  label: "💻 View Butane APIs",
+                  label: "🔌 View Butane APIs",
                 }}
                 body={{
                   label:
@@ -99,7 +99,7 @@ function Home() {
               <Card
                 to="./develop/tools"
                 header={{
-                  label: "🏁 Butane Name Service (bns)",
+                  label: "🗝️ Butane Name Service (bns)",
                 }}
                 body={{
                   label:
@@ -110,17 +110,14 @@ function Home() {
               <Card
                 to="./protocol/firefly"
                 header={{
-                  label: "📖 FireFly CLI",
+                  label: "🪰 FireFly CLI",
                 }}
                 body={{
                   label:
                     "Learn how to use the FireFly CLI",
                 }}
               />
-        <div align="center">
-          <img src="img/vali.jpg" alt="Butane Logo" max-width= "400" max-height="400" style={{ margin: '25px 0px' }} />
-        </div>
-
+    
             </div>
           </div>
         </section>

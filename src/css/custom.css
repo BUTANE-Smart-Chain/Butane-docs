@@ -122,7 +122,7 @@ button,
 :root {
   --ifm-color-primary: #da351c;
   --ifm-color-primary-dark: #d16914;
-  --ifm-color-primary-darker: #c8600b;
+  --ifm-color-primary-darker: #da351c;
   --ifm-color-primary-darkest: #c05803;
   --ifm-color-primary-light: #e49656;
   --ifm-color-primary-lighter: #e4a26c;
@@ -191,6 +191,7 @@ button,
   opacity: 1;
   transition: all 0.1s ease-in-out;
   border-radius: 50%;
+  
 }
 
 html[data-theme="dark"] .github-icon::before {
@@ -207,6 +208,7 @@ html[data-theme="dark"] .github-icon::before {
 
 .theme-back-to-top-button {
   display: none;
+  
 }
 
 main {
@@ -251,6 +253,7 @@ ol,
 ul {
   margin: 0 0 var(--ifm-list-margin);
   padding-left: var(--ifm-list-left-padding);
+
 }
 
 
@@ -271,14 +274,17 @@ ul {
 
 .container__spacer {
   margin: 0em 1em 3em 1em;
+
 }
 
 .cards__container {
   margin: 2em 0;
+  
 }
 
 .cards__container .col {
   margin-bottom: 3em;
+
 }
 
 .card {
@@ -292,19 +298,30 @@ ul {
   height: 100%;
   border-radius: 20px;
   box-shadow: 0 8px 15px 2px rgb(246, 243, 243);
+  
 }
 
 
 .card a {
   text-decoration: none;
+ 
+
 }
 
 .card:hover {
   transform: translate(0px, -5px);
+  
+
 }
 
 .card__header h3 {
   color: var(--ifm-color-primary-darkest);
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, rgb(1, 1, 1), rgb(246, 8, 8)); /* Replace grey with your own color */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+ 
 }
 
 article a[href^="http"]::after {
@@ -312,6 +329,8 @@ article a[href^="http"]::after {
   width: 0.6rem;
   display: inline-block;
   margin-left: 0.3rem;
+  margin-right: 0.3rem;
+
 }
 
 .alert a {
@@ -320,12 +339,13 @@ article a[href^="http"]::after {
 
 ::-webkit-scrollbar {
   width: 10px;
-  border-radius: 50%;
+ 
 }
 
 /* This sets the background of the draggable scrolling element (thumb) */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, red, yellow); /* Replace red and yellow with the colors you want */
+  background: linear-gradient(45deg, yellow, red); /* Replace red and yellow with the colors you want */
+  border-radius: 20px;
 }
 
 /* Change the scrollbar thumb color on hover */
